@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, TextInput, LongTextInput, DateInput } from 'react-admin'
+import { List, Datagrid, Edit, Create, SimpleForm, TextField, EditButton, TextInput } from 'react-admin'
 import BookIcon from '@material-ui/icons/Room'
 export const RoomIcon = BookIcon
 
