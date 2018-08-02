@@ -9,7 +9,7 @@ class App extends Component {
   render () {
     return (
       <Admin
-        dataProvider={dataProvider} >
+        dataProvider={dataProvider} authProvider={authProvider}>
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
       </Admin>
     )
