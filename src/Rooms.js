@@ -8,6 +8,7 @@ export const RoomList = (props) => (
     <Datagrid>
       <TextField source='building' />
       <TextField source='name' />
+      <TextField source='capacity' />
       <EditButton basePath='/rooms' />
     </Datagrid>
   </List>
@@ -22,6 +23,7 @@ export const RoomEdit = (props) => (
     <SimpleForm>
       <TextInput source='building' />
       <TextInput source='name' />
+      <TextInput source='capacity' />
     </SimpleForm>
   </Edit>
 )
@@ -31,6 +33,7 @@ export const RoomCreate = (props) => (
     <SimpleForm>
       <TextInput source='building' />
       <TextInput source='name' />
+      <TextInput source='capacity' />
     </SimpleForm>
   </Create>
 )
