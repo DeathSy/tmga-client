@@ -7,7 +7,7 @@ export const LecturerList = (props) => (
   <List {...props}>
     <Datagrid>
       <TextField source='name' />
-      <EditButton basePath='/lectuers' />
+      <EditButton basePath='/lecturers' />
     </Datagrid>
   </List>
 )
