@@ -14,7 +14,7 @@ class App extends Component {
         dataProvider={dataProvider} >
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
-        <Resource name='students' list={SubjectList} edit={SubjectEdit} create={SubjectCreate} icon={SubjectIcon} />
+        <Resource name='subjects' list={SubjectList} edit={SubjectEdit} create={SubjectCreate} icon={SubjectIcon} />
       </Admin>
     )
   }
