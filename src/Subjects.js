@@ -24,7 +24,7 @@ export const SubjectEdit = (props) => (
     <SimpleForm>
       <TextInput source='name' />
       <TextInput source='code' />
-      <TextInput source='sectionAmount' />
+      <NumberInput source='sectionAmount' />
       <NumberInput source='studentsPerSection' />
       <BooleanInput label='Compulsory' source='isCompulsory' />
     </SimpleForm>
@@ -36,7 +36,7 @@ export const SubjectCreate = (props) => (
     <SimpleForm>
       <TextInput source='name' />
       <TextInput source='code' />
-      <TextInput source='sectionAmount' />
+      <NumberInput source='sectionAmount' />
       <NumberInput source='studentsPerSection' />
       <BooleanInput label='Compulsory' source='isCompulsory' />
     </SimpleForm>
