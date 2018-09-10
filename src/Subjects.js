@@ -10,9 +10,6 @@ export const SubjectList = (props) => (
       <TextField source='name' label='Subject  Name' />
       <NumberField source='sectionAmount' label='Section Amount' />
       <NumberField source='studentsPerSection' label='Students per section' />
-      <ReferenceField label='Subject Type' source='subjectformat' reference='subjectformat'>
-        <TextField source='name' />
-      </ReferenceField>
       <EditButton basePath='/subjects' />
     </Datagrid>
   </List>
