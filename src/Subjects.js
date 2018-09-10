@@ -1,15 +1,18 @@
 import React from 'react'
-import { List, Datagrid, Edit, Create, SimpleForm, NumberField, TextField, EditButton, TextInput, NumberInput, BooleanInput } from 'react-admin'
+import { List, Datagrid, Edit, Create, SimpleForm, NumberField, TextField, EditButton, TextInput, NumberInput, BooleanInput, ReferenceField } from 'react-admin'
 import ClassIcon from '@material-ui/icons/Class'
 export const SubjectIcon = ClassIcon
 
 export const SubjectList = (props) => (
   <List {...props}>
     <Datagrid>
-      <TextField source='code' />
-      <TextField source='name' />
-      <NumberField source='sectionAmount' />
-      <NumberField source='studentsPerSection' />
+      <TextField source='code' label='Subject Code' />
+      <TextField source='name' label='Subject  Name' />
+      <NumberField source='sectionAmount' label='Section Amount' />
+      <NumberField source='studentsPerSection' label='Students per section' />
+      <ReferenceField label='Subject Type' source='subjectformat' reference='subjectformat'>
+        <TextField source='name' />
+      </ReferenceField>
       <EditButton basePath='/subjects' />
     </Datagrid>
   </List>
