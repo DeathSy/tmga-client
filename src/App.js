@@ -5,6 +5,8 @@ import { RoomList, RoomEdit, RoomCreate, RoomIcon } from './Rooms.js'
 import { LecturerList, LecturerEdit, LecturerCreate, LecturerIcon } from './Lecturers.js'
 import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects.js'
 import { tmgaTheme } from './theme.js'
+import Dashboard from './Dashboard'
+
 
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
@@ -12,7 +14,7 @@ const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
 class App extends Component {
   render () {
     return (
-      <Admin theme={tmgaTheme}
+      <Admin dashboard={Dashboard} theme={tmgaTheme}
         title={'TMGA'} 
         dataProvider={dataProvider} >
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
