@@ -4,7 +4,7 @@ import PeopleIcon from '@material-ui/icons/People'
 export const LecturerIcon = PeopleIcon
 
 export const LecturerList = (props) => (
-  <List {...props}>
+  <List {...props} title="List of Lecturers">
     <Datagrid>
       <TextField source='name' />
       <EditButton basePath='/lecturers' />
