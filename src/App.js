@@ -13,7 +13,7 @@ class App extends Component {
   render () {
     return (
       <Admin theme={tmgaTheme}
-        title={'TMGA ' } 
+        title={'TMGA'} 
         dataProvider={dataProvider} >
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
