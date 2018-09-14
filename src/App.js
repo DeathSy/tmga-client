@@ -14,7 +14,8 @@ const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
 class App extends Component {
   render () {
     return (
-      <Admin dashboard={Dashboard} theme={tmgaTheme}
+      <Admin dashboard={Dashboard} 
+      theme={tmgaTheme}
         title={'TMGA'} 
         dataProvider={dataProvider} >
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
