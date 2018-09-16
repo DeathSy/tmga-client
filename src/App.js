@@ -4,8 +4,8 @@ import loopbackRestClient, { authClient } from 'aor-loopback'
 import { RoomList, RoomEdit, RoomCreate, RoomIcon } from './Rooms.js'
 import { LecturerList, LecturerEdit, LecturerCreate, LecturerIcon } from './Lecturers.js'
 import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects.js'
-import { tmgaTheme } from './theme.js'
 import Dashboard from './Dashboard'
+import MyLayout from './MyLayout';
 
 
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
@@ -15,8 +15,6 @@ class App extends Component {
   render () {
     return (
       <Admin dashboard={Dashboard} 
-      theme={tmgaTheme}
-        title={'TMGA'} 
         dataProvider={dataProvider} >
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
