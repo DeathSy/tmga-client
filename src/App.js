@@ -5,7 +5,6 @@ import { RoomList, RoomEdit, RoomCreate, RoomIcon } from './Rooms.js'
 import { LecturerList, LecturerEdit, LecturerCreate, LecturerIcon } from './Lecturers.js'
 import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects.js'
 import Dashboard from './Dashboard'
-import MyLayout from './MyLayout';
 
 
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
