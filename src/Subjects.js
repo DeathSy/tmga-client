@@ -38,7 +38,7 @@ export const SubjectCreate = (props) => (
       <TextInput source='name' />
       <NumberInput source='sectionAmount' />
       <NumberInput source='studentsPerSection' />
-      <ReferenceInput label='subjectformat' source='name' reference='subjectformat'>
+      <ReferenceInput label='subjectformats' source='name' reference='subjectFormats'>
         <SelectInput optionText='name' />
       </ReferenceInput>
       <BooleanInput label='Compulsory' source='isCompulsory' />
