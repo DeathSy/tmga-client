@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Datagrid, Edit, Create, SimpleForm, NumberField, TextField, EditButton, TextInput, NumberInput, BooleanInput, ReferenceField } from 'react-admin'
+import { List, Datagrid, Edit, Create, SimpleForm, NumberField, TextField, EditButton, TextInput, NumberInput, BooleanInput, ReferenceInput, SelectInput } from 'react-admin'
 import ClassIcon from '@material-ui/icons/Class'
 export const SubjectIcon = ClassIcon
 
@@ -34,10 +34,13 @@ export const SubjectEdit = (props) => (
 export const SubjectCreate = (props) => (
   <Create title='Create a Subject' {...props}>
     <SimpleForm>
-      <TextInput source='name' />
       <TextInput source='code' />
+      <TextInput source='name' />
       <NumberInput source='sectionAmount' />
       <NumberInput source='studentsPerSection' />
+      <ReferenceInput label='subjectformat' source='name' reference='subjectformat'>
+        <SelectInput optionText='name' />
+      </ReferenceInput>
       <BooleanInput label='Compulsory' source='isCompulsory' />
     </SimpleForm>
   </Create>
