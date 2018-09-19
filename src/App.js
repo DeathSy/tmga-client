@@ -7,22 +7,20 @@ import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects
 import Dashboard from './Dashboard'
 // import MyLayout from './MyLayout'
 import tmgaTheme from './theme.js'
-//"http://api.tmga.cf/api/"
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
 
 class App extends Component {
-  
   render () {
     return (
-      <Admin dashboard={Dashboard} 
+      <Admin dashboard={Dashboard}
         theme={tmgaTheme}
         title={'TMGA'}
         dataProvider={dataProvider} >
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
         <Resource name='subjects' list={SubjectList} edit={SubjectEdit} create={SubjectCreate} icon={SubjectIcon} />
-        <Resource name='subjectformats' />
+        <Resource name='subjectFormats' />
       </Admin>
     )
   }
