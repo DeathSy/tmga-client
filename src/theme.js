@@ -30,7 +30,7 @@ const tmgaTheme = createMuiTheme({
   overrides: {
     MuiButton: { // override the styles of all instances of this component
       root: { // Name of the rule
-        color: 'white', // Some CSS
+        color: '#0d47a1', // Some CSS
       },
     },
   },
