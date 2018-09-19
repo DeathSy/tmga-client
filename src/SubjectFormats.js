@@ -9,11 +9,11 @@ import {
   EditButton,
   TextInput
 } from 'react-admin'
-import ClassIcon from '@material-ui/icons/Class'
-export const SubjectFormatIcon = ClassIcon
+import LayersIcon from '@material-ui/icons/Layers'
+export const SubjectFormatIcon = LayersIcon
 
 export const SubjectFormatList = (props) => (
-  <List {...props}>
+  <List {...props} title='Subject Type List'>
     <Datagrid>
       <TextField source='name' label='Subject Type' />
       <EditButton basePath='/subjects' />
