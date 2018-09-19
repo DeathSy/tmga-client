@@ -18,7 +18,6 @@ import {
   ArrayInput,
   BooleanField,
   ReferenceField,
-  SelectArrayField,
   ReferenceManyField,
   ReferenceArrayField
 } from 'react-admin'
@@ -85,7 +84,7 @@ export const SubjectCreate = (props) => (
       <NumberInput source='studentsPerSection' />
       <SelectArrayInput source='students' choices={years} optionText='year' />
       <ReferenceField label='Subject Type' source='subjectFormatId' reference='subjectFormats'>
-        <SelectArrayField />
+        <SelectArrayInput />
       </ReferenceField>
       <BooleanInput label='Required' source='isRequired' />
     </SimpleForm>

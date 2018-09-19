@@ -13,7 +13,7 @@ export const LecturerList = (props) => (
 )
 
 const LecturerTitle = ({ record }) => {
-  return <span>Lecturer {record ? `'${record.title}'` : ''}</span>
+  return <span>Lecturer {record ? `'${record.name}'` : ''}</span>
 }
 
 export const LecturerEdit = (props) => (
