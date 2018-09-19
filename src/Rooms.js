@@ -1,5 +1,17 @@
 import React from 'react'
-import { List, Datagrid, Edit, Create, SimpleForm, TextField, EditButton, TextInput } from 'react-admin'
+import {
+  List,
+  Datagrid,
+  Edit,
+  Create,
+  SimpleForm,
+  TextField,
+  EditButton,
+  TextInput,
+  ReferenceField,
+  ReferenceInput,
+  SelectInput
+} from 'react-admin'
 import BookIcon from '@material-ui/icons/Room'
 export const RoomIcon = BookIcon
 
@@ -9,13 +21,16 @@ export const RoomList = (props) => (
       <TextField source='building' />
       <TextField source='name' />
       <TextField source='capacity' />
+      <ReferenceField label='Type' source='typeId' reference='subjectFormats' linkType={false}>
+        <TextField source='name' />
+      </ReferenceField>
       <EditButton basePath='/rooms' />
     </Datagrid>
   </List>
 )
 
 const RoomTitle = ({ record }) => {
-  return <span>Room {record ? `'${record.title}'` : ''}</span>
+  return <span>Room {record ? `'${record.name}'` : ''}</span>
 }
 
 export const RoomEdit = (props) => (
@@ -24,6 +39,9 @@ export const RoomEdit = (props) => (
       <TextInput source='building' />
       <TextInput source='name' />
       <TextInput source='capacity' />
+      <ReferenceInput label='Type' source='typeId' reference='subjectFormats'>
+        <SelectInput optionText='name' />
+      </ReferenceInput>
     </SimpleForm>
   </Edit>
 )
@@ -34,6 +52,9 @@ export const RoomCreate = (props) => (
       <TextInput source='building' />
       <TextInput source='name' />
       <TextInput source='capacity' />
+      <ReferenceInput label='Type' source='typeId' reference='subjectFormats'>
+        <SelectInput optionText='name' />
+      </ReferenceInput>
     </SimpleForm>
   </Create>
 )
