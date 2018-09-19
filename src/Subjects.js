@@ -18,8 +18,8 @@ import {
   ArrayInput,
   BooleanField,
   ReferenceField,
-  ReferenceManyField,
-  ReferenceArrayField
+  SelectInput,
+  ReferenceInput
 } from 'react-admin'
 import Chip from '@material-ui/core/Chip'
 import ClassIcon from '@material-ui/icons/Class'
@@ -46,11 +46,9 @@ export const SubjectList = (props) => (
     <Datagrid>
       <TextField source='code' label='Subject Code' />
       <TextField source='name' label='Subject Name' />
-      <ReferenceManyField label='Subject Type' reference='subjectFormat' target='Subject' >
-        <SingleFieldList>
-          <TextField source='name' />
-        </SingleFieldList>
-      </ReferenceManyField>
+      <ReferenceField label='Subject Type' source='subjectFormatId' reference='subjectFormats' linkType={false}>
+        <TextField source='name' />
+      </ReferenceField>
       <TagsField label='Student Year' />
       <BooleanField source='isRequired' label='Required' />
       <EditButton basePath='/subjects' />
@@ -67,10 +65,11 @@ export const SubjectEdit = (props) => (
     <SimpleForm>
       <TextInput source='name' />
       <TextInput source='code' />
-      <NumberInput source='sectionAmount' />
-      <NumberInput source='studentsPerSection' />
-      <SelectArrayInput source='year' choices={years} />
-      <BooleanInput label='Compulsory' source='isCompulsory' />
+      <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
+        <SelectInput optionText='name' />
+      </ReferenceInput>
+      <SelectArrayInput source='students' choices={years} optionText='year' />
+      <BooleanInput label='Required' source='isRequired' />
     </SimpleForm>
   </Edit>
 )
@@ -80,12 +79,10 @@ export const SubjectCreate = (props) => (
     <SimpleForm>
       <TextInput source='code' />
       <TextInput source='name' />
-      <NumberInput source='sectionAmount' />
-      <NumberInput source='studentsPerSection' />
       <SelectArrayInput source='students' choices={years} optionText='year' />
-      <ReferenceField label='Subject Type' source='subjectFormatId' reference='subjectFormats'>
-        <SelectArrayInput />
-      </ReferenceField>
+      <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
+        <SelectInput optionText='name' />
+      </ReferenceInput>
       <BooleanInput label='Required' source='isRequired' />
     </SimpleForm>
   </Create>
