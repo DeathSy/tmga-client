@@ -47,11 +47,11 @@ export const SubjectList = (props) => (
     <Datagrid>
       <TextField source='code' label='Subject Code' />
       <TextField source='name' label='Subject Name' />
-      <ReferenceArrayField label='Subject Type' reference='subjectFormatsSubject' source='subjectId' >
+      <ReferenceManyField label='Subject Type' reference='subjectFormat' target='Subject' >
         <SingleFieldList>
           <TextField source='name' />
         </SingleFieldList>
-      </ReferenceArrayField>
+      </ReferenceManyField>
       <TagsField label='Student Year' />
       <BooleanField source='isRequired' label='Required' />
       <EditButton basePath='/subjects' />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Admin, Resource } from 'react-admin'
-import loopbackRestClient, { authClient } from 'aor-loopback'
+import loopbackRestClient, { authClient } from './libs/aor-loopback-master/src'
 import { RoomList, RoomEdit, RoomCreate, RoomIcon } from './Rooms.js'
 import { LecturerList, LecturerEdit, LecturerCreate, LecturerIcon } from './Lecturers.js'
 import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects.js'
