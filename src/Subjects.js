@@ -19,11 +19,12 @@ import {
   BooleanField,
   ReferenceField,
   SelectInput,
-  ReferenceInput
+  ReferenceInput,
+  DeleteButton
 } from 'react-admin'
 import Chip from '@material-ui/core/Chip'
-import ClassIcon from '@material-ui/icons/Class'
-export const SubjectIcon = ClassIcon
+import CollectionBookmarkIcon from '@material-ui/icons/CollectionsBookmark'
+export const SubjectIcon = CollectionBookmarkIcon
 
 // const choices = [
 //   { id: 'Lecture', name: 'Lecture' },
@@ -52,6 +53,7 @@ export const SubjectList = (props) => (
       <TagsField label='Student Year' />
       <BooleanField source='isRequired' label='Required' />
       <EditButton basePath='/subjects' />
+      <DeleteButton />
     </Datagrid>
   </List>
 )
