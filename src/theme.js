@@ -5,7 +5,7 @@ import indigo from '@material-ui/core/colors/indigo';
 import pink from '@material-ui/core/colors/pink';
 import red from '@material-ui/core/colors/red';
 
-export const tmgaTheme = createMuiTheme({
+const tmgaTheme = createMuiTheme({
   palette: {
     primary: {
       main: '#1565c0',
@@ -35,3 +35,4 @@ export const tmgaTheme = createMuiTheme({
     },
   },
 });
+export default tmgaTheme;
