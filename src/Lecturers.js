@@ -5,7 +5,7 @@ export const LecturerIcon = PeopleIcon
 
 export const LecturerList = (props) => (
   <List {...props} title="List of Lecturers">
-    <Datagrid>
+    <Datagrid >
       <TextField source='name' />
       <EditButton basePath='/lecturers' />
     </Datagrid>
