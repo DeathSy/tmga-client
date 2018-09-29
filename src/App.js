@@ -6,12 +6,12 @@ import { LecturerList, LecturerEdit, LecturerCreate, LecturerIcon } from './Lect
 import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects.js'
 import { SectionList, SectionEdit, SectionCreate, SectionIcon } from './Sections.js'
 import { SubjectFormatList, SubjectFormatEdit, SubjectFormatCreate, SubjectFormatIcon } from './SubjectFormats.js'
-import { TimetableView, TimetableIcon } from './Timetable'
-import { CreateView } from './CreateTimetable'
+import { TimetableList, TimetableShow, TimetableIcon } from './Timetable'
+// import { CreateView, CreateIcon } from './CreateTimetable'
 import Dashboard from './dashboard/Dashboard'
 import tmgaTheme from './theme.js'
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
-const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
+// const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
 
 class App extends Component {
   render () {
@@ -20,13 +20,14 @@ class App extends Component {
         theme={tmgaTheme}
         title={'TMGA'}
         dataProvider={dataProvider} >
+        {/* <Resource name='createTimetable' options={{ label: 'Create timetable' }} list={CreateView} icon={CreateIcon} /> */}
+        <Resource name='timetablesview' />
+        <Resource name='subjectSections' options={{ label: 'Create timetable' }} list={SectionList} edit={SectionEdit} create={SectionCreate} icon={SectionIcon} />
+        <Resource name='timetables' options={{ label: 'Timetable' }} show={TimetableShow} list={TimetableList} icon={TimetableIcon} />
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
         <Resource name='subjects' list={SubjectList} edit={SubjectEdit} create={SubjectCreate} icon={SubjectIcon} />
-        <Resource name='subjectSections' options={{ label: 'Sections' }} list={SectionList} edit={SectionEdit} create={SectionCreate} icon={SectionIcon} />
         <Resource name='subjectFormats' options={{ label: 'Subject Type' }} list={SubjectFormatList} edit={SubjectFormatEdit} create={SubjectFormatCreate} icon={SubjectFormatIcon} />
-        <Resource name='timetables' options={{ label: 'Timetable' }} list={TimetableView} icon={TimetableIcon} />
-        <Resource name='createTimetable' options={{ label: 'Create timetable' }} list={CreateView} />
       </Admin>
     )
   }
