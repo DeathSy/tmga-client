@@ -1,16 +1,13 @@
 import React from 'react';
-import { GET_LIST, GET_MANY, Responsive, Title } from 'react-admin';
+import { ShowButton } from 'react-admin'
 import loopbackRestClient, { authClient } from 'aor-loopback'
-
 import { Link } from 'react-router-dom'
-import Welcome from './Welcome';
+import TimetableProcess from './TimetableProcess';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { Card, CardContent, CircularProgress } from '../../node_modules/@material-ui/core';
+import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add'
+import axios from 'axios';
 
 
 const styles = theme => ({
@@ -22,11 +19,14 @@ const styles = theme => ({
     width: 550,
   },
   graph: {
-    height: 600,
+    height: 400,
     width: 600,
   },
   control: {
     padding: theme.spacing.unit * 2,
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
   },
 });
 
@@ -41,25 +41,9 @@ class GuttersGrid extends React.Component {
   }
   state={
     spacing: '40',
+    fitnessLevel : 0,
   };
 
-    componentDidMount() {
-                dataProvider(GET_LIST, 'rooms', {
-                    filter: {
-                      building: 'SIT Building',
-                    },
-                    sort: { order: 'DESC' },
-                    pagination: { page: 1, perPage: 100 },
-                })
-                .then(response => response.data)
-                .then(reviews => {
-                  let rooms =reviews.map(review => review.name)
-                  console.log(rooms)
-                  this.setState({roomlist: rooms});
-                  console.log('state',this.state.roomlist)
-                })
-
-    }
   handleChange = key => (event, value) => {
     this.setState({
       [key]: value,
@@ -74,32 +58,38 @@ class GuttersGrid extends React.Component {
     return (
       
       <Grid container className={classes.root} spacing={24}>
-       <Grid item xs={12}>
-          <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)}>
-      <Button variant='contained' color='primary' component={toTimetable}> Create timetable </Button>
-      </Grid> 
+        <Grid item xs={12}>
+        <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)}>
+          <Button variant="contained" color="primary" className={classes.button}  component={Link} to={`/subjectSections`}>
+             <AddIcon />  Create timetable
+          </Button>
+          </Grid>
         </Grid>
          <Grid item xs={6}>
           <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
               <Grid item>
-                <Card className={classes.graph} >
+                <Card className={classes.graph} style={{ marginLeft: 20 }} >
                 <CardContent>
-                <Typography variant='headline' component='h2'>
-                Semester : 
-
-              </Typography>
-              <CircularProgress className={classes.progress} variant="static" value={75} />
+                  <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
+                    <Grid item>
+                      <Typography variant='headline' component='h1' >
+                      Semester : 2/2018
+                    </Typography>
+                    </Grid>
+                    <TimetableProcess />
+                    </Grid>
               </CardContent>
                 </Card>
               </Grid>
 
         </Grid> 
         </Grid>
+
         <Grid item xs={6}>
           <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
             {/* {[0, 1 ].map(value => ( */}
               <Grid item>
-                <Welcome />
+                
              </Grid>
             {/* ))} */}
            </Grid>
