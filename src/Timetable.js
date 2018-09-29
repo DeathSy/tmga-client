@@ -10,9 +10,15 @@ import {
   TextInput
 } from 'react-admin'
 import WebIcon from '@material-ui/icons/Web'
-import Timetable from './timetable/Timetable'
+import ListTimetable from './timetable/TimetableList'
+import ShowTimetable from './timetable/Timetable'
+// import ShowTimetable from './timetable/ShowTimetable'
 export const TimetableIcon = WebIcon
 
-export const TimetableView = (props) => (
-  <Timetable />
+export const TimetableList = (props) => (
+  <ListTimetable />
+)
+
+export const TimetableShow = (props) => (
+  <ShowTimetable semester={props.semester} />
 )
