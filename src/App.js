@@ -21,8 +21,8 @@ class App extends Component {
         title={'TMGA'}
         dataProvider={dataProvider} >
         {/* <Resource name='createTimetable' options={{ label: 'Create timetable' }} list={CreateView} icon={CreateIcon} /> */}
-        <Resource name='timetablesview' />
         <Resource name='subjectSections' options={{ label: 'Create timetable' }} list={SectionList} edit={SectionEdit} create={SectionCreate} icon={SectionIcon} />
+        <Resource name='timetablesview' />
         <Resource name='timetables' options={{ label: 'Timetable' }} show={TimetableShow} list={TimetableList} icon={TimetableIcon} />
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
