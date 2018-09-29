@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import {
   List,
   Datagrid,
@@ -21,20 +22,42 @@ import {
   ChipField,
   DeleteButton,
   NumberField,
-  NumberInput
+  NumberInput,
+  Button,
+  CardActions,
+  CreateButton,
+  RefreshButton
 } from 'react-admin'
 import Chip from '@material-ui/core/Chip'
-import ListIcon from '@material-ui/icons/List'
+import AddIcon from '@material-ui/icons/PlaylistAdd'
 import { withStyles } from '@material-ui/core/styles'
-export const SectionIcon = ListIcon
+export const SectionIcon = AddIcon
 
-// const LecturerField = ({ record }) =>
-//   record.sections.map(item => (
-//     <Chip style={{ margin: 4 }} label={item.lecturers} />
-//   ))
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
+
+const SectionActions = ({
+  basePath,
+  currentSort,
+  exporter,
+  filterValues,
+  resource,
+}) => (
+  <CardActions>
+    <CreateButton basePath={basePath} />
+    <RefreshButton />
+    <Button primary ><AddIcon /> Create timetable</Button>
+  </CardActions>
+);
 
 export const SectionList = (props) => (
-  <List {...props} title='Sections'>
+  <List {...props} title='Sections' actions={<SectionActions />}>
     <Datagrid>
       <ArrayField source='sections'>
         <Datagrid >
