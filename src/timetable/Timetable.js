@@ -1,12 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { GET_LIST, GET_MANY, Responsive, Title } from 'react-admin';
+import loopbackRestClient, { authClient } from 'aor-loopback'
+import TimetableEvent from './TimetableEvents'
 import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
+import { Tabs, Table, TableCell, TableBody, TableRow, TableHead, ListButton } from '@material-ui/core';
 import Tab from '@material-ui/core/Tab';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid'
+const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
+
+let id = 0;
+function createData(name, calories, fat, carbs, protein) {
+  id += 1;
+  return { id, name, calories, fat, carbs, protein };
+}
+const CustomTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+const headDay = [
+  { id: 1, name: '0830', color: '#f7ff70' },
+  { id: 2, name: '0900', color: '#ffc1c8'},
+  { id: 3, name: '0930', color: '#adfca1'},
+  { id: 4, name: '1000', color: '#ffcc7a'},
+  { id: 5, name: '1030', color: '#82b1ff'},
+  { id: 6, name: '1100', color: '#82b1ff'},
+  { id: 7, name: '1130', color: '#82b1ff'},
+  { id: 8, name: '1200', color: '#82b1ff'},
+  { id: 9, name: '1230', color: '#82b1ff'},
+  { id: 10, name: '1300', color: '#82b1ff'},
+]
+  // {
+  //   year: "1",
+  //   day: "MON",
+  //   time: 8,
+  //   start: 4,
+  //   name: "INT102 Computer Programming",
+  //   section: "A",
+  //   room: "Training Room I"
+  // },
+  // {
+  //   year: "2",
+  //   day: "MON",
+  //   time: 10,
+  //   start: 15,
+  //   name: "INT102 Computer Programming",
+  //   room: "Training Room I"
+  // },
+
 
 function TabContainer(props) {
   return (
@@ -68,14 +117,20 @@ const styles = theme => ({
     minWidth: 275,
     minHeight: 620,
   },
+  table: {
+    minWidth: 700,
+  },
+  row :{
+    minWidth :700,
+  }
 });
 
 class TimetableList extends React.Component {
   state = {
     value: 0,
-  };
-
-
+    filter: '1st year',
+  };       
+  
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -84,9 +139,11 @@ class TimetableList extends React.Component {
     const { classes } = this.props;
     const { value } = this.state;
 
+    console.log(this.state.filter)
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
+        {this.renderSemester}
         <Typography variant='headline' component='h2'  style={{ marginLeft: 24, marginTop : 15 }}>
                 Timetable
               </Typography>
@@ -100,59 +157,25 @@ class TimetableList extends React.Component {
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
             label='IT'
           />
-          <Tab
-            disableRipple
-            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label='CS'
-          />
-          <Tab
-            disableRipple
-            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label='DSI'
-          />
         </Tabs>
         {value === 0 && <TabContainer >
           <Grid container className={classes.root} spacing={24}>
             <Grid item xs={12}>
               <Grid container className={classes.demo} justify='flex-start' spacing={40}>
                 <Grid item>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 1 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 2 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 3 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 4 </Button>
+                  <Button variant='fab' mini color='primary' style={{margin: 4 }} onClick={() => this.setState({ filter: '1st year' })}> 1 </Button>
+                  <Button variant='fab' mini color='primary' style={{margin: 4 }} onClick={() => this.setState({ filter: '2nd year' })}> 2 </Button>
+                  <Button variant='fab' mini color='primary' style={{margin: 4 }} onClick={() => this.setState({ filter: '3rd year' })}> 3 </Button>
+                  <Button variant='fab' mini color='primary' style={{margin: 4 }} onClick={() => this.setState({ filter: '4th year' })}> 4 </Button>
                 </Grid>
               </Grid>
             </Grid>
+            
+            <Grid item xs={12}>
+              <TimetableEvent year={this.state.filter}  deparment={this.value} />
+            </Grid>
           </Grid>
         </TabContainer>}
-        {value === 1 && <TabContainer>
-          <Grid container className={classes.root} spacing={24}>
-            <Grid item xs={12}>
-              <Grid container className={classes.demo} justify='flex-start' spacing={40}>
-                <Grid item>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 1 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 2 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 3 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 4 </Button>
-                  </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          </TabContainer>}
-        {value === 2 && <TabContainer>
-          <Grid container className={classes.root} spacing={24}>
-            <Grid item xs={12}>
-              <Grid container className={classes.demo} justify='flex-start' spacing={40}>
-                <Grid item>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 1 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 2 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 3 </Button>
-                  <Button variant='fab' mini color='primary' style={{margin: 4 }}> 4 </Button>
-                  </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          </TabContainer>}
         </Card>
 
       </div>
