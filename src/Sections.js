@@ -30,15 +30,6 @@ import {
 import AddIcon from '@material-ui/icons/PlaylistAdd'
 export const SectionIcon = AddIcon
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit
-  },
-  input: {
-    display: 'none'
-  }
-})
-
 // const SectionActions = () => (
 //   <CardActions>
 //     <CreateButton />
