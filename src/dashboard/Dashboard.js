@@ -3,6 +3,7 @@ import { ShowButton } from 'react-admin'
 import loopbackRestClient, { authClient } from 'aor-loopback'
 import { Link } from 'react-router-dom'
 import TimetableProcess from './TimetableProcess';
+import Timetables from './Timetables';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress} from '@material-ui/core';
@@ -70,11 +71,6 @@ class GuttersGrid extends React.Component {
                 <Card className={classes.graph} style={{ marginLeft: 20 }} >
                 <CardContent>
                   <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
-                    <Grid item>
-                      <Typography variant='headline' component='h1' >
-                      Semester : 2/2018
-                    </Typography>
-                    </Grid>
                     <TimetableProcess />
                     </Grid>
               </CardContent>
@@ -86,11 +82,7 @@ class GuttersGrid extends React.Component {
 
         <Grid item xs={6}>
           <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
-            {/* {[0, 1 ].map(value => ( */}
-              <Grid item>
-                
-             </Grid>
-            {/* ))} */}
+            <Timetables />
            </Grid>
         </Grid>
        
