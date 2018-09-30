@@ -38,23 +38,7 @@ const headDay = [
   { id: 9, name: '1230', color: '#82b1ff'},
   { id: 10, name: '1300', color: '#82b1ff'},
 ]
-  // {
-  //   year: "1",
-  //   day: "MON",
-  //   time: 8,
-  //   start: 4,
-  //   name: "INT102 Computer Programming",
-  //   section: "A",
-  //   room: "Training Room I"
-  // },
-  // {
-  //   year: "2",
-  //   day: "MON",
-  //   time: 10,
-  //   start: 15,
-  //   name: "INT102 Computer Programming",
-  //   room: "Training Room I"
-  // },
+
 
 
 function TabContainer(props) {
