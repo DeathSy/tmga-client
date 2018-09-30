@@ -32,22 +32,20 @@ export const SectionIcon = AddIcon
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
   },
   input: {
-    display: 'none',
-  },
-});
+    display: 'none'
+  }
+})
 
-const SectionActions = ({
-  basePath
-}) => (
+const SectionActions = () => (
   <CardActions>
-    <CreateButton basePath={basePath} />
+    <CreateButton />
     <RefreshButton />
     <Button primary ><AddIcon /> Create timetable</Button>
   </CardActions>
-);
+)
 
 export const SectionList = (props) => (
   <List {...props} title='Sections' actions={<SectionActions />}>
