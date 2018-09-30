@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import {
   List,
   Datagrid,
@@ -28,9 +27,7 @@ import {
   CreateButton,
   RefreshButton
 } from 'react-admin'
-import Chip from '@material-ui/core/Chip'
 import AddIcon from '@material-ui/icons/PlaylistAdd'
-import { withStyles } from '@material-ui/core/styles'
 export const SectionIcon = AddIcon
 
 const styles = theme => ({
@@ -43,11 +40,7 @@ const styles = theme => ({
 });
 
 const SectionActions = ({
-  basePath,
-  currentSort,
-  exporter,
-  filterValues,
-  resource,
+  basePath
 }) => (
   <CardActions>
     <CreateButton basePath={basePath} />
