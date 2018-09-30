@@ -23,7 +23,7 @@ const styles = theme => ({
     width: 500,
     marginBottom: 24,
   },
-};
+});
 
 class TimetableProcess extends React.Component {
   constructor() {
