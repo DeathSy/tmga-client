@@ -139,7 +139,7 @@ class TimetableList extends React.Component {
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label='IT'
+            label='Information Technology'
           />
         </Tabs>
         {value === 0 && <TabContainer >
@@ -154,9 +154,8 @@ class TimetableList extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            
             <Grid item xs={12}>
-              <TimetableEvent year={this.state.filter}  deparment={this.value} />
+              <TimetableEvent year={this.state.filter}  department={this.value} />
             </Grid>
           </Grid>
         </TabContainer>}
