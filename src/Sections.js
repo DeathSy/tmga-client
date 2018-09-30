@@ -22,50 +22,67 @@ import {
   DeleteButton,
   NumberField,
   NumberInput,
-  Button,
   CardActions,
   CreateButton,
   RefreshButton
 } from 'react-admin'
+import axios from 'axios'
+import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/PlaylistAdd'
 export const SectionIcon = AddIcon
-
 // const SectionActions = () => (
-//   <CardActions>
-//     <CreateButton />
-//     <RefreshButton />
-//     <Button primary ><AddIcon /> Create timetable</Button>
-//   </CardActions>
-// )
-
-export const SectionList = (props) => (
-  <List {...props} title='Sections' >
-    <Datagrid>
-      <ArrayField source='sections'>
-        <Datagrid >
-          <TextField source='name' />
-          <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false} >
-            <TextField source='code' />
-          </ReferenceField>
-          <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false}>
-            <TextField source='name' />
-          </ReferenceField>
-          <ReferenceField label='Subject Type' source='type' reference='subjectFormats' linkType={false}>
-            <TextField source='name' />
-          </ReferenceField>
-          <ReferenceArrayField label='Lecturers' reference='lecturers' source='lecturers' >
-            <SingleFieldList>
-              <ChipField source='name' />
-            </SingleFieldList>
-          </ReferenceArrayField>
-          <NumberField source='time' />
+  //   <CardActions>
+  //     <CreateButton />
+  //     <RefreshButton />
+  //     <Button primary ><AddIcon /> Create timetable</Button>
+  //   </CardActions>
+  // )
+  
+export class SectionList extends React.Component  {
+  handleClick() {
+    axios.post('http://ml.tmga.cf/timetables')
+  }
+  render() {
+  return (
+    <div>
+      <Grid xs={12} style={{ margin: 10 }} >
+        <Grid container justify='flex-end' >
+          <Button variant='contained' color='primary' onClick={this.handleClick} >
+            <AddIcon />  Create timetable
+          </Button>
+        </Grid>
+      </Grid>
+      <List {...this.props} title='Sections' >
+        <Datagrid>
+          <ArrayField source='sections'>
+            <Datagrid >
+              <TextField source='name' />
+              <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false} >
+                <TextField source='code' />
+              </ReferenceField>
+              <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false}>
+                <TextField source='name' />
+              </ReferenceField>
+              <ReferenceField label='Subject Type' source='type' reference='subjectFormats' linkType={false}>
+                <TextField source='name' />
+              </ReferenceField>
+              <ReferenceArrayField label='Lecturers' reference='lecturers' source='lecturers' >
+                <SingleFieldList>
+                  <ChipField source='name' />
+                </SingleFieldList>
+              </ReferenceArrayField>
+              <NumberField source='time' />
+            </Datagrid>
+          </ArrayField>
+          <EditButton basePath='/subjectSections' />
+          <DeleteButton />
         </Datagrid>
-      </ArrayField>
-      <EditButton basePath='/subjectSections' />
-      <DeleteButton />
-    </Datagrid>
-  </List>
-)
+      </List>
+    </div>
+
+  )
+}
+}
 
 const SectionTitle = ({ record }) => {
   return <span>Section {record ? `'${record.id}'` : ''}</span>
