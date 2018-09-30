@@ -11,7 +11,10 @@ import Chip from '@material-ui/core/Chip'
 
 import { translate } from 'react-admin';
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
-const styles = {
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
   media: {
     height: '18em',
   },
@@ -42,10 +45,18 @@ class TimetableProcess extends React.Component {
     }
     this.setState({semester : `${term}/${year}`})
     const {data} = await axios.get(`http://ml.tmga.cf/timetables/${term}/${year}?fitnessLevel=true`)
-    const level = parseInt(data.fitnessLevel*100/85)*100 
+    let level = 0;
+    if(parseInt(((data.fitnessLevel.toFixed(2))*100/85)*100)>=100){
+      level = 100
+    }else{
+      level =parseInt(((data.fitnessLevel.toFixed(2))*100/85)*100)
+    }
     this.setState({fitnessLevel : level});
     console.log("fitness", this.state.fitnessLevel)
                 
+    }
+    handleClick () {
+      axios.post('http://ml.tmga.cf/timetables/terminate')
     }
 render() {
 
@@ -61,7 +72,7 @@ render() {
       </Grid>
       <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)} style={{ marginTop: 30}}>
       <Typography variant='headline' component='h2' >
-      Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show'/>: null}
+      Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show'/> : <Button color="secondary" onClick={this.handleChange} className={classes.button}>Terminate</Button>}
       </Typography>
     </Grid>
     <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
