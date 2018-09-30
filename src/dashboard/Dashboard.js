@@ -1,6 +1,4 @@
 import React from 'react';
-import { ShowButton } from 'react-admin'
-import loopbackRestClient, { authClient } from 'aor-loopback'
 import { Link } from 'react-router-dom'
 import TimetableProcess from './TimetableProcess';
 import Timetables from './Timetables';
@@ -32,7 +30,7 @@ const styles = theme => ({
 });
 
 
-class GuttersGrid extends React.Component {
+class Dashboard extends React.Component {
   constructor(){
     super();
     this.state={
@@ -65,34 +63,31 @@ class GuttersGrid extends React.Component {
           </Button>
           </Grid>
         </Grid>
-         <Grid item xs={6}>
+        <Grid item xs={6}>
           <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
-              <Grid item>
-                <Card className={classes.graph} style={{ marginLeft: 20 }} >
+            <Grid item>
+              <Card className={classes.graph} style={{ marginLeft: 20 }} >
                 <CardContent>
                   <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
                     <TimetableProcess />
-                    </Grid>
-              </CardContent>
-                </Card>
-              </Grid>
-
-        </Grid> 
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid> 
         </Grid>
-
         <Grid item xs={6}>
           <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
             <Timetables />
-           </Grid>
+          </Grid>
         </Grid>
-       
       </Grid>
     );
   }
 }
 
-GuttersGrid.propTypes = {
+Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(GuttersGrid);
+export default withStyles(styles)(Dashboard);
