@@ -76,7 +76,7 @@ render() {
       <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
         <Grid item>
           <Typography variant='headline' component='h2' >
-          No process is running 
+          No process is running.
           </Typography>
         </Grid>
       </Grid>
