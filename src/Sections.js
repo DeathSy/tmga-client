@@ -39,49 +39,49 @@ export const SectionIcon = AddIcon
   // )
   
 export class SectionList extends React.Component  {
-  handleClick() {
+  handleClick () {
     axios.post('http://ml.tmga.cf/timetables')
   }
-  render() {
-  return (
-    <div>
-      <Grid xs={12} style={{ margin: 10 }} >
-        <Grid container justify='flex-end' >
-          <Button variant='contained' color='primary' onClick={this.handleClick} >
-            <AddIcon />  Create timetable
-          </Button>
+  render () {
+    return (
+      <div>
+        <Grid xs={12} style={{ margin: 10 }} >
+          <Grid container justify='flex-end' >
+            <Button variant='contained' color='primary' onClick={this.handleClick} >
+              <AddIcon />  Create timetable
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-      <List {...this.props} title='Sections' >
-        <Datagrid>
-          <ArrayField source='sections'>
-            <Datagrid >
-              <TextField source='name' />
-              <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false} >
-                <TextField source='code' />
-              </ReferenceField>
-              <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false}>
+        <List {...this.props} title='Sections' >
+          <Datagrid>
+            <ArrayField source='sections'>
+              <Datagrid >
                 <TextField source='name' />
-              </ReferenceField>
-              <ReferenceField label='Subject Type' source='type' reference='subjectFormats' linkType={false}>
-                <TextField source='name' />
-              </ReferenceField>
-              <ReferenceArrayField label='Lecturers' reference='lecturers' source='lecturers' >
-                <SingleFieldList>
-                  <ChipField source='name' />
-                </SingleFieldList>
-              </ReferenceArrayField>
-              <NumberField source='time' />
-            </Datagrid>
-          </ArrayField>
-          <EditButton basePath='/subjectSections' />
-          <DeleteButton />
-        </Datagrid>
-      </List>
-    </div>
+                <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false} >
+                  <TextField source='code' />
+                </ReferenceField>
+                <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false}>
+                  <TextField source='name' />
+                </ReferenceField>
+                <ReferenceField label='Subject Type' source='type' reference='subjectFormats' linkType={false}>
+                  <TextField source='name' />
+                </ReferenceField>
+                <ReferenceArrayField label='Lecturers' reference='lecturers' source='lecturers' >
+                  <SingleFieldList>
+                    <ChipField source='name' />
+                  </SingleFieldList>
+                </ReferenceArrayField>
+                <NumberField source='time' />
+              </Datagrid>
+            </ArrayField>
+            <EditButton basePath='/subjectSections' />
+            <DeleteButton />
+          </Datagrid>
+        </List>
+      </div>
 
-  )
-}
+    )
+  }
 }
 
 const SectionTitle = ({ record }) => {
