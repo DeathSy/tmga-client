@@ -20,7 +20,6 @@ class App extends Component {
         theme={tmgaTheme}
         title={'TMGA'}
         dataProvider={dataProvider} >
-        {/* <Resource name='createTimetable' options={{ label: 'Create timetable' }} list={CreateView} icon={CreateIcon} /> */}
         <Resource name='subjectSections' options={{ label: 'Create timetable' }} list={SectionList} edit={SectionEdit} create={SectionCreate} icon={SectionIcon} />
         <Resource name='timetablesview' />
         <Resource name='timetables' options={{ label: 'Timetable' }} show={TimetableShow} list={TimetableList} icon={TimetableIcon} />
