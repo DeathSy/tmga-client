@@ -61,7 +61,7 @@ render() {
       </Grid>
       <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)} style={{ marginTop: 30}}>
       <Typography variant='headline' component='h2' >
-      Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/2/2018/show'/>: null}
+      Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show'/>: null}
       </Typography>
     </Grid>
     <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>

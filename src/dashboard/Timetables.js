@@ -42,7 +42,7 @@ class Timetables extends React.Component {
     const { spacing } = this.state;
       return (
         this.state.list.map(term => 
-          <Card className={classes.paper} button component={Link} to={'/timetables'} style={{ marginLeft: 10 }} >
+          <Card className={classes.paper} button component={Link} to={'/timetables/undefined/show'} style={{ marginLeft: 10 }} >
             <CardContent style={{ marginTop: 10 }}>
               <Typography variant='headline' component='h1' >
                 Semester: {term}

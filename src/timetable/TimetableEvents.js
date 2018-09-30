@@ -84,7 +84,6 @@ class TimetableEvent extends Component {
         })
       });
       this.setState({ events: sectionDay })
-      console.log('event', this.state.events)
     }
   }
 
