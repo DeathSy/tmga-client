@@ -39,16 +39,16 @@ const styles = theme => ({
   }
 })
 
-const SectionActions = () => (
-  <CardActions>
-    <CreateButton />
-    <RefreshButton />
-    <Button primary ><AddIcon /> Create timetable</Button>
-  </CardActions>
-)
+// const SectionActions = () => (
+//   <CardActions>
+//     <CreateButton />
+//     <RefreshButton />
+//     <Button primary ><AddIcon /> Create timetable</Button>
+//   </CardActions>
+// )
 
 export const SectionList = (props) => (
-  <List {...props} title='Sections' actions={<SectionActions />}>
+  <List {...props} title='Sections' >
     <Datagrid>
       <ArrayField source='sections'>
         <Datagrid >
