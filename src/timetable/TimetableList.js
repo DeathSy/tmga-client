@@ -27,29 +27,28 @@ class TimetableList extends React.Component {
 
   componentDidMount= async () =>{
     const {data} = await axios.get('http://ml.tmga.cf/timetables')
-    let semester = data.map((term)=>{
-      return (
-        <ListItem >
-          <ListItemIcon>
-            <TimetableIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Semester:" +term.semester }/>
-          <ShowButton basePath='/timetables' record={term.semester}/>
-        </ListItem>
-      )
-    })
+    let semester = data.map((term)=> term.semester)
     this.setState({list: semester})
+    console.log("list",this.state.list)
   }
   render() {
     const { classes } = this.props;
-
     return (
       <Paper>
         <Typography variant='headline' component='h2' style={{ marginLeft: 24, marginTop : 15 }}>
            Timetable List
         </Typography>
         <List component="nav">
-        {this.state.list}
+        {this.state.list.map((term,index) =>
+        <ListItem >
+          <ListItemIcon>
+            <TimetableIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Semester: " + term }/>
+          <ShowButton basePath='/timetables' record={term}/>
+        </ListItem>
+          )}
+        
           </List>
         </Paper>
     );
