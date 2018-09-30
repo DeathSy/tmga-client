@@ -30,8 +30,7 @@ const styles = theme => ({
   },
 });
 
-const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
-const toTimetable = props => <Link to="/Timetable.js" {...props} />
+
 class GuttersGrid extends React.Component {
   constructor(){
     super();

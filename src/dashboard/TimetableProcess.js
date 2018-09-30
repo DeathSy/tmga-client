@@ -29,7 +29,7 @@ class TimetableProcess extends React.Component {
       roomlist: [],
     }
   }
-  componentDidMount = async () => {
+  componentWillReceiveProps = async () => {
     const {data} = await axios.get('http://ml.tmga.cf/timetables/2/2018?fitnessLevel=true')
     const level = parseInt(data.fitnessLevel*100/85)*100 
     this.setState({fitnessLevel : level});
