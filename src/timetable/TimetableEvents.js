@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment';
+import WeekCalendar from 'react-week-calendar';
+import 'react-week-calendar/dist/style.less';
 import { GET_LIST, GET_MANY, Responsive, Title } from 'react-admin';
 import loopbackRestClient from 'aor-loopback'
 import axios from 'axios'
@@ -20,6 +22,7 @@ const styles = theme => ({
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 
 class TimetableEvent extends Component {
+
 
   state= {
     data: {},
@@ -98,10 +101,6 @@ class TimetableEvent extends Component {
         this.setState({timelist: timeslot});
         console.log('events',this.state.timelist)
       });
-      
-
-
-     
   }
 
   renderHour(hour, defaultAttributes, styles) {
@@ -134,8 +133,6 @@ class TimetableEvent extends Component {
   }
 
   render () {
-    const { classes } = this.props;
-    const { MON } = this.state.events
     return (
       // <Table className={classes.table}>
       //   <TableHead>
@@ -157,13 +154,13 @@ class TimetableEvent extends Component {
       //     )))}
       //   </TableBody>
       // </Table>
-      // <TimeTable
-      //   events={this.state.events}
-      //   renderHour={this.renderHour}
-      //   renderEvent={this.renderEvent}
-      //   hoursInterval={[ 8, 21 ]}
-      //   timeLabel="Time :)"
-      // />
+      <TimeTable
+        events={this.state.events}
+        renderHour={this.renderHour}
+        renderEvent={this.renderEvent}
+        hoursInterval={[ 8, 21 ]}
+        timeLabel="Time :)"
+      />
     )
   }
 }
