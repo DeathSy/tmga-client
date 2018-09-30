@@ -76,7 +76,8 @@ class TimetableEvent extends Component {
   
         sectionDay[section.day].push({
           id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
-          name: `${section.Section.Subject.name} (${section.Room.name})`,
+          name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
+          room: ` (${section.Room.name})`,
           type: 'custom',
           startTime: moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00"),
           endTime: moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00")
