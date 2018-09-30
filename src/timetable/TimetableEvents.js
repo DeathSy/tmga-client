@@ -86,18 +86,18 @@ class TimetableEvent extends Component {
 
   componentDidMount(){
 
-      // dataProvider(GET_LIST,'TimeSlots', {
-      //   pagination: { page: 1, perPage: 20 },
-      //   sort: { field: 'start', order: 'ASC' },
-      // }).then(response => response.data)
-      // .then(slots => {
-      //   const timeslot = slots.map((slot) =>(
-      //     <TableCell>{slot.start+' - '+slot.end}</TableCell>
-      //   )
-      //   )
-      //   this.setState({timelist: timeslot});
-      //   console.log('events',this.state.timelist)
-      // });
+      dataProvider(GET_LIST,'TimeSlots', {
+        pagination: { page: 1, perPage: 20 },
+        sort: { field: 'start', order: 'ASC' },
+      }).then(response => response.data)
+      .then(slots => {
+        const timeslot = slots.map((slot) =>(
+          <TableCell>{slot.start+' - '+slot.end}</TableCell>
+        )
+        )
+        this.setState({timelist: timeslot});
+        console.log('events',this.state.timelist)
+      });
       
 
 
@@ -137,26 +137,26 @@ class TimetableEvent extends Component {
     const { classes } = this.props;
     const { MON } = this.state.events
     return (
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            {this.state.timelist}
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      // <Table className={classes.table}>
+      //   <TableHead>
+      //     <TableRow>
+      //       <TableCell></TableCell>
+      //       {this.state.timelist}
+      //     </TableRow>
+      //   </TableHead>
+      //   <TableBody>
          
-          {Object.keys(MON).map(day => 
-          Object.keys(MON[day]).map(room => MON[day][room].map((section, index) => {
-            if (index === 0) {
-              return <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
-            }
-            return (
-                <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
-            )}
-          )))}
-        </TableBody>
-      </Table>
+      //     {Object.keys(MON).map(day => 
+      //     Object.keys(MON[day]).map(room => MON[day][room].map((section, index) => {
+      //       if (index === 0) {
+      //         return <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
+      //       }
+      //       return (
+      //           <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
+      //       )}
+      //     )))}
+      //   </TableBody>
+      // </Table>
       // <TimeTable
       //   events={this.state.events}
       //   renderHour={this.renderHour}
