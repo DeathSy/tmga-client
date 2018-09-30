@@ -32,28 +32,24 @@ class Timetables extends React.Component {
   }
  
   componentDidMount = async () => {
-    const { classes } = this.props;
-    const { spacing } = this.state;
     const {data} = await axios.get(`http://ml.tmga.cf/timetables`)
-    let semester = data.map((term)=>{
-      return (
-        <Card className={classes.paper} button component={Link} to={'/timetables'} style={{ marginLeft: 10 }} >
-          <CardContent style={{ marginTop: 10 }}>
-            <Typography variant='headline' component='h1' >
-              Semester: {term.semester}
-            </Typography>
-          </CardContent>
-        </Card>
-  
-      )
-    })
+    let semester = data.map((term)=> term.semester)
     this.setState({list: semester})
                 
     }
-render() {
-
-    return (
-      this.state.list
-    )
-}}
+  render() {
+    const { classes } = this.props;
+    const { spacing } = this.state;
+      return (
+        this.state.list.map(term => 
+          <Card className={classes.paper} button component={Link} to={'/timetables'} style={{ marginLeft: 10 }} >
+            <CardContent style={{ marginTop: 10 }}>
+              <Typography variant='headline' component='h1' >
+                Semester: {term}
+              </Typography>
+            </CardContent>
+          </Card>)
+      )
+  }
+}
 export default withStyles(styles)(Timetables);
