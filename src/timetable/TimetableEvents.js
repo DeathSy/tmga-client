@@ -87,21 +87,20 @@ class TimetableEvent extends Component {
     }
   }
 
-  componentDidMount(){
+  // componentDidMount(){
 
-      dataProvider(GET_LIST,'TimeSlots', {
-        pagination: { page: 1, perPage: 20 },
-        sort: { field: 'start', order: 'ASC' },
-      }).then(response => response.data)
-      .then(slots => {
-        const timeslot = slots.map((slot) =>(
-          <TableCell>{slot.start+' - '+slot.end}</TableCell>
-        )
-        )
-        this.setState({timelist: timeslot});
-        console.log('events',this.state.timelist)
-      });
-  }
+  //     dataProvider(GET_LIST,'TimeSlots', {
+  //       pagination: { page: 1, perPage: 20 },
+  //       sort: { field: 'start', order: 'ASC' },
+  //     }).then(response => response.data)
+  //     .then(slots => {
+  //       const timeslot = slots.map((slot) =>(
+  //         <TableCell>{slot.start+' - '+slot.end}</TableCell>
+  //       )
+  //       )
+  //       this.setState({timelist: timeslot});
+  //     });
+  // }
 
   renderHour(hour, defaultAttributes, styles) {
     return (
