@@ -42,16 +42,16 @@ render() {
   const { spacing } = this.state;
 
   return (
-    <Grid item xs={12} style={{ marginTop: 60}}>
+    <Grid item xs={12} style={{ marginTop: 40}}>
                       <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)}>
                     
                       <Typography variant='headline' component='h2' >
                       Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/2/2018/show'/>: null}
                     </Typography>
                     </Grid>
-                    <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)}></Grid>
+                    <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
                     <CircularProgress className={classes.progress} size={140} style={{ marginLeft: 200, marginTop: 20 }} variant={this.state.fitness==100? "variant" :null} value={this.state.fitnessLevel} />
-                      
+                      </Grid>
                       </Grid>
    
   );
