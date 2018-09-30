@@ -27,10 +27,21 @@ class TimetableProcess extends React.Component {
     super();
     this.state = {
       roomlist: [],
+      semester: "",
     }
   }
-  componentWillReceiveProps = async () => {
-    const {data} = await axios.get('http://ml.tmga.cf/timetables/2/2018?fitnessLevel=true')
+  componentWillMount = async () => {
+    const date =new Date();
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    let term= 0
+    if(month>=8 && month<=12){
+      term = 2;
+    }else{
+      term=1;
+    }
+    this.setState({semester : `${term}/${year}`})
+    const {data} = await axios.get(`http://ml.tmga.cf/timetables/${term}/${year}?fitnessLevel=true`)
     const level = parseInt(data.fitnessLevel*100/85)*100 
     this.setState({fitnessLevel : level});
     console.log("fitness", this.state.fitnessLevel)
@@ -40,21 +51,37 @@ render() {
 
   const { classes } = this.props;
   const { spacing } = this.state;
-
+  if(this.state.fitnessLevel){
   return (
-    <Grid item xs={12} style={{ marginTop: 40}}>
-                      <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)}>
-                    
-                      <Typography variant='headline' component='h2' >
-                      Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/2/2018/show'/>: null}
-                    </Typography>
-                    </Grid>
-                    <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
-                    <CircularProgress className={classes.progress} size={140} style={{ marginLeft: 200, marginTop: 20 }} variant={this.state.fitness==100? "variant" :null} value={this.state.fitnessLevel} />
-                      </Grid>
-                      </Grid>
+    <Grid item xs={12} style={{ marginTop: 20}}>
+      <Grid item>
+        <Typography variant='headline' component='h1' >
+          Semester : {this.state.semester}
+        </Typography>
+      </Grid>
+      <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)} style={{ marginTop: 30}}>
+      <Typography variant='headline' component='h2' >
+      Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/2/2018/show'/>: null}
+      </Typography>
+    </Grid>
+    <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
+    <CircularProgress className={classes.progress} size={140} style={{ marginTop: 20 }} variant={this.state.fitness==100? "variant" :null} value={this.state.fitnessLevel} />
+      </Grid>
+      </Grid>
    
   );
+  }
+  return (
+    <Grid item xs={12} style={{ marginTop: 100}}>
+      <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
+        <Grid item>
+          <Typography variant='headline' component='h2' >
+          No process is running 
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  )
 }
 }
 // );
