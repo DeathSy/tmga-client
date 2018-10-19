@@ -71,12 +71,13 @@ render() {
         </Typography>
       </Grid>
       <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)} style={{ marginTop: 30}}>
+      <CircularProgress className={classes.progress} size={40} style={{ marginRight : 10}} variant={this.state.fitness==100? "variant" :null} value={this.state.fitnessLevel} />
       <Typography variant='headline' component='h2' >
       Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show'/> : <Button color="secondary" onClick={this.handleChange} className={classes.button}>Terminate</Button>}
       </Typography>
     </Grid>
     <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
-    <CircularProgress className={classes.progress} size={140} style={{ marginTop: 20 }} variant={this.state.fitness==100? "variant" :null} value={this.state.fitnessLevel} />
+    
       </Grid>
       </Grid>
    
