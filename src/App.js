@@ -6,6 +6,7 @@ import { LecturerList, LecturerEdit, LecturerCreate, LecturerIcon } from './Lect
 import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects.js'
 import { SectionList, SectionEdit, SectionCreate, SectionIcon } from './Sections.js'
 import { SubjectFormatList, SubjectFormatEdit, SubjectFormatCreate, SubjectFormatIcon } from './SubjectFormats.js'
+import { StudentList, StudentEdit, StudentCreate, StudentIcon } from './Students.js'
 import { TimetableList, TimetableShow, TimetableIcon } from './Timetable'
 // import { CreateView, CreateIcon } from './CreateTimetable'
 import Dashboard from './dashboard/Dashboard'
@@ -27,6 +28,7 @@ class App extends Component {
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
         <Resource name='subjects' list={SubjectList} edit={SubjectEdit} create={SubjectCreate} icon={SubjectIcon} />
         <Resource name='subjectFormats' options={{ label: 'Subject Type' }} list={SubjectFormatList} edit={SubjectFormatEdit} create={SubjectFormatCreate} icon={SubjectFormatIcon} />
+        <Resource name='students' list={StudentList} edit={StudentEdit} create={StudentCreate} icon={StudentIcon} />
       </Admin>
     )
   }
