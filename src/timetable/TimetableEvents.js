@@ -45,21 +45,49 @@ class TimetableEvent extends Component {
     const section = data.Sections.filter(section => {
       return section.Section.Subject.students.includes(year)
     })
+   
     const sectionDay = { MON:[], TUE:[], WED:[], THU:[], FRI:[] }
-    section.forEach(section => {
+    section.forEach((section,index) => {
       const startTime = section.Time[0].start
       const endTime = section.Time[section.Time.length-1].end
-
-      sectionDay[section.day].push({
+      let before= 0
+      sectionDay[section.day].sort()
+    // if(sectionDay[section.day].length!==0){
+    //   before = (sectionDay[section.day].length-1)
+    //   sectionDay[section.day].push({
+    //     id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
+    //     name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
+    //     room: ` (${section.Room.name})`,
+    //     type: `custom`,
+    //     startTime: moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00"),
+    //     endTime: moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00"),
+    //     before: moment(sectionDay[section.day][before].endTime)
+    //   })
+    // }else{
+    //   before =0 
+    //   sectionDay[section.day].push({
+    //     id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
+    //     name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
+    //     room: ` (${section.Room.name})`,
+    //     type: `custom`,
+    //     startTime: moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00"),
+    //     endTime: moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00"),
+    //     before: 0
+    //   })
+    // }
+    sectionDay[section.day].push({
         id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
         name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
         room: ` (${section.Room.name})`,
-        type: 'custom',
-        startTime: moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00"),
-        endTime: moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00")
+        type: `custom`,
+        startTime: startTime,
+        endTime: endTime,
+        space: (moment.duration(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00").diff(moment("1996-11-13T08:00:00")))).asMinutes()/30,
+        slot: (moment.duration(moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00").diff(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00")))).asMinutes()/30
       })
     });
     this.setState({ events: sectionDay })
+    console.log('test', this.state.events)
   }
 
   componentWillReceiveProps = () => {
@@ -85,22 +113,24 @@ class TimetableEvent extends Component {
       });
       this.setState({ events: sectionDay })
     }
+    
   }
 
-  // componentDidMount(){
+  componentDidMount(){
 
-  //     dataProvider(GET_LIST,'TimeSlots', {
-  //       pagination: { page: 1, perPage: 20 },
-  //       sort: { field: 'start', order: 'ASC' },
-  //     }).then(response => response.data)
-  //     .then(slots => {
-  //       const timeslot = slots.map((slot) =>(
-  //         <TableCell>{slot.start+' - '+slot.end}</TableCell>
-  //       )
-  //       )
-  //       this.setState({timelist: timeslot});
-  //     });
-  // }
+      dataProvider(GET_LIST,'TimeSlots', {
+        pagination: { page: 1, perPage: 20 },
+        sort: { field: 'start', order: 'ASC' },
+      }).then(response => response.data)
+      .then(slots => {
+        const timeslot = slots.map((slot) =>(
+          <TableCell>{slot.start+' - '+slot.end}</TableCell>
+        )
+        )
+        this.setState({timelist: timeslot});
+        console.log('time', this.state.timelist)
+      });
+  }
 
   renderHour(hour, defaultAttributes, styles) {
     return (
@@ -133,33 +163,77 @@ class TimetableEvent extends Component {
 
   render () {
     return (
-      // <Table className={classes.table}>
-      //   <TableHead>
-      //     <TableRow>
-      //       <TableCell></TableCell>
-      //       {this.state.timelist}
-      //     </TableRow>
-      //   </TableHead>
-      //   <TableBody>
-         
-      //     {Object.keys(MON).map(day => 
-      //     Object.keys(MON[day]).map(room => MON[day][room].map((section, index) => {
-      //       if (index === 0) {
-      //         return <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
-      //       }
-      //       return (
-      //           <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
-      //       )}
-      //     )))}
-      //   </TableBody>
-      // </Table>
-      <TimeTable
-        events={this.state.events}
-        renderHour={this.renderHour}
-        renderEvent={this.renderEvent}
-        hoursInterval={[ 8, 21 ]}
-        timeLabel="Time :)"
-      />
+      <Table >
+        <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            {this.state.timelist}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          { this.state.events.MON.length ==0 ? <TableRow><TableCell > MONDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          { this.state.events.MON.map( (monday,index) => {
+            return <TableRow>
+              {index==0? <TableCell rowSpan={this.state.events.MON.length}> MONDAY </TableCell> : null}
+              <TableCell colspan={monday.space}></TableCell>
+              <TableCell colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: '#ffff66'}}>
+              {monday.name}{monday.room}( {monday.startTime} - {monday.endTime} )</TableCell>
+              </TableRow>
+          })}
+          { this.state.events.TUE.length ==0 ? <TableRow><TableCell > TUESDAY </TableCell><TableCell colSpan={25}></TableCell> </TableRow>: null }
+          {this.state.events.TUE.map( (monday,index) => {
+            return <TableRow>
+              {index==0? <TableCell rowSpan={this.state.events.MON.length}> MONDAY </TableCell> : null}
+              <TableCell colspan={monday.space}></TableCell>
+              <TableCell colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: 'yellow'}}>
+              {monday.name}{monday.room}( {monday.startTime} - {monday.endTime} )</TableCell>
+              </TableRow>
+          })}
+          { this.state.events.WED.length ==0 ? <TableRow><TableCell > WEDNESDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          {this.state.events.WED.map( (wednesday,index) => {
+            return <TableRow>
+              {index==0? <TableCell rowSpan={this.state.events.WED.length}> WEDNESDAY </TableCell> : null}
+              <TableCell colspan={wednesday.space}></TableCell>
+              <TableCell colspan={wednesday.slot} style={{ textAlign: 'center', backgroundColor: '#66cc66'}}>
+              {wednesday.name}{wednesday.room}( {wednesday.startTime} - {wednesday.endTime} )</TableCell>
+              </TableRow>
+          })}
+          { this.state.events.THU.length ==0 ? <TableRow><TableCell > THURSDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          {this.state.events.THU.map( (thursday,index) => {
+            return <TableRow>
+              {index==0? <TableCell rowSpan={this.state.events.THU.length}> THURSDAY </TableCell> : null}
+              <TableCell colspan={thursday.space}></TableCell>
+              <TableCell colspan={thursday.slot} style={{ textAlign: 'center', backgroundColor: '#66cc66'}}>
+              {thursday.name}{thursday.room}( {thursday.startTime} - {thursday.endTime} )</TableCell>
+              </TableRow>
+          })}
+          { this.state.events.FRI.length ==0 ? <TableRow><TableCell > FRIDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          {this.state.events.FRI.map( (friday,index) => {
+            return <TableRow>
+              {index==0? <TableCell rowSpan={this.state.events.FRI.length}> FRIDAY </TableCell> : null}
+              <TableCell colspan={friday.space}></TableCell>
+              <TableCell colspan={friday.slot} style={{ textAlign: 'center', backgroundColor: '#80aaff'}}>
+              {friday.name}{friday.room}( {friday.startTime} - {friday.endTime} )</TableCell>
+              </TableRow>
+          })}
+          {/* {Object.keys(MON).map(day => 
+          Object.keys(MON[day]).map(room => MON[day][room].map((section, index) => {
+            if (index === 0) {
+              return <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
+            }
+            return (
+                <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
+            )}
+          )))} */}
+        </TableBody>
+      </Table>
+      // <TimeTable
+      //   events={this.state.events}
+      //   renderHour={this.renderHour}
+      //   renderEvent={this.renderEvent}
+      //   hoursInterval={[ 8, 21 ]}
+      //   timeLabel="Time :)"
+      // />
     )
   }
 }
