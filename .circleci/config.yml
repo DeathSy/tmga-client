@@ -15,6 +15,7 @@ jobs:
       - run: |
           ssh centos@54.169.180.125 \
             'sudo docker pull dscythe/tmga-client && \
+             sudo docker system prune -f &&\
              sudo docker container stop tmga_client || true && \
              sudo docker container run --rm -ditp 5000:80 --name tmga_client dscythe/tmga-client'
 
