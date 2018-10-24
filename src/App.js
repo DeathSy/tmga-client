@@ -4,6 +4,7 @@ import loopbackRestClient, { authClient } from 'aor-loopback'
 import { RoomList, RoomEdit, RoomCreate, RoomIcon } from './Rooms.js'
 import { LecturerList, LecturerEdit, LecturerCreate, LecturerIcon } from './Lecturers.js'
 import { SubjectList, SubjectEdit, SubjectCreate, SubjectIcon } from './Subjects.js'
+import { FixedSubjectList, FixedSubjectEdit, FixedSubjectCreate, FixedSubjectIcon } from './FixedSubjects.js'
 import { SectionList, SectionEdit, SectionCreate, SectionIcon } from './Sections.js'
 import { SubjectFormatList, SubjectFormatEdit, SubjectFormatCreate, SubjectFormatIcon } from './SubjectFormats.js'
 import { StudentList, StudentEdit, StudentCreate, StudentIcon } from './Students.js'
@@ -27,6 +28,7 @@ class App extends Component {
         <Resource name='rooms' list={RoomList} edit={RoomEdit} create={RoomCreate} icon={RoomIcon} />
         <Resource name='lecturers' list={LecturerList} edit={LecturerEdit} create={LecturerCreate} icon={LecturerIcon} />
         <Resource name='subjects' list={SubjectList} edit={SubjectEdit} create={SubjectCreate} icon={SubjectIcon} />
+        <Resource name='fixedSubjects' options={{ label: 'GEN & LNG' }} list={FixedSubjectList} edit={FixedSubjectEdit} create={FixedSubjectCreate} icon={FixedSubjectIcon} />
         <Resource name='subjectFormats' options={{ label: 'Subject Type' }} list={SubjectFormatList} edit={SubjectFormatEdit} create={SubjectFormatCreate} icon={SubjectFormatIcon} />
         <Resource name='students' list={StudentList} edit={StudentEdit} create={StudentCreate} icon={StudentIcon} />
       </Admin>
