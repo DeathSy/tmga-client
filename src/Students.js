@@ -11,8 +11,8 @@ import {
   TextInput,
   NumberInput
 } from 'react-admin'
-import LayersIcon from '@material-ui/icons/Layers'
-export const StudentIcon = LayersIcon
+import PersonIcon from '@material-ui/icons/Person'
+export const StudentIcon = PersonIcon
 
 export const StudentList = (props) => (
   <List {...props} >
