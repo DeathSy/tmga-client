@@ -5,18 +5,10 @@ import {
   Edit,
   Create,
   SimpleForm,
-  NumberField,
   TextField,
   EditButton,
   TextInput,
-  NumberInput,
-  BooleanInput,
   SelectArrayInput,
-  ArrayField,
-  SingleFieldList,
-  ChipField,
-  ArrayInput,
-  BooleanField,
   ReferenceField,
   SelectInput,
   ReferenceInput,
@@ -41,12 +33,19 @@ const years = [
   { id: '3rd year', year: '3rd year' },
   { id: '4th year', year: '4th year' }
 ]
-
+const days = [
+  { id: 'MON', year: 'Monday' },
+  { id: 'TUE', year: 'Tuesday' },
+  { id: 'WED', year: 'Wednesday' },
+  { id: 'THU', year: 'Thursday' },
+  { id: 'FRI', year: 'Friday' }
+]
 export const FixedSubjectList = (props) => (
   <List {...props} title='Required Subject (GEN-LNG) '>
     <Datagrid>
       <TextField source='code' label='Subject Code' />
       <TextField source='name' label='Subject Name' />
+      <TextField source='day' />
       <ReferenceField label='Subject Type' source='subjectFormatId' reference='subjectFormats' linkType={false}>
         <TextField source='name' />
       </ReferenceField>
@@ -73,6 +72,7 @@ export const FixedSubjectEdit = (props) => (
       <TextInput source='code' />
       <TextInput source='name' />
       <SelectArrayInput source='students' choices={years} optionText='year' />
+      <SelectInput source='day' choices={days} optionText='day' />
       <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
         <SelectInput optionText='name' />
       </ReferenceInput>
@@ -92,6 +92,7 @@ export const FixedSubjectCreate = (props) => (
       <TextInput source='code' />
       <TextInput source='name' />
       <SelectArrayInput source='students' choices={years} optionText='year' />
+      <SelectInput source='day' choices={days} optionText='day' />
       <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
         <SelectInput optionText='name' />
       </ReferenceInput>
