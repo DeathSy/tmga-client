@@ -50,31 +50,7 @@ class TimetableEvent extends Component {
     section.forEach((section,index) => {
       const startTime = section.Time[0].start
       const endTime = section.Time[section.Time.length-1].end
-      let before= 0
       sectionDay[section.day].sort()
-    // if(sectionDay[section.day].length!==0){
-    //   before = (sectionDay[section.day].length-1)
-    //   sectionDay[section.day].push({
-    //     id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
-    //     name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
-    //     room: ` (${section.Room.name})`,
-    //     type: `custom`,
-    //     startTime: moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00"),
-    //     endTime: moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00"),
-    //     before: moment(sectionDay[section.day][before].endTime)
-    //   })
-    // }else{
-    //   before =0 
-    //   sectionDay[section.day].push({
-    //     id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
-    //     name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
-    //     room: ` (${section.Room.name})`,
-    //     type: `custom`,
-    //     startTime: moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00"),
-    //     endTime: moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00"),
-    //     before: 0
-    //   })
-    // }
     sectionDay[section.day].push({
         id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
         name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
@@ -106,9 +82,11 @@ class TimetableEvent extends Component {
           id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
           name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
           room: ` (${section.Room.name})`,
-          type: 'custom',
-          startTime: moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00"),
-          endTime: moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00")
+          type: `custom`,
+          startTime: startTime,
+          endTime: endTime,
+          space: (moment.duration(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00").diff(moment("1996-11-13T08:00:00")))).asMinutes()/30,
+          slot: (moment.duration(moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00").diff(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00")))).asMinutes()/30
         })
       });
       this.setState({ events: sectionDay })
@@ -177,16 +155,18 @@ class TimetableEvent extends Component {
               {index==0? <TableCell rowSpan={this.state.events.MON.length}> MONDAY </TableCell> : null}
               <TableCell colspan={monday.space}></TableCell>
               <TableCell colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: '#ffff66'}}>
-              {monday.name}{monday.room}( {monday.startTime} - {monday.endTime} )</TableCell>
+              <b>{monday.name}</b> <br></br> {monday.room}( {monday.startTime} - {monday.endTime} )</TableCell>
+              {monday.space+monday.slot<25?<TableCell colspan={25-monday.space-monday.slot}></TableCell>: null}
               </TableRow>
           })}
           { this.state.events.TUE.length ==0 ? <TableRow><TableCell > TUESDAY </TableCell><TableCell colSpan={25}></TableCell> </TableRow>: null }
-          {this.state.events.TUE.map( (monday,index) => {
+          {this.state.events.TUE.map( (tuesday,index) => {
             return <TableRow>
-              {index==0? <TableCell rowSpan={this.state.events.MON.length}> MONDAY </TableCell> : null}
-              <TableCell colspan={monday.space}></TableCell>
-              <TableCell colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: 'yellow'}}>
-              {monday.name}{monday.room}( {monday.startTime} - {monday.endTime} )</TableCell>
+              {index==0? <TableCell rowSpan={this.state.events.TUE.length}> TUESDAY </TableCell> : null}
+              <TableCell colspan={tuesday.space}></TableCell>
+              <TableCell colspan={tuesday.slot} style={{ textAlign: 'center', backgroundColor: '#ffc6e2'}}>
+              <b>{tuesday.name}</b> <br></br> {tuesday.room}( {tuesday.startTime} - {tuesday.endTime} )</TableCell>
+              {tuesday.space+tuesday.slot<25?<TableCell colspan={25-tuesday.space-tuesday.slot}></TableCell>:null}
               </TableRow>
           })}
           { this.state.events.WED.length ==0 ? <TableRow><TableCell > WEDNESDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
@@ -194,8 +174,9 @@ class TimetableEvent extends Component {
             return <TableRow>
               {index==0? <TableCell rowSpan={this.state.events.WED.length}> WEDNESDAY </TableCell> : null}
               <TableCell colspan={wednesday.space}></TableCell>
-              <TableCell colspan={wednesday.slot} style={{ textAlign: 'center', backgroundColor: '#66cc66'}}>
-              {wednesday.name}{wednesday.room}( {wednesday.startTime} - {wednesday.endTime} )</TableCell>
+              <TableCell colspan={wednesday.slot} style={{ textAlign: 'center', backgroundColor: '#b9efb1'}}>
+              <b>{wednesday.name} </b><br></br> {wednesday.room}( {wednesday.startTime} - {wednesday.endTime} )</TableCell>
+              {wednesday.space+wednesday.slot<25?<TableCell colspan={25-wednesday.space-wednesday.slot}></TableCell>:null}
               </TableRow>
           })}
           { this.state.events.THU.length ==0 ? <TableRow><TableCell > THURSDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
@@ -203,8 +184,9 @@ class TimetableEvent extends Component {
             return <TableRow>
               {index==0? <TableCell rowSpan={this.state.events.THU.length}> THURSDAY </TableCell> : null}
               <TableCell colspan={thursday.space}></TableCell>
-              <TableCell colspan={thursday.slot} style={{ textAlign: 'center', backgroundColor: '#66cc66'}}>
-              {thursday.name}{thursday.room}( {thursday.startTime} - {thursday.endTime} )</TableCell>
+              <TableCell colspan={thursday.slot} style={{ textAlign: 'center', backgroundColor: '#ffd177'}}>
+              <b>{thursday.name} </b> <br></br> {thursday.room}( {thursday.startTime} - {thursday.endTime} )</TableCell>
+              {thursday.space+thursday.slot<25?<TableCell colspan={25-thursday.space-thursday.slot}></TableCell>:null}
               </TableRow>
           })}
           { this.state.events.FRI.length ==0 ? <TableRow><TableCell > FRIDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
@@ -213,7 +195,8 @@ class TimetableEvent extends Component {
               {index==0? <TableCell rowSpan={this.state.events.FRI.length}> FRIDAY </TableCell> : null}
               <TableCell colspan={friday.space}></TableCell>
               <TableCell colspan={friday.slot} style={{ textAlign: 'center', backgroundColor: '#80aaff'}}>
-              {friday.name}{friday.room}( {friday.startTime} - {friday.endTime} )</TableCell>
+              <b>{friday.name}</b> <br></br> {friday.room}( {friday.startTime} - {friday.endTime} )</TableCell>
+              {friday.space+friday.slot<25?<TableCell colspan={25-friday.space-friday.slot}></TableCell>:null}
               </TableRow>
           })}
           {/* {Object.keys(MON).map(day => 
