@@ -50,6 +50,12 @@ export const FixedSubjectList = (props) => (
       <ReferenceField label='Subject Type' source='subjectFormatId' reference='subjectFormats' linkType={false}>
         <TextField source='name' />
       </ReferenceField>
+      <ReferenceField label='Start Time' source='startTimeId' reference='timeSlots' linkType={false}>
+        <TextField source='start' />
+      </ReferenceField>
+      <ReferenceField label='End Time' source='endTimeId' reference='timeSlots' linkType={false}>
+        <TextField source='end' />
+      </ReferenceField>
       <TagsField label='Student Year' />
       <EditButton basePath='/fixedsubjects' />
       <DeleteButton />
@@ -64,12 +70,18 @@ const FixedSubjectTitle = ({ record }) => {
 export const FixedSubjectEdit = (props) => (
   <Edit title={<FixedSubjectTitle />} {...props}>
     <SimpleForm>
-      <TextInput source='name' />
       <TextInput source='code' />
+      <TextInput source='name' />
+      <SelectArrayInput source='students' choices={years} optionText='year' />
       <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <SelectArrayInput source='students' choices={years} optionText='year' />
+      <ReferenceInput label='Start time' source='startTimeId' reference='timeSlots' sort={{ field: 'start', order: 'ASC' }}>
+        <SelectInput optionText='start' />
+      </ReferenceInput>
+      <ReferenceInput label='End time' source='endTimeId' reference='timeSlots' sort={{ field: 'end', order: 'ASC' }}>
+        <SelectInput optionText='end' />
+      </ReferenceInput>
     </SimpleForm>
   </Edit>
 )
@@ -82,6 +94,12 @@ export const FixedSubjectCreate = (props) => (
       <SelectArrayInput source='students' choices={years} optionText='year' />
       <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
         <SelectInput optionText='name' />
+      </ReferenceInput>
+      <ReferenceInput label='Start time' source='startTimeId' reference='timeSlots' sort={{ field: 'start', order: 'ASC' }}>
+        <SelectInput optionText='start' />
+      </ReferenceInput>
+      <ReferenceInput label='End time' source='endTimeId' reference='timeSlots' sort={{ field: 'end', order: 'ASC' }}>
+        <SelectInput optionText='end' />
       </ReferenceInput>
     </SimpleForm>
   </Create>
