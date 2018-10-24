@@ -31,6 +31,7 @@ class App extends Component {
         <Resource name='fixedSubjects' options={{ label: 'GEN & LNG' }} list={FixedSubjectList} edit={FixedSubjectEdit} create={FixedSubjectCreate} icon={FixedSubjectIcon} />
         <Resource name='subjectFormats' options={{ label: 'Subject Type' }} list={SubjectFormatList} edit={SubjectFormatEdit} create={SubjectFormatCreate} icon={SubjectFormatIcon} />
         <Resource name='students' list={StudentList} edit={StudentEdit} create={StudentCreate} icon={StudentIcon} />
+        <Resource name='timeSlots' />
       </Admin>
     )
   }
