@@ -97,7 +97,7 @@ class TimetableEvent extends Component {
   componentDidMount(){
 
       dataProvider(GET_LIST,'TimeSlots', {
-        pagination: { page: 1, perPage: 20 },
+        pagination: { page: 1, perPage: 26 },
         sort: { field: 'start', order: 'ASC' },
       }).then(response => response.data)
       .then(slots => {
@@ -110,34 +110,34 @@ class TimetableEvent extends Component {
       });
   }
 
-  renderHour(hour, defaultAttributes, styles) {
-    return (
-      <div {...defaultAttributes}
-           key={hour}>
-        {hour}h
-      </div>
-    );
-  }
+  // renderHour(hour, defaultAttributes, styles) {
+  //   return (
+  //     <div {...defaultAttributes}
+  //          key={hour}>
+  //       {hour}h
+  //     </div>
+  //   );
+  // }
 
-  renderEvent(event, defaultAttributes, styles) {
-    return (
-      <div {...defaultAttributes}
-           title={event.name}
-           key={event.id}
+  // renderEvent(event, defaultAttributes, styles) {
+  //   return (
+  //     <div {...defaultAttributes}
+  //          title={event.name}
+  //          key={event.id}
 
-        >
-        <span className={styles.event_info} style={{ fontWeight: 'bold',fontSize: 15 ,color: "#4a4f56", fontFamily: 'Roboto, serif', fontWeight: 'bold' }}>
-           { event.name } 
-        </span>
-        <span className={styles.event_info} style={{ fontSize: 12, color: "#4a4f56", fontFamily: 'Roboto, serif', }}>
-           { event.room } 
-        </span>
-        <span className={styles.event_info} style={{ fontSize: 12 , color: "#4a4f56", fontFamily: 'Roboto, serif',}}>
-          { event.startTime.format('HH:mm') } - { event.endTime.format('HH:mm') }
-        </span>
-      </div>
-    )
-  }
+  //       >
+  //       <span className={styles.event_info} style={{ fontWeight: 'bold',fontSize: 15 ,color: "#4a4f56", fontFamily: 'Roboto, serif', fontWeight: 'bold' }}>
+  //          { event.name } 
+  //       </span>
+  //       <span className={styles.event_info} style={{ fontSize: 12, color: "#4a4f56", fontFamily: 'Roboto, serif', }}>
+  //          { event.room } 
+  //       </span>
+  //       <span className={styles.event_info} style={{ fontSize: 12 , color: "#4a4f56", fontFamily: 'Roboto, serif',}}>
+  //         { event.startTime.format('HH:mm') } - { event.endTime.format('HH:mm') }
+  //       </span>
+  //     </div>
+  //   )
+  // }
 
   render () {
     return (
