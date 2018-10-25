@@ -35,14 +35,14 @@ const TagsField = ({ record }) =>
 export const ConstrainList = (props) => (
   <List {...props} title='Constraints of teacher '>
     <Datagrid>
-      <TagsField label='Day' />
       <ReferenceField label='Lecturer Name' source='lecturerId' reference='lecturers' linkType={false}>
         <TextField source='name' />
       </ReferenceField>
-      <ReferenceField label='Room' source='roomId' reference='rooms' linkType={false}>
+      <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false}>
         <TextField source='name' />
       </ReferenceField>
-      <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false}>
+      <TagsField label='Day' />
+      <ReferenceField label='Room' source='roomId' reference='rooms' linkType={false}>
         <TextField source='name' />
       </ReferenceField>
       <ReferenceField label='Start Time' source='startTimeId' reference='timeSlots' linkType={false}>
@@ -65,19 +65,14 @@ const ConstrainTitle = ({ record }) => {
 export const ConstrainEdit = (props) => (
   <Edit title={<ConstrainTitle />} {...props}>
     <SimpleForm>
-      <BooleanInput label='Required' 
-        source='wants'
-        options={{
-          checkedIcon: <CheckIcon />
-        }} />
-      <SelectArrayInput source='day' choices={days} optionText='day' />
+    <SelectArrayInput source='day' choices={days} optionText='name' />
       <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <ReferenceInput label='Room' source='roomId' reference='rooms' >
+      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects'>
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects'>
+      <ReferenceInput label='Room' source='roomId' reference='rooms' >
         <SelectInput optionText='name' />
       </ReferenceInput>
       <ReferenceInput label='Start time' source='startTimeId' reference='timeSlots' sort={{ field: 'start', order: 'ASC' }}>
@@ -86,6 +81,11 @@ export const ConstrainEdit = (props) => (
       <ReferenceInput label='End time' source='endTimeId' reference='timeSlots' sort={{ field: 'end', order: 'ASC' }}>
         <SelectInput optionText='end' />
       </ReferenceInput>
+      <BooleanInput label='Do'
+        source='wants'
+        options={{
+          checkedIcon: <CheckIcon />
+        }} />
     </SimpleForm>
   </Edit>
 )
@@ -93,19 +93,14 @@ export const ConstrainEdit = (props) => (
 export const ConstrainCreate = (props) => (
   <Create title='Create a Constraint' {...props}>
     <SimpleForm>
-      <BooleanInput label='Do'
-        source='wants'
-        options={{
-          checkedIcon: <CheckIcon />
-        }} />
       <SelectArrayInput source='day' choices={days} optionText='name' />
       <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <ReferenceInput label='Room' source='roomId' reference='rooms' >
+      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects'>
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects'>
+      <ReferenceInput label='Room' source='roomId' reference='rooms' >
         <SelectInput optionText='name' />
       </ReferenceInput>
       <ReferenceInput label='Start time' source='startTimeId' reference='timeSlots' sort={{ field: 'start', order: 'ASC' }}>
@@ -114,6 +109,11 @@ export const ConstrainCreate = (props) => (
       <ReferenceInput label='End time' source='endTimeId' reference='timeSlots' sort={{ field: 'end', order: 'ASC' }}>
         <SelectInput optionText='end' />
       </ReferenceInput>
+      <BooleanInput label='Do'
+        source='wants'
+        options={{
+          checkedIcon: <CheckIcon />
+        }} />
     </SimpleForm>
   </Create>
 )
