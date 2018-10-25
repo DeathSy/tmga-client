@@ -51,7 +51,7 @@ export const ConstrainList = (props) => (
       <ReferenceField label='End Time' source='endTimeId' reference='timeSlots' linkType={false}>
         <TextField source='end' />
       </ReferenceField>
-      <BooleanField source='wants' label='Required' />
+      <BooleanField source='wants' label='Do' />
       <EditButton basePath='/constrains' />
       <DeleteButton />
     </Datagrid>
@@ -65,13 +65,13 @@ const ConstrainTitle = ({ record }) => {
 export const ConstrainEdit = (props) => (
   <Edit title={<ConstrainTitle />} {...props}>
     <SimpleForm>
-    <SelectArrayInput source='day' choices={days} optionText='name' />
-      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
+      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' perPage={100}>
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects'>
+      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects' perPage={100}>
         <SelectInput optionText='name' />
       </ReferenceInput>
+      <SelectArrayInput source='day' choices={days} optionText='name' />
       <ReferenceInput label='Room' source='roomId' reference='rooms' >
         <SelectInput optionText='name' />
       </ReferenceInput>
@@ -93,13 +93,13 @@ export const ConstrainEdit = (props) => (
 export const ConstrainCreate = (props) => (
   <Create title='Create a Constraint' {...props}>
     <SimpleForm>
+      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' perPage={100}>
+        <SelectInput optionText='name' />
+      </ReferenceInput>
+      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects' perPage={100}>
+        <SelectInput optionText='name' />
+      </ReferenceInput>
       <SelectArrayInput source='day' choices={days} optionText='name' />
-      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
-        <SelectInput optionText='name' />
-      </ReferenceInput>
-      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects'>
-        <SelectInput optionText='name' />
-      </ReferenceInput>
       <ReferenceInput label='Room' source='roomId' reference='rooms' >
         <SelectInput optionText='name' />
       </ReferenceInput>
