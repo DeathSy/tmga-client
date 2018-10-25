@@ -13,22 +13,29 @@ import {
   ReferenceInput,
   DeleteButton,
   BooleanInput,
+  SelectArrayInput
 } from 'react-admin'
+import Chip from '@material-ui/core/Chip'
 import ReportIcon from '@material-ui/icons/Report'
 import CheckIcon from '@material-ui/icons/CheckCircle'
 export const ConstrainIcon = ReportIcon
 const days = [
-  { id: 'MON', year: 'Monday' },
-  { id: 'TUE', year: 'Tuesday' },
-  { id: 'WED', year: 'Wednesday' },
-  { id: 'THU', year: 'Thursday' },
-  { id: 'FRI', year: 'Friday' }
+  { id: 'MON', name: 'Monday' },
+  { id: 'TUE', name: 'Tuesday' },
+  { id: 'WED', name: 'Wednesday' },
+  { id: 'THU', name: 'Thursday' },
+  { id: 'FRI', name: 'Friday' }
 ]
+
+const TagsField = ({ record }) =>
+  record.day.map((dayname, index) => (
+    <Chip style={{ margin: 4 }} key={index} label={dayname} />
+  ))
 
 export const ConstrainList = (props) => (
   <List {...props} title='Constraints of teacher '>
     <Datagrid>
-      <TextField source='day' />
+      <TagsField label='Day' />
       <ReferenceField label='Lecturer Name' source='lecturerId' reference='lecturers' linkType={false}>
         <TextField source='name' />
       </ReferenceField>
@@ -63,7 +70,7 @@ export const ConstrainEdit = (props) => (
         options={{
           checkedIcon: <CheckIcon />
         }} />
-      <SelectInput source='day' choices={days} optionText='day' />
+      <SelectArrayInput source='day' choices={days} optionText='day' />
       <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
         <SelectInput optionText='name' />
       </ReferenceInput>
@@ -91,7 +98,7 @@ export const ConstrainCreate = (props) => (
         options={{
           checkedIcon: <CheckIcon />
         }} />
-      <SelectInput source='day' choices={days} optionText='day' />
+      <SelectArrayInput source='day' choices={days} optionText='name' />
       <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
         <SelectInput optionText='name' />
       </ReferenceInput>
