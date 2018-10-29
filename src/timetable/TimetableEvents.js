@@ -54,10 +54,10 @@ class TimetableEvent extends Component {
     sectionDay[section.day].push({
         id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
         name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
-        room: ` (${section.Room.name})`,
+        room: ` ${section.Room.name}`,
         type: `custom`,
-        startTime: startTime,
-        endTime: endTime,
+        startTime: startTime.slice(0, 2)+":"+startTime.slice(2),
+        endTime: endTime.slice(0, 2)+":"+endTime.slice(2),
         space: (moment.duration(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00").diff(moment("1996-11-13T08:00:00")))).asMinutes()/30,
         slot: (moment.duration(moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00").diff(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00")))).asMinutes()/30
       })
@@ -81,10 +81,10 @@ class TimetableEvent extends Component {
         sectionDay[section.day].push({
           id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
           name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
-          room: ` (${section.Room.name})`,
+          room: ` ${section.Room.name}`,
           type: `custom`,
-          startTime: startTime,
-          endTime: endTime,
+          startTime: startTime.slice(0, 2)+":"+startTime.slice(2),
+          endTime: endTime.slice(0, 2)+":"+endTime.slice(2),
           space: (moment.duration(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00").diff(moment("1996-11-13T08:00:00")))).asMinutes()/30,
           slot: (moment.duration(moment("1996-11-13T"+endTime.slice(0, 2)+":"+endTime.slice(2)+":00").diff(moment("1996-11-13T"+startTime.slice(0, 2)+":"+startTime.slice(2)+":00")))).asMinutes()/30
         })
@@ -102,7 +102,7 @@ class TimetableEvent extends Component {
       }).then(response => response.data)
       .then(slots => {
         const timeslot = slots.map((slot) =>(
-          <TableCell>{slot.start+' - '+slot.end}</TableCell>
+          <td align='center'>{slot.start.slice(0, 2)+":"+slot.start.slice(2)+' - '+slot.end.slice(0,2)+":"+slot.end.slice(2)}</td>
         )
         )
         this.setState({timelist: timeslot});
@@ -141,82 +141,77 @@ class TimetableEvent extends Component {
 
   render () {
     return (
-      <Table >
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
+      <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td></td>
             {this.state.timelist}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          { this.state.events.MON.length ==0 ? <TableRow><TableCell > MONDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          </tr>
+        </thead>
+        <tbody>
+          { this.state.events.MON.length ==0 ? <tr><td > MONDAY </td><td colSpan={26}></td>  </tr>: null }
           { this.state.events.MON.map( (monday,index) => {
-            return <TableRow>
-              {index==0? <TableCell rowSpan={this.state.events.MON.length}> MONDAY </TableCell> : null}
-              <TableCell colspan={monday.space}></TableCell>
-              <TableCell colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: '#ffff66'}}>
-              <b>{monday.name}</b> <br></br> {monday.room}( {monday.startTime} - {monday.endTime} )</TableCell>
-              {monday.space+monday.slot<25?<TableCell colspan={25-monday.space-monday.slot}></TableCell>: null}
-              </TableRow>
+            return <tr>
+              {index==0? <td rowSpan={this.state.events.MON.length}> MONDAY </td> : null}
+              <td colspan={monday.space}></td>
+              <td colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: '#ffff66'}}>
+              <b>{monday.name}</b> <br></br> {monday.room} ( {monday.startTime} - {monday.endTime} )</td>
+              {monday.space+monday.slot<26?<td colspan={26-monday.space-monday.slot}></td>: null}
+              </tr>
           })}
-          { this.state.events.TUE.length ==0 ? <TableRow><TableCell > TUESDAY </TableCell><TableCell colSpan={25}></TableCell> </TableRow>: null }
+          { this.state.events.TUE.length ==0 ? <tr><td > TUESDAY </td><td colSpan={26}></td> </tr>: null }
           {this.state.events.TUE.map( (tuesday,index) => {
-            return <TableRow>
-              {index==0? <TableCell rowSpan={this.state.events.TUE.length}> TUESDAY </TableCell> : null}
-              <TableCell colspan={tuesday.space}></TableCell>
-              <TableCell colspan={tuesday.slot} style={{ textAlign: 'center', backgroundColor: '#ffc6e2'}}>
-              <b>{tuesday.name}</b> <br></br> {tuesday.room}( {tuesday.startTime} - {tuesday.endTime} )</TableCell>
-              {tuesday.space+tuesday.slot<25?<TableCell colspan={25-tuesday.space-tuesday.slot}></TableCell>:null}
-              </TableRow>
+            return <tr>
+              {index==0? <td rowSpan={this.state.events.TUE.length}> TUESDAY </td> : null}
+              <td colspan={tuesday.space}></td>
+              <td colspan={tuesday.slot} style={{ textAlign: 'center', backgroundColor: '#ffc6e2'}}>
+              <b>{tuesday.name}</b> <br></br> {tuesday.room} ( {tuesday.startTime} - {tuesday.endTime} )</td>
+              {tuesday.space+tuesday.slot<26?<td colspan={26-tuesday.space-tuesday.slot}></td>:null}
+              </tr>
           })}
-          { this.state.events.WED.length ==0 ? <TableRow><TableCell > WEDNESDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          { this.state.events.WED.length ==0 ? <tr><td > WEDNESDAY </td><td colSpan={26}></td>  </tr>: null }
           {this.state.events.WED.map( (wednesday,index) => {
-            return <TableRow>
-              {index==0? <TableCell rowSpan={this.state.events.WED.length}> WEDNESDAY </TableCell> : null}
-              <TableCell colspan={wednesday.space}></TableCell>
-              <TableCell colspan={wednesday.slot} style={{ textAlign: 'center', backgroundColor: '#b9efb1'}}>
-              <b>{wednesday.name} </b><br></br> {wednesday.room}( {wednesday.startTime} - {wednesday.endTime} )</TableCell>
-              {wednesday.space+wednesday.slot<25?<TableCell colspan={25-wednesday.space-wednesday.slot}></TableCell>:null}
-              </TableRow>
+            return <tr>
+              {index==0? <td rowSpan={this.state.events.WED.length}> WEDNESDAY </td> : null}
+              <td colspan={wednesday.space}></td>
+              <td colspan={wednesday.slot} style={{ textAlign: 'center', backgroundColor: '#b9efb1'}}>
+              <b>{wednesday.name} </b><br></br> {wednesday.room} ( {wednesday.startTime} - {wednesday.endTime} )</td>
+              {wednesday.space+wednesday.slot<26?<td colspan={26-wednesday.space-wednesday.slot}></td>:null}
+              </tr>
           })}
-          { this.state.events.THU.length ==0 ? <TableRow><TableCell > THURSDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          { this.state.events.THU.length ==0 ? <tr><td > THURSDAY </td><td colSpan={26}></td>  </tr>: null }
           {this.state.events.THU.map( (thursday,index) => {
-            return <TableRow>
-              {index==0? <TableCell rowSpan={this.state.events.THU.length}> THURSDAY </TableCell> : null}
-              <TableCell colspan={thursday.space}></TableCell>
-              <TableCell colspan={thursday.slot} style={{ textAlign: 'center', backgroundColor: '#ffd177'}}>
-              <b>{thursday.name} </b> <br></br> {thursday.room}( {thursday.startTime} - {thursday.endTime} )</TableCell>
-              {thursday.space+thursday.slot<25?<TableCell colspan={25-thursday.space-thursday.slot}></TableCell>:null}
-              </TableRow>
+            return <tr>
+              {index==0? <td rowSpan={this.state.events.THU.length}> THURSDAY </td> : null}
+              <td colspan={thursday.space}></td>
+              <td colspan={thursday.slot} style={{ textAlign: 'center', backgroundColor: '#ffd177'}}>
+              <b>{thursday.name} </b> <br></br> {thursday.room} ( {thursday.startTime} - {thursday.endTime} )</td>
+              {thursday.space+thursday.slot<26?<td colspan={26-thursday.space-thursday.slot}></td>:null}
+              </tr>
           })}
-          { this.state.events.FRI.length ==0 ? <TableRow><TableCell > FRIDAY </TableCell><TableCell colSpan={25}></TableCell>  </TableRow>: null }
+          { this.state.events.FRI.length ==0 ? <tr><td > FRIDAY </td><td colSpan={26}></td>  </tr>: null }
           {this.state.events.FRI.map( (friday,index) => {
-            return <TableRow>
-              {index==0? <TableCell rowSpan={this.state.events.FRI.length}> FRIDAY </TableCell> : null}
-              <TableCell colspan={friday.space}></TableCell>
-              <TableCell colspan={friday.slot} style={{ textAlign: 'center', backgroundColor: '#80aaff'}}>
-              <b>{friday.name}</b> <br></br> {friday.room}( {friday.startTime} - {friday.endTime} )</TableCell>
-              {friday.space+friday.slot<25?<TableCell colspan={25-friday.space-friday.slot}></TableCell>:null}
-              </TableRow>
+            return <tr>
+              {index==0? <td rowSpan={this.state.events.FRI.length}> FRIDAY </td> : null}
+              <td colspan={friday.space}></td>
+              <td colspan={friday.slot} style={{ textAlign: 'center', backgroundColor: '#80aaff'}}>
+              <b>{friday.name}</b> <br></br> {friday.room} ( {friday.startTime} - {friday.endTime} )</td>
+              {friday.space+friday.slot<26?<td colspan={26-friday.space-friday.slot}></td>:null}
+              </tr>
           })}
           {/* {Object.keys(MON).map(day => 
           Object.keys(MON[day]).map(room => MON[day][room].map((section, index) => {
             if (index === 0) {
-              return <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
+              return <td colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
             }
             return (
                 <TableCell colspan={section.slot} style={{ textAlign: 'center'}}>{section.name}</TableCell>
             )}
           )))} */}
-        </TableBody>
-      </Table>
-      // <TimeTable
-      //   events={this.state.events}
-      //   renderHour={this.renderHour}
-      //   renderEvent={this.renderEvent}
-      //   hoursInterval={[ 8, 21 ]}
-      //   timeLabel="Time :)"
-      // />
+        </tbody>
+        </table>
+        </div>
     )
   }
 }
