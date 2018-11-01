@@ -5,23 +5,28 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
-import CodeIcon from '@material-ui/icons/Code';
+import DoneIcon from '@material-ui/icons/Done';
+import QueryIcon from '@material-ui/icons/QueryBuilder'
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip'
+import CardIcon from './CardIcon'
 
 import { translate } from 'react-admin';
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
+  main: {
+    flex: '1',
+    marginRight: '1em',
+    marginTop: 20,
   },
-  media: {
-    height: '18em',
+  card: {
+    overflow: 'inherit',
+    textAlign: 'right',
+    padding: 16,
+    minHeight: 52,
   },
-  paper: {
-    height: 100,
-    width: 500,
-    marginBottom: 24,
+  progress: {
+    margin: theme.spacing.unit * 2,
   },
 });
 
@@ -64,35 +69,32 @@ render() {
   const { spacing } = this.state;
   if(this.state.fitnessLevel){
   return (
-    <Grid item xs={12} style={{ marginTop: 20}}>
-      <Grid item>
-        <Typography variant='headline' component='h1' >
+    <div className={classes.main}>
+    <CardIcon Icon={QueryIcon} bgColor='#31708f' />
+     <Card className={classes.card}>
+     
+        <Typography variant='headline' component='h2' >
           Semester : {this.state.semester}
         </Typography>
-      </Grid>
-      <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)} style={{ marginTop: 30}}>
-      <CircularProgress className={classes.progress} size={40} style={{ marginRight : 10}} variant={this.state.fitness==100? "variant" :null} value={this.state.fitnessLevel} />
-      <Typography variant='headline' component='h2' >
-      Progress : {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show'/> : <Button color="secondary" onClick={this.handleChange} className={classes.button}>Terminate</Button>}
+
+      <Typography variant='paragraph'  >
+      {this.state.fitness==100? <CircularProgress className={classes.progress} size={40} style={{ marginRight : 10}} /> : <DoneIcon /> }
+      {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show'/> : <Button color="secondary" onClick={this.handleChange} className={classes.button}>Terminate</Button>}
       </Typography>
-    </Grid>
-    <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
-    
-      </Grid>
-      </Grid>
+      </Card>
+      </div>
    
   );
   }
   return (
-    <Grid item xs={12} style={{ marginTop: 100}}>
-      <Grid container className={classes.demo} justify='center' spacing={Number(spacing)}>
-        <Grid item>
-          <Typography variant='headline' component='h2' >
+    <div className={classes.main}>
+    <CardIcon Icon={QueryIcon} bgColor='#31708f' />
+    <Card className={classes.card}>
+          <Typography paragraph >
           No process is running.
           </Typography>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Card>
+      </div>
   )
 }
 }
