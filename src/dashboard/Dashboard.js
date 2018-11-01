@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Component , Fragment } from 'react';
+import { GET_LIST, GET_MANY, Responsive, Title } from 'react-admin';
 import { Link } from 'react-router-dom'
 import TimetableProcess from './TimetableProcess';
 import Timetables from './Timetables';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Subject from './Subject'
 import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add'
 import axios from 'axios';
 
 
-const styles = theme => ({
+const style = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -19,7 +21,7 @@ const styles = theme => ({
   },
   graph: {
     height: 400,
-    width: 600,
+    width: 500,
   },
   control: {
     padding: theme.spacing.unit * 2,
@@ -27,7 +29,15 @@ const styles = theme => ({
   progress: {
     margin: theme.spacing.unit * 2,
   },
+    
 });
+const styles = {
+  flex: { display: 'flex' },
+  flexColumn: { display: 'flex', flexDirection: 'column' },
+  leftCol: { flex: 1, marginRight: '1em' },
+  rightCol: { flex: 1, marginLeft: '1em' },
+  singleCol: { marginTop: '2em', marginBottom: '2em' },
+};
 
 
 class Dashboard extends React.Component {
@@ -54,34 +64,87 @@ class Dashboard extends React.Component {
     const { spacing } = this.state;
 
     return (
-      
-      <Grid container className={classes.root} spacing={24}>
-        <Grid item xs={12}>
-        <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)}>
-          <Button variant="contained" color="primary" className={classes.button}  component={Link} to={`/subjectSections`}>
-             <AddIcon />  Create timetable
-          </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={6}>
-          <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
-            <Grid item>
-              <Card className={classes.graph} style={{ marginLeft: 20 }} >
-                <CardContent>
-                  <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
-                    <TimetableProcess />
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid> 
-        </Grid>
-        <Grid item xs={6}>
-          <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
-            <Timetables />
-          </Grid>
-        </Grid>
-      </Grid>
+      <Fragment>
+                <Responsive
+                    xsmall={
+                        <div>
+                            <div style={styles.flexColumn}>
+                                <div style={{ marginBottom: '2em' }}>
+                                </div>
+                                <div style={styles.flex}>
+                                <TimetableProcess />
+                                
+                                </div>
+                                <div style={styles.singleCol}>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    small={
+                        <div style={styles.flexColumn}>
+                            <div style={styles.singleCol}>
+                            </div>
+                            <div style={styles.flex}>
+                            <TimetableProcess />
+                            </div>
+                            <div style={styles.singleCol}>
+                            </div>
+                        </div>
+                    }
+                    medium={
+                        <div style={styles.flex}>
+                         
+                            <div style={styles.leftCol}>
+                                <div style={styles.flex}>
+  
+                                </div>
+                                <div style={styles.singleCol}>
+                                <TimetableProcess />
+                                </div>
+                                <div style={styles.singleCol}>
+                                </div>
+                            </div>
+                            <div style={styles.rightCol}>
+                                   <Button variant="contained" color="primary" className={classes.button} style={{ float :'right'}} component={Link} to={`/subjectSections`}>
+                                     <AddIcon />  
+                                     Create timetable
+                                    </Button>
+                                <div style={styles.flex}>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                />
+            </Fragment>
+
+      // <Grid container className={classes.root} spacing={24}>
+      //   <Grid item xs={12}>
+      //   <Grid container className={classes.demo} justify='flex-end' spacing={Number(spacing)}>
+      //     <Button variant="contained" color="primary" className={classes.button}  component={Link} to={`/subjectSections`}>
+      //        <AddIcon />  Create timetable
+      //     </Button>
+      //     </Grid>
+      //   </Grid>
+      //   <Grid item xs={6}>
+      //     <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
+      //       <Grid item>
+      //         <Card className={classes.graph} style={{ marginLeft: 20 }} >
+      //           <CardContent>
+      //             <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
+      //               <TimetableProcess />
+      //             </Grid>
+      //           </CardContent>
+      //         </Card>
+      //       </Grid>
+      //     </Grid> 
+      //   </Grid>
+      //   <Grid item xs={6}>
+      //     <Grid container className={classes.demo} justify='flex-start' spacing={Number(spacing)}>
+      //       <Timetables />
+      //     </Grid>
+      //   </Grid>
+      // </Grid>
     );
   }
 }
@@ -90,4 +153,4 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(style)(Dashboard);
