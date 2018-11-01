@@ -34,11 +34,11 @@ const years = [
   { id: '4th year', year: '4th year' }
 ]
 const days = [
-  { id: 'MON', year: 'Monday' },
-  { id: 'TUE', year: 'Tuesday' },
-  { id: 'WED', year: 'Wednesday' },
-  { id: 'THU', year: 'Thursday' },
-  { id: 'FRI', year: 'Friday' }
+  { id: 'MON', day: 'Monday' },
+  { id: 'TUE', day: 'Tuesday' },
+  { id: 'WED', day: 'Wednesday' },
+  { id: 'THU', day: 'Thursday' },
+  { id: 'FRI', day: 'Friday' }
 ]
 export const FixedSubjectList = (props) => (
   <List {...props} title='Required Subject (GEN-LNG) '>
