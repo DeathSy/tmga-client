@@ -23,7 +23,7 @@ const styles = {
   },
 };
 
-class Subject extends React.Component {
+class Section extends React.Component {
   constructor(){
     super();
     this.state={
@@ -31,14 +31,13 @@ class Subject extends React.Component {
     }
   }
   componentDidMount = async () => {
-    
-    dataProvider(GET_LIST,'Subjects', {
-      pagination: { page: 1, perPage: 500 },
+    dataProvider(GET_LIST,'SubjectSections', {
+      pagination: { page: 1, perPage: 1000 },
       sort: { order: 'ASC' },
     }).then(response =>response.total)
-    .then(subjects => {
-      let subjectCount = subjects;
-      this.setState({subjectCount})
+    .then(sections => {
+      let sectionCount = sections;
+      this.setState({sectionCount})
     });
   }
   render(){
@@ -46,13 +45,13 @@ class Subject extends React.Component {
 
     return (
       <div className={classes.main}>
-        <CardIcon Icon={DollarIcon} bgColor='#31708f' />
+        <CardIcon Icon={DollarIcon} bgColor='black' />
         <Card className={classes.card}>
           <Typography className={classes.title} color='textSecondary'>
-            All Subjects
+           Subjects to Create
           </Typography>
           <Typography variant='headline' component='h2'>
-            {this.state.subjectCount} 
+            {this.state.sectionCount} 
           </Typography>
         </Card>
       </div>
@@ -61,4 +60,4 @@ class Subject extends React.Component {
   }
 }
 
-export default withStyles(styles)(Subject)
+export default withStyles(styles)(Section)
