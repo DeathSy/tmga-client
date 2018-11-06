@@ -5,10 +5,14 @@ import TimetableProcess from './TimetableProcess';
 import Timetables from './Timetables';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Subject from './Subject'
 import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress} from '@material-ui/core';
+import Subject from './Subject'
+import Section from './Section'
 import AddIcon from '@material-ui/icons/Add'
 import axios from 'axios';
+import loopbackRestClient from 'aor-loopback'
+
+const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 
 
 const style = theme => ({
@@ -29,6 +33,17 @@ const style = theme => ({
   progress: {
     margin: theme.spacing.unit * 2,
   },
+  main: {
+    flex: '1',
+    marginRight: '1em',
+    marginTop: 20,
+  },
+  card: {
+    overflow: 'inherit',
+    textAlign: 'right',
+    padding: 16,
+    minHeight: 52,
+  },
     
 });
 const styles = {
@@ -44,14 +59,14 @@ class Dashboard extends React.Component {
   constructor(){
     super();
     this.state={
-      roomlist: [],
+
     }
   }
   state={
     spacing: '40',
     fitnessLevel : 0,
   };
-
+  
   handleChange = key => (event, value) => {
     this.setState({
       [key]: value,
@@ -69,9 +84,14 @@ class Dashboard extends React.Component {
                     xsmall={
                         <div>
                             <div style={styles.flexColumn}>
-                                <div style={{ marginBottom: '2em' }}>
+                                <div style={{ marginBottom: '2em', marginRight: '1em' }}>
+                                <Button variant="contained" color="primary" className={classes.card} style={{ float :'right', backgroundColor: 'white'}} component={Link} to={`/subjectSections`}>
+                                     <AddIcon />  
+                                     Create timetable
+                                    </Button>
                                 </div>
                                 <div style={styles.flex}>
+                                
                                 <TimetableProcess />
                                 
                                 </div>
@@ -84,9 +104,13 @@ class Dashboard extends React.Component {
                     small={
                         <div style={styles.flexColumn}>
                             <div style={styles.singleCol}>
+                            <Button variant="contained" color="primary" className={classes.button} style={{ float :'right'}} component={Link} to={`/subjectSections`}>
+                                     <AddIcon />  
+                                     Create timetable
+                                    </Button>
                             </div>
                             <div style={styles.flex}>
-                            <TimetableProcess />
+                              <TimetableProcess />
                             </div>
                             <div style={styles.singleCol}>
                             </div>
@@ -97,7 +121,8 @@ class Dashboard extends React.Component {
                          
                             <div style={styles.leftCol}>
                                 <div style={styles.flex}>
-  
+                                {/* <Subject /> */}
+                                
                                 </div>
                                 <div style={styles.singleCol}>
                                 <TimetableProcess />
@@ -105,12 +130,14 @@ class Dashboard extends React.Component {
                                 <div style={styles.singleCol}>
                                 </div>
                             </div>
-                            <div style={styles.rightCol}>
-                                   <Button variant="contained" color="primary" className={classes.button} style={{ float :'right'}} component={Link} to={`/subjectSections`}>
+                            <div style={styles.rightCol}>                               
+                                 <Button variant="contained" color="primary" className={classes.main} style={{ float :'right'}} component={Link} to={`/subjectSections`}>
                                      <AddIcon />  
                                      Create timetable
                                     </Button>
-                                <div style={styles.flex}>
+                                <div style={styles.flex}> 
+                                {/* <Section />
+                                <Subject /> */}
                                 </div>
                             </div>
                         </div>
