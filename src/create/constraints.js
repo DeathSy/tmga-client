@@ -6,7 +6,6 @@ import {
   TableRow,
   TableBody,
   Chip,
-  Avatar,
   Button
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
@@ -40,7 +39,8 @@ export class Constraints extends React.Component {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Lecturer Name /Subject Name </TableCell>
+              <TableCell>Lecturer Name </TableCell>
+              <TableCell>Subject Name </TableCell>
               <TableCell>Day</TableCell>
               <TableCell>Room</TableCell>
               <TableCell>Start time</TableCell>
@@ -51,7 +51,8 @@ export class Constraints extends React.Component {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell rowSpan={1}>Dr.Umaporn</TableCell>
+              <TableCell>Dr.Umaporn</TableCell>
+              <TableCell> - </TableCell>
               <TableCell>
                 <Chip className={classes.chips} label='Wednesday' />
                 <Chip className={classes.chips} label='Friday' />
@@ -70,7 +71,8 @@ export class Constraints extends React.Component {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell rowSpan={1}>INT202</TableCell>
+              <TableCell rowSpan={1}> - </TableCell>
+              <TableCell>INT202</TableCell>
               <TableCell>
                 <Chip className={classes.chips} label='Tuesday' />
               </TableCell>
@@ -88,7 +90,8 @@ export class Constraints extends React.Component {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell rowSpan={1}>Aj.Kittiphan</TableCell>
+              <TableCell>Aj.Kittiphan</TableCell>
+              <TableCell> - </TableCell>
               <TableCell>
                 <Chip className={classes.chips} label='Monday' />
                 <Chip className={classes.chips} label='Tuesday' />
