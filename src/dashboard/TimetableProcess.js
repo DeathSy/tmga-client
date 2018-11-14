@@ -3,7 +3,7 @@ import loopbackRestClient, { authClient } from 'aor-loopback'
 import { ShowButton } from 'react-admin';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress} from '@material-ui/core';
+import { Grid, Button, Paper, Typography, Card, CardContent, CircularProgress, LinearProgress} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import DoneIcon from '@material-ui/icons/Done';
 import QueryIcon from '@material-ui/icons/QueryBuilder'
@@ -21,8 +21,8 @@ const styles = theme => ({
   },
   card: {
     overflow: 'inherit',
-    textAlign: 'right',
-    padding: 16,
+    textAlign: 'left',
+    padding: 30,
     minHeight: 52,
   },
   progress: {
@@ -38,6 +38,7 @@ class TimetableProcess extends React.Component {
       semester: "",
     }
   }
+  
   componentWillMount = async () => {
     const date =new Date();
     const year = date.getFullYear()
@@ -74,12 +75,12 @@ render() {
      <Card className={classes.card}>
      
         <Typography variant='headline' component='h2' >
-          Semester : {this.state.semester}
+          Semester : {this.state.semester} <div style={{float:'right', fontSize: 18}}>{this.state.fitnessLevel} % </div>{this.state.fitness==100? <CircularProgress className={classes.progress} size={40} style={{ marginRight : 10}} /> : <DoneIcon style={{ float: 'right'}}/> }
+      
         </Typography>
 
-      <Typography variant='paragraph'  >
-      {this.state.fitness==100? <CircularProgress className={classes.progress} size={40} style={{ marginRight : 10}} /> : <DoneIcon /> }
-      {this.state.fitnessLevel} % {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show'/> : <Button color="secondary" onClick={this.handleChange} className={classes.button}>Terminate</Button>}
+      <Typography variant='paragraph' style={{ marginLeft : 80 }} >
+      {this.state.fitnessLevel==100? <ShowButton component={Link} to='/timetables/undefined/show' style={{ float: 'right' }} /> : <Button color="secondary" onClick={this.handleChange} className={classes.button}>Terminate</Button>}
       </Typography>
       </Card>
       </div>
