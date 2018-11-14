@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
     card: {
         float: 'left',
-        margin: '-20px 20px 0 20px',
+        margin: '-20px 20px 0 15px',
         zIndex: 100,
         borderRadius: 3,
     },
@@ -19,9 +19,9 @@ const styles = {
 };
 
 const CardIcon = ({ Icon, classes, bgColor }) => (
-    <Card className={classes.card} style={{ backgroundColor: bgColor }}>
+    <div className={classes.card} style={{ backgroundColor: bgColor }}>
         <Icon className={classes.icon} />
-    </Card>
+    </div>
 );
 
 export default withStyles(styles)(CardIcon);
