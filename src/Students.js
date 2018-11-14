@@ -31,8 +31,8 @@ const StudentTitle = ({ record }) => {
 export const StudentEdit = (props) => (
   <Edit title={<StudentTitle />} {...props}>
     <SimpleForm>
-      <NumberInput source='studentId' />
-      <TextInput source='name' />
+      <NumberInput source='studentId' label='Student ID' />
+      <TextInput source='name' label='Student Name' />
     </SimpleForm>
   </Edit>
 )
@@ -40,8 +40,8 @@ export const StudentEdit = (props) => (
 export const StudentCreate = (props) => (
   <Create title='Create a student' {...props}>
     <SimpleForm>
-      <NumberInput source='studentId' />
-      <TextInput source='name' />
+      <NumberInput source='studentId' label='Student ID' />
+      <TextInput source='name' label='Student Name' />
     </SimpleForm>
   </Create>
 )
