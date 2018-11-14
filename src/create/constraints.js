@@ -25,7 +25,35 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2
   }
 })
-
+const data = [
+  {
+    lecturer: 'Dr.Umaporn',
+    subject: '',
+    day: [{ name: 'MON' }, { name: 'TUE' }],
+    room: '',
+    start: '13:00',
+    end: '16:00',
+    required: false
+  },
+  {
+    lecturer: '',
+    subject: 'INT101',
+    day: [{ name: 'MON' }],
+    room: 'CB2301',
+    start: '9:00',
+    end: '12:00',
+    required: true
+  },
+  {
+    lecturer: 'Dr.Praisan',
+    subject: '',
+    day: [{ name: 'WED' }, { name: 'THU' }, { name: 'FRI' }],
+    room: '',
+    start: '13:00',
+    end: '16:00',
+    required: true
+  }
+]
 export class Constraints extends React.Component {
   _onClick = () => {
     this.props.onClick()
@@ -50,66 +78,30 @@ export class Constraints extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell>Dr.Umaporn</TableCell>
-              <TableCell> - </TableCell>
-              <TableCell>
-                <Chip className={classes.chips} label='Wednesday' />
-                <Chip className={classes.chips} label='Friday' />
-              </TableCell>
-              <TableCell> - </TableCell>
-              <TableCell>13:00</TableCell>
-              <TableCell>17:00</TableCell>
-              <TableCell>
-                <ClearIcon />
-              </TableCell>
-              <TableCell>
-                <Button size='small'>
-                  <EditIcon className={classes.icon} />
-                  Edit
-                </Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell rowSpan={1}> - </TableCell>
-              <TableCell>INT202</TableCell>
-              <TableCell>
-                <Chip className={classes.chips} label='Tuesday' />
-              </TableCell>
-              <TableCell> CB2312 </TableCell>
-              <TableCell> - </TableCell>
-              <TableCell> - </TableCell>
-              <TableCell>
-                <DoneIcon />
-              </TableCell>
-              <TableCell>
-                <Button size='small'>
-                  <EditIcon className={classes.icon} />
-                  Edit
-                </Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Aj.Kittiphan</TableCell>
-              <TableCell> - </TableCell>
-              <TableCell>
-                <Chip className={classes.chips} label='Monday' />
-                <Chip className={classes.chips} label='Tuesday' />
-                <Chip className={classes.chips} label='Wednesday' />
-              </TableCell>
-              <TableCell> - </TableCell>
-              <TableCell>8:00</TableCell>
-              <TableCell>11:00</TableCell>
-              <TableCell>
-                <ClearIcon />
-              </TableCell>
-              <TableCell>
-                <Button size='small'>
-                  <EditIcon className={classes.icon} />
-                  Edit
-                </Button>
-              </TableCell>
-            </TableRow>
+            {data.map((d, i) => (
+              <TableRow key={i}>
+                <TableCell>{d.lecturer}</TableCell>
+                <TableCell>{d.subject}</TableCell>
+                <TableCell>
+                  {' '}
+                  {d.day.map((dayname, index) => (
+                    <Chip className={classes.chips} label={dayname.name} />
+                  ))}
+                </TableCell>
+                <TableCell>{d.room}</TableCell>
+                <TableCell>{d.start}</TableCell>
+                <TableCell>{d.end}</TableCell>
+                <TableCell>
+                  {d.required === true ? <DoneIcon /> : <ClearIcon />}
+                </TableCell>
+                <TableCell>
+                  <Button size='small'>
+                    <EditIcon className={classes.icon} />
+                    Edit
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
