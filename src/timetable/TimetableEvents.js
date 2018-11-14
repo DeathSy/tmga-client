@@ -145,7 +145,7 @@ class TimetableEvent extends Component {
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td></td>
+            <td>Day/Time</td>
             {this.state.timelist}
           </tr>
         </thead>
