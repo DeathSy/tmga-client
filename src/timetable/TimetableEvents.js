@@ -155,7 +155,7 @@ class TimetableEvent extends Component {
             return <tr>
               {index==0? <td rowSpan={this.state.events.MON.length}> MONDAY </td> : null}
               <td colspan={monday.space}></td>
-              <td colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: '#ffff66'}}>
+              <td colspan={monday.slot} style={{ textAlign: 'center', backgroundColor: '#fffd8c'}}>
               <b>{monday.name}</b> <br></br> {monday.room} ( {monday.startTime} - {monday.endTime} )</td>
               {monday.space+monday.slot<26?<td colspan={26-monday.space-monday.slot}></td>: null}
               </tr>
@@ -165,7 +165,7 @@ class TimetableEvent extends Component {
             return <tr>
               {index==0? <td rowSpan={this.state.events.TUE.length}> TUESDAY </td> : null}
               <td colspan={tuesday.space}></td>
-              <td colspan={tuesday.slot} style={{ textAlign: 'center', backgroundColor: '#ffc6e2'}}>
+              <td colspan={tuesday.slot} style={{ textAlign: 'center', backgroundColor: '#ffafa3'}}>
               <b>{tuesday.name}</b> <br></br> {tuesday.room} ( {tuesday.startTime} - {tuesday.endTime} )</td>
               {tuesday.space+tuesday.slot<26?<td colspan={26-tuesday.space-tuesday.slot}></td>:null}
               </tr>
@@ -175,7 +175,7 @@ class TimetableEvent extends Component {
             return <tr>
               {index==0? <td rowSpan={this.state.events.WED.length}> WEDNESDAY </td> : null}
               <td colspan={wednesday.space}></td>
-              <td colspan={wednesday.slot} style={{ textAlign: 'center', backgroundColor: '#b9efb1'}}>
+              <td colspan={wednesday.slot} style={{ textAlign: 'center', backgroundColor: '#cbff8c'}}>
               <b>{wednesday.name} </b><br></br> {wednesday.room} ( {wednesday.startTime} - {wednesday.endTime} )</td>
               {wednesday.space+wednesday.slot<26?<td colspan={26-wednesday.space-wednesday.slot}></td>:null}
               </tr>
@@ -185,7 +185,7 @@ class TimetableEvent extends Component {
             return <tr>
               {index==0? <td rowSpan={this.state.events.THU.length}> THURSDAY </td> : null}
               <td colspan={thursday.space}></td>
-              <td colspan={thursday.slot} style={{ textAlign: 'center', backgroundColor: '#ffd177'}}>
+              <td colspan={thursday.slot} style={{ textAlign: 'center', backgroundColor: '#ffd88c'}}>
               <b>{thursday.name} </b> <br></br> {thursday.room} ( {thursday.startTime} - {thursday.endTime} )</td>
               {thursday.space+thursday.slot<26?<td colspan={26-thursday.space-thursday.slot}></td>:null}
               </tr>
@@ -195,7 +195,7 @@ class TimetableEvent extends Component {
             return <tr>
               {index==0? <td rowSpan={this.state.events.FRI.length}> FRIDAY </td> : null}
               <td colspan={friday.space}></td>
-              <td colspan={friday.slot} style={{ textAlign: 'center', backgroundColor: '#80aaff'}}>
+              <td colspan={friday.slot} style={{ textAlign: 'center', backgroundColor: '#b1c1db'}}>
               <b>{friday.name}</b> <br></br> {friday.room} ( {friday.startTime} - {friday.endTime} )</td>
               {friday.space+friday.slot<26?<td colspan={26-friday.space-friday.slot}></td>:null}
               </tr>
