@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
+import Modal from '../modal/otherModal'
 
 const styles = theme => ({
   chips: {
@@ -43,19 +44,21 @@ const data = [
   }
 ]
 export class OtherFac extends React.Component {
-  _onClick = () => {
-    this.props.onClick()
-  }
-  handleChange = name => event => {
-    this.setState({ [name]: Number(event.target.value) })
+  state = {
+    open: false,
+    otherData: []
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true })
+  componentWillMount () {
+    this.setState({ otherData: data })
   }
 
-  handleClose = () => {
-    this.setState({ open: false })
+  handleModal = () => {
+    this.setState(state => ({ open: !state.open }))
+  }
+
+  addOther = data => {
+    this.setState(state => ({ otherData: [...state.otherData, data] }))
   }
 
   render () {
@@ -74,7 +77,7 @@ export class OtherFac extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((d, i) => (
+            {this.state.otherData.map((d, i) => (
               <TableRow key={i}>
                 <TableCell>{d.code}</TableCell>
                 <TableCell>{d.day}</TableCell>
@@ -91,10 +94,27 @@ export class OtherFac extends React.Component {
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
-          <Button variant='contained' color='primary' onClick={this._onClick}>
-            Add other class
+          <Button
+            className={classes.button}
+            color='primary'
+            onClick={this.handleModal}
+          >
+            Add Other Class
+          </Button>
+          <Button
+            className={classes.button}
+            variant='contained'
+            color='primary'
+            onClick={this.props.onClick}
+          >
+            Finished
           </Button>
         </div>
+        <Modal
+          open={this.state.open}
+          onSubmit={this.addOther}
+          onClick={this.handleModal}
+        />
       </div>
     )
   }
