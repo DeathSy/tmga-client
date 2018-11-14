@@ -22,10 +22,40 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2
   }
 })
-
+const data = [
+  {
+    code: 'GEN121',
+    day: 'MON',
+    start: '9:00',
+    end: '12:00'
+  },
+  {
+    code: 'LNG102',
+    day: 'WED',
+    start: '13:00',
+    end: '16:00'
+  },
+  {
+    code: 'GEN101',
+    day: 'FRI',
+    start: '9:30',
+    end: '12:30'
+  }
+]
 export class OtherFac extends React.Component {
   _onClick = () => {
     this.props.onClick()
+  }
+  handleChange = name => event => {
+    this.setState({ [name]: Number(event.target.value) })
+  }
+
+  handleClickOpen = () => {
+    this.setState({ open: true })
+  }
+
+  handleClose = () => {
+    this.setState({ open: false })
   }
 
   render () {
@@ -44,42 +74,20 @@ export class OtherFac extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell rowSpan={1}>GEN121</TableCell>
-              <TableCell>Monday</TableCell>
-              <TableCell>9:00</TableCell>
-              <TableCell>12:00</TableCell>
-              <TableCell>
-                <Button size='small'>
-                  <EditIcon className={classes.icon} />
-                  Edit
-                </Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell rowSpan={1}>LNG102</TableCell>
-              <TableCell>Wednesday</TableCell>
-              <TableCell>13:00</TableCell>
-              <TableCell>16:00</TableCell>
-              <TableCell>
-                <Button size='small'>
-                  <EditIcon className={classes.icon} />
-                  Edit
-                </Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell rowSpan={1}>GEN101</TableCell>
-              <TableCell>Friday</TableCell>
-              <TableCell>10:30</TableCell>
-              <TableCell>133:30</TableCell>
-              <TableCell>
-                <Button size='small'>
-                  <EditIcon className={classes.icon} />
-                  Edit
-                </Button>
-              </TableCell>
-            </TableRow>
+            {data.map((d, i) => (
+              <TableRow key={i}>
+                <TableCell>{d.code}</TableCell>
+                <TableCell>{d.day}</TableCell>
+                <TableCell>{d.start}</TableCell>
+                <TableCell>{d.end}</TableCell>
+                <TableCell>
+                  <Button size='small'>
+                    <EditIcon className={classes.icon} />
+                    Edit
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
