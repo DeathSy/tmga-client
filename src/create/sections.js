@@ -19,6 +19,9 @@ const styles = theme => ({
   icon: {
     fontSize: 20,
     marginRight: theme.spacing.unit
+  },
+  actionContainer: {
+    marginTop: theme.spacing.unit * 2
   }
 })
 
@@ -71,7 +74,7 @@ export const Sections = ({ classes, ...props }) => (
             <Chip
               className={classes.chips}
               avatar={<Avatar>C</Avatar>}
-              label='Dr. Umarporn'
+              label='Dr. Umaporn'
             />
             <Chip
               className={classes.chips}
@@ -171,9 +174,11 @@ export const Sections = ({ classes, ...props }) => (
         </TableRow>
       </TableBody>
     </Table>
-    <Button variant='contained' color='primary'>
-      Add Section
-    </Button>
+    <div className={classes.actionContainer}>
+      <Button variant='contained' color='primary'>
+        Add Section
+      </Button>
+    </div>
   </div>
 )
 
