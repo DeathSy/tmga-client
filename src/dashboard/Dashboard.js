@@ -19,10 +19,6 @@ const style = theme => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    height: 100,
-    width: 550,
-  },
   graph: {
     height: 400,
     width: 500,
@@ -40,9 +36,9 @@ const style = theme => ({
   },
   card: {
     overflow: 'inherit',
-    textAlign: 'right',
-    padding: 16,
-    minHeight: 52,
+    textAlign: 'left',
+    padding: 30,
+    minHeight: 108,
   },
     
 });
@@ -59,7 +55,7 @@ class Dashboard extends React.Component {
   constructor(){
     super();
     this.state={
-
+      list:[],
     }
   }
   state={
@@ -72,7 +68,13 @@ class Dashboard extends React.Component {
       [key]: value,
     });
   };
-  
+   
+  componentDidMount = async () => {
+    const {data} = await axios.get(`http://ml.tmga.cf/timetables`)
+    let semester = data.map((term)=> `Semester : ${term.semester}`  )
+    this.setState({list: semester})
+                
+    }
 
   render() {
     const { classes } = this.props;
@@ -85,7 +87,7 @@ class Dashboard extends React.Component {
                         <div>
                             <div style={styles.flexColumn}>
                                 <div style={{ marginBottom: '2em', marginRight: '1em' }}>
-                                <Button variant="contained" color="primary" className={classes.card} style={{ float :'right', backgroundColor: 'white'}} component={Link} to={`/subjectSections`}>
+                                <Button variant="contained" color="primary" className={classes.card} style={{ float :'right' }} component={Link} to={`/subjectSections`}>
                                      <AddIcon />  
                                      Create timetable
                                     </Button>
@@ -117,30 +119,63 @@ class Dashboard extends React.Component {
                         </div>
                     }
                     medium={
-                        <div style={styles.flex}>
+                      <div className={classes.root}>
+                      <Grid container spacing={24}>
+                        <Grid item md={12}>
+                        <Button variant="contained" color="primary" className={classes.button} style={{ float :'right'}} component={Link} to={`/subjectSections`}>
+                           <AddIcon />  
+                           Create timetable
+                         </Button>
+                        </Grid>
+                        <Grid item md={6}>
+                          <TimetableProcess />
+                        </Grid>
+                        {this.state.list.map(term => 
+                        <Grid item md={6}>
+                        <div className={classes.main}>
+                          <Card className={classes.card} style={{ marginLeft: 10 }} >
+                              <Typography variant='headline' component='h1'  button component={Link} to={'/timetables/undefined/show'}>
+                                {term}
+                              </Typography>
+                          </Card>
+                          </div>
+                          </Grid>)}
+
+                      </Grid>
+                    </div>
+                      // <div>
+                      //   <Button variant="contained" color="primary" className={classes.button} style={{ float :'right'}} component={Link} to={`/subjectSections`}>
+                      //     <AddIcon />  
+                      //     Create timetable
+                      //   </Button>
+                      //   <div style={styles.flex}>
                          
-                            <div style={styles.leftCol}>
-                                <div style={styles.flex}>
-                                {/* <Subject /> */}
+                      //       <div style={styles.leftCol}>
+                      //           <div style={styles.flex} >
+                      //           {/* <Button variant="contained" color="primary" className={classes.main} style={{ float :'right', backgroundColor: 'white' , color:'black'}} component={Link} to={`/subjectSections`}>
+                      //                <AddIcon />  
+                      //                Create timetable
+                      //               </Button>
+                      //               <Subject /> */}
+                      //           <TimetableProcess />
+                      //           </div>
+                      //           <div style={styles.singleCol}>
                                 
-                                </div>
-                                <div style={styles.singleCol}>
-                                <TimetableProcess />
-                                </div>
-                                <div style={styles.singleCol}>
-                                </div>
-                            </div>
-                            <div style={styles.rightCol}>                               
-                                 <Button variant="contained" color="primary" className={classes.main} style={{ float :'right'}} component={Link} to={`/subjectSections`}>
-                                     <AddIcon />  
-                                     Create timetable
-                                    </Button>
-                                <div style={styles.flex}> 
-                                {/* <Section />
-                                <Subject /> */}
-                                </div>
-                            </div>
-                        </div>
+                      //           </div>
+                      //           <div style={styles.singleCol}>
+                      //           </div>
+                      //       </div>
+                      //       <div style={styles.rightCol}>                               
+
+                      //           <div style={styles.flex}> 
+                      //           <Timetables />
+                                
+                      //           {/* <Section />
+                      //           <Subject /> */}
+                      //           </div>
+                      //       </div>
+                      //   </div>
+                      //   </div>
                     }
                 />
             </Fragment>
