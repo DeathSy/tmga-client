@@ -2,5 +2,7 @@
   "editor.formatOnSave": true,
   "javascript.format.enable": false,
   "javascript.validate.enable": false,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n"
 }
