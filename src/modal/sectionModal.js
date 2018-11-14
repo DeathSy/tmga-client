@@ -13,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Input from '@material-ui/core/Input'
 import Chip from '@material-ui/core/Chip'
+import axios from 'axios'
 
 const styles = theme => ({
   formControl: {
@@ -42,7 +43,27 @@ const steps = [
 ]
 
 export class SectionModal extends React.Component {
+  async componentWillMount () {
+    const subject = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/subjects`
+    )
+    const subjectType = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/subjectFormats`
+    )
+    const lecturers = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/lecturers`
+    )
+    this.setState({
+      subjects: subject.data,
+      types: subjectType.data,
+      lecturers: lecturers.data
+    })
+  }
+
   state = {
+    subjects: [],
+    type: [],
+    lecturers: [],
     activeStep: 0,
     subjectName: undefined,
     subjectType: undefined,
@@ -60,12 +81,12 @@ export class SectionModal extends React.Component {
         return result
       }, [])
       .map((key, index) => ({
-        lecturers: this.state[key]
+        lecturers: this.state[key].map(d => JSON.parse(d))
       }))
 
     this.props.onSubmit({
-      code: this.state.subjectName,
-      type: this.state.subjectType,
+      subjectName: JSON.parse(this.state.subjectName),
+      subjectType: JSON.parse(this.state.subjectType),
       sections
     })
     this.props.onClick()
@@ -74,7 +95,7 @@ export class SectionModal extends React.Component {
   handleChange = key => event => this.setState({ [key]: event.target.value })
 
   render () {
-    const { activeStep } = this.state
+    const { activeStep, subjects, types, lecturers } = this.state
     const { open, classes } = this.props
 
     return (
@@ -98,7 +119,11 @@ export class SectionModal extends React.Component {
                   value={this.state.subjectName || ''}
                   onChange={this.handleChange('subjectName')}
                 >
-                  <MenuItem value='INT102'>Computer Programming</MenuItem>
+                  {subjects.map(subject => (
+                    <MenuItem key={subject.id} value={JSON.stringify(subject)}>
+                      {subject.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             )}
@@ -111,8 +136,11 @@ export class SectionModal extends React.Component {
                   value={this.state.subjectType || ''}
                   onChange={this.handleChange('subjectType')}
                 >
-                  <MenuItem value='lab'>Lab</MenuItem>
-                  <MenuItem value='lecture'>Lecture</MenuItem>
+                  {types.map(type => (
+                    <MenuItem key={type.id} value={JSON.stringify(type)}>
+                      {type.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             )}
@@ -145,16 +173,22 @@ export class SectionModal extends React.Component {
                           <div className={classes.chips}>
                             {selected.map(value => (
                               <Chip
-                                key={value}
-                                label={value}
+                                key={JSON.parse(value).id}
+                                label={JSON.parse(value).name}
                                 className={classes.chip}
                               />
                             ))}
                           </div>
                         )}
                       >
-                        <MenuItem value='Aj. Kittiphan'>Aj. Kittiphan</MenuItem>
-                        <MenuItem value='Dr. Umaporn'>Dr. Umaporn</MenuItem>
+                        {lecturers.map(lecturer => (
+                          <MenuItem
+                            key={lecturer.id}
+                            value={JSON.stringify(lecturer)}
+                          >
+                            {lecturer.name}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   )

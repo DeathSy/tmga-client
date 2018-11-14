@@ -30,48 +30,6 @@ const styles = theme => ({
   }
 })
 
-const data = [
-  {
-    code: 'INT104',
-    type: 'lecture',
-    sections: [{ lecturers: ['Dr. Olarn'] }, { lecturers: ['Dr. Olarn'] }]
-  },
-  {
-    code: 'INT102',
-    type: 'lab',
-    sections: [
-      { lecturers: ['Dr. Umaporn'] },
-      { lecturers: ['Dr. Paisarn'] },
-      { lecturers: ['Dr. Umaporn'] },
-      { lecturers: ['Dr. Paisarn'] }
-    ]
-  },
-  {
-    code: 'INT101',
-    type: 'lecture',
-    sections: [
-      { lecturers: ['Aj. Kittiphan', 'Dr. Kittipong'] },
-      { lecturers: ['Aj. Kittiphan', 'Dr. Kittipong'] }
-    ]
-  },
-  {
-    code: 'INT201',
-    type: 'lecture',
-    sections: [{ lecturers: ['Dr. Pichai'] }, { lecturers: ['Dr. Pichai'] }]
-  },
-  {
-    code: 'INT201',
-    type: 'lab',
-    sections: [
-      { lecturers: ['Aj. Kittiphan'] },
-      { lecturers: ['Aj. Kittiphan'] },
-      { lecturers: ['Aj. Kittiphan'] },
-      { lecturers: ['Aj. Kittiphan'] },
-      { lecturers: ['Aj. Kittiphan'] }
-    ]
-  }
-]
-
 export class Sections extends React.Component {
   state = {
     open: false,
@@ -79,7 +37,7 @@ export class Sections extends React.Component {
   }
 
   componentWillMount () {
-    this.setState({ sectionData: data })
+    // this.setState({ sectionData: data })
   }
 
   handleModal = () => {
@@ -93,14 +51,14 @@ export class Sections extends React.Component {
   groupData = () => {
     const data = new Map()
     this.state.sectionData.map(section => {
-      if (data.get(section.code)) {
-        data.set(section.code, [
-          ...data.get(section.code),
-          { type: section.type, sections: section.sections }
+      if (data.get(section.subjectName.code)) {
+        data.set(section.subjectName.code, [
+          ...data.get(section.subjectName.code),
+          { type: section.subjectType.name, sections: section.sections }
         ])
       } else {
-        data.set(section.code, [
-          { type: section.type, sections: section.sections }
+        data.set(section.subjectName.code, [
+          { type: section.subjectType.name, sections: section.sections }
         ])
       }
     })
@@ -144,7 +102,7 @@ export class Sections extends React.Component {
                         avatar={
                           <Avatar>{String.fromCharCode(65 + index)}</Avatar>
                         }
-                        label={section.lecturers.join(', ')}
+                        label={section.lecturers.map(l => l.name).join(', ')}
                       />
                     ))}
                   </TableCell>
