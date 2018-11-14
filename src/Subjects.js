@@ -5,17 +5,11 @@ import {
   Edit,
   Create,
   SimpleForm,
-  NumberField,
   TextField,
   EditButton,
   TextInput,
-  NumberInput,
   BooleanInput,
   SelectArrayInput,
-  ArrayField,
-  SingleFieldList,
-  ChipField,
-  ArrayInput,
   BooleanField,
   ReferenceField,
   SelectInput,
@@ -42,12 +36,17 @@ const years = [
   { id: '4th year', year: '4th year' }
 ]
 
-export const SubjectList = (props) => (
+export const SubjectList = props => (
   <List {...props}>
     <Datagrid>
       <TextField source='code' label='Subject Code' />
       <TextField source='name' label='Subject Name' />
-      <ReferenceField label='Subject Type' source='subjectFormatId' reference='subjectFormats' linkType={false}>
+      <ReferenceField
+        label='Subject Type'
+        source='subjectFormatId'
+        reference='subjectFormats'
+        linkType={false}
+      >
         <TextField source='name' />
       </ReferenceField>
       <TagsField label='Student Year' />
@@ -62,12 +61,16 @@ const SubjectTitle = ({ record }) => {
   return <span>Subject {record ? `'${record.name}'` : ''}</span>
 }
 
-export const SubjectEdit = (props) => (
+export const SubjectEdit = props => (
   <Edit title={<SubjectTitle />} {...props}>
     <SimpleForm>
       <TextInput source='name' />
       <TextInput source='code' />
-      <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
+      <ReferenceInput
+        label='Type'
+        source='subjectFormatId'
+        reference='subjectFormats'
+      >
         <SelectInput optionText='name' />
       </ReferenceInput>
       <SelectArrayInput source='students' choices={years} optionText='year' />
@@ -76,13 +79,17 @@ export const SubjectEdit = (props) => (
   </Edit>
 )
 
-export const SubjectCreate = (props) => (
+export const SubjectCreate = props => (
   <Create title='Create a Subject' {...props}>
     <SimpleForm>
       <TextInput source='code' />
       <TextInput source='name' />
       <SelectArrayInput source='students' choices={years} optionText='year' />
-      <ReferenceInput label='Type' source='subjectFormatId' reference='subjectFormats'>
+      <ReferenceInput
+        label='Type'
+        source='subjectFormatId'
+        reference='subjectFormats'
+      >
         <SelectInput optionText='name' />
       </ReferenceInput>
       <BooleanInput label='Required' source='isRequired' />
