@@ -37,10 +37,6 @@ export class Sections extends React.Component {
     sectionData: []
   }
 
-  componentWillMount () {
-    // this.setState({ sectionData: data })
-  }
-
   handleModal = () => {
     this.setState(state => ({ open: !state.open }))
   }
