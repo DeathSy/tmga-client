@@ -61,7 +61,13 @@ export class Create extends React.Component {
             {steps.map((step, index) => (
               <Step key={step.title}>
                 <StepLabel>{step.title}</StepLabel>
-                <StepContent>{<step.component />}</StepContent>
+                <StepContent>
+                  {
+                    <step.component
+                      onClick={this.handleClick(activeStep + 1)}
+                    />
+                  }
+                </StepContent>
               </Step>
             ))}
           </Stepper>
