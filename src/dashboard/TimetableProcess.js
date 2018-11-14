@@ -16,7 +16,6 @@ const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 const styles = theme => ({
   main: {
     flex: '1',
-    marginRight: '1em',
     marginTop: 20,
   },
   card: {
@@ -24,6 +23,7 @@ const styles = theme => ({
     textAlign: 'left',
     padding: 30,
     minHeight: 52,
+    margin: '1em'
   },
   progress: {
     margin: theme.spacing.unit * 2,
