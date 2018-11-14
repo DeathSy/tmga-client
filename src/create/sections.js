@@ -11,14 +11,8 @@ import {
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import InputLabel from '@material-ui/core/InputLabel'
-import Input from '@material-ui/core/Input'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
+
+import Modal from '../modal/sectionModal'
 
 const styles = theme => ({
   button: {
@@ -33,70 +27,47 @@ const styles = theme => ({
   },
   actionContainer: {
     marginTop: theme.spacing.unit * 2
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120
   }
 })
 
 const data = [
   {
     code: 'INT104',
-    detail: [
-      {
-        type: 'lecture',
-        sections: [{ lecturers: ['Dr. Olarn'] }, { lecturers: ['Dr. Olarn'] }]
-      }
-    ]
+    type: 'lecture',
+    sections: [{ lecturers: ['Dr. Olarn'] }, { lecturers: ['Dr. Olarn'] }]
   },
   {
     code: 'INT102',
-    detail: [
-      {
-        type: 'lab',
-        sections: [
-          { lecturers: ['Dr. Umaporn'] },
-          { lecturers: ['Dr. Paisarn'] },
-          { lecturers: ['Dr. Umaporn'] },
-          { lecturers: ['Dr. Paisarn'] }
-        ]
-      }
+    type: 'lab',
+    sections: [
+      { lecturers: ['Dr. Umaporn'] },
+      { lecturers: ['Dr. Paisarn'] },
+      { lecturers: ['Dr. Umaporn'] },
+      { lecturers: ['Dr. Paisarn'] }
     ]
   },
   {
     code: 'INT101',
-    detail: [
-      {
-        type: 'lecture',
-        sections: [
-          { lecturers: ['Aj. Kittiphan', 'Dr. Kittipong'] },
-          { lecturers: ['Aj. Kittiphan', 'Dr. Kittipong'] }
-        ]
-      }
+    type: 'lecture',
+    sections: [
+      { lecturers: ['Aj. Kittiphan', 'Dr. Kittipong'] },
+      { lecturers: ['Aj. Kittiphan', 'Dr. Kittipong'] }
     ]
   },
   {
     code: 'INT201',
-    detail: [
-      {
-        type: 'lecture',
-        sections: [{ lecturers: ['Dr. Pichai'] }, { lecturers: ['Dr. Pichai'] }]
-      },
-      {
-        type: 'lab',
-        sections: [
-          { lecturers: ['Aj. Kittiphan'] },
-          { lecturers: ['Aj. Kittiphan'] },
-          { lecturers: ['Aj. Kittiphan'] },
-          { lecturers: ['Aj. Kittiphan'] },
-          { lecturers: ['Aj. Kittiphan'] }
-        ]
-      }
+    type: 'lecture',
+    sections: [{ lecturers: ['Dr. Pichai'] }, { lecturers: ['Dr. Pichai'] }]
+  },
+  {
+    code: 'INT201',
+    type: 'lab',
+    sections: [
+      { lecturers: ['Aj. Kittiphan'] },
+      { lecturers: ['Aj. Kittiphan'] },
+      { lecturers: ['Aj. Kittiphan'] },
+      { lecturers: ['Aj. Kittiphan'] },
+      { lecturers: ['Aj. Kittiphan'] }
     ]
   }
 ]
@@ -104,26 +75,45 @@ const data = [
 export class Sections extends React.Component {
   state = {
     open: false,
-    age: ''
-  }
-  _onClick = () => {
-    this.handleClickOpen()
+    sectionData: []
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: Number(event.target.value) })
+  componentWillMount () {
+    this.setState({ sectionData: data })
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true })
+  handleModal = () => {
+    this.setState(state => ({ open: !state.open }))
   }
 
-  handleClose = () => {
-    this.setState({ open: false })
+  addSection = data => {
+    this.setState(state => ({ sectionData: [...state.sectionData, data] }))
+  }
+
+  groupData = () => {
+    const data = new Map()
+    this.state.sectionData.map(section => {
+      if (data.get(section.code)) {
+        data.set(section.code, [
+          ...data.get(section.code),
+          { type: section.type, sections: section.sections }
+        ])
+      } else {
+        data.set(section.code, [
+          { type: section.type, sections: section.sections }
+        ])
+      }
+    })
+    const result = []
+    data.forEach((d, k) => {
+      result.push({ code: k, detail: d })
+    })
+    return result
   }
 
   render () {
     const { classes } = this.props
+    const sections = this.groupData()
 
     return (
       <div>
@@ -138,17 +128,18 @@ export class Sections extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((d, i) =>
+            {sections.map((d, i) =>
               d.detail.map((detail, index) => (
                 <TableRow key={index}>
                   {index === 0 && (
                     <TableCell rowSpan={d.detail.length}>{d.code}</TableCell>
                   )}
-                  <TableCell>{d.detail[0].type}</TableCell>
+                  <TableCell>{detail.type}</TableCell>
                   <TableCell numeric>{detail.sections.length}</TableCell>
                   <TableCell>
                     {detail.sections.map((section, index) => (
                       <Chip
+                        key={index}
                         className={classes.chips}
                         avatar={
                           <Avatar>{String.fromCharCode(65 + index)}</Avatar>
@@ -172,7 +163,7 @@ export class Sections extends React.Component {
           <Button
             className={classes.button}
             color='primary'
-            onClick={this._onClick}
+            onClick={this.handleModal}
           >
             Add Section
           </Button>
@@ -185,40 +176,11 @@ export class Sections extends React.Component {
             Finished
           </Button>
         </div>
-        <Dialog
-          disableBackdropClick
-          disableEscapeKeyDown
+        <Modal
           open={this.state.open}
-          onClose={this.handleClose}
-        >
-          <DialogTitle>Fill the form</DialogTitle>
-          <DialogContent>
-            <form className={classes.container}>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor='age-native-simple'>Age</InputLabel>
-                <Select
-                  native
-                  value={this.state.age}
-                  onChange={this.handleChange('age')}
-                  input={<Input id='age-native-simple' />}
-                >
-                  <option value='' />
-                  <option value={10}>Ten</option>
-                  <option value={20}>Twenty</option>
-                  <option value={30}>Thirty</option>
-                </Select>
-              </FormControl>
-            </form>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color='primary'>
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color='primary'>
-              Ok
-            </Button>
-          </DialogActions>
-        </Dialog>
+          onSubmit={this.addSection}
+          onClick={this.handleModal}
+        />
       </div>
     )
   }
