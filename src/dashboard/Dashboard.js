@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
                   className={classes.button}
                   style={{ float: 'right', padding: 20, margin: '1em' }}
                   component={Link}
-                  to={`/subjectSections`}
+                  to={`/create`}
                 >
                   <AddIcon />
                   Create timetable
@@ -112,7 +112,7 @@ class Dashboard extends React.Component {
                     className={classes.button}
                     style={{ float: 'right', margin: '1em' }}
                     component={Link}
-                    to={`/subjectSections`}
+                    to={`/create`}
                   >
                     <AddIcon />
                     Create timetable
@@ -146,7 +146,7 @@ class Dashboard extends React.Component {
                     className={classes.button}
                     style={{ float: 'right' }}
                     component={Link}
-                    to={`/subjectSections`}
+                    to={`/create`}
                   >
                     <AddIcon />
                     Create timetable
