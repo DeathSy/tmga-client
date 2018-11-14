@@ -6,7 +6,6 @@ import {
   TableRow,
   TableBody,
   Chip,
-  Avatar,
   Button
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
