@@ -73,23 +73,39 @@ export class SectionModal extends React.Component {
   handleClick = activeStep => () => this.setState({ activeStep })
 
   handeSubmit = () => {
-    const sections = Object.keys(this.state)
-      .reduce((result, key) => {
-        if (key.match(/section[0-9]Lecturer/g)) {
-          result = [...result, key]
-        }
-        return result
-      }, [])
-      .map((key, index) => ({
-        lecturers: this.state[key].map(d => JSON.parse(d))
-      }))
+    const sectionKey = Object.keys(this.state).reduce((result, key) => {
+      if (key.match(/section[0-9]Lecturer/g)) {
+        result = [...result, key]
+      }
+      return result
+    }, [])
+    const sections = sectionKey.map((key, index) => ({
+      lecturers: this.state[key].map(d => JSON.parse(d))
+    }))
 
     this.props.onSubmit({
       subjectName: JSON.parse(this.state.subjectName),
       subjectType: JSON.parse(this.state.subjectType),
       sections
     })
+    this.reset()
     this.props.onClick()
+  }
+
+  reset = () => {
+    const sectionKey = Object.keys(this.state).reduce((result, key) => {
+      if (key.match(/section[0-9]Lecturer/g)) {
+        result = [...result, key]
+      }
+      return result
+    }, [])
+    sectionKey.map(k => this.setState({ [k]: undefined }))
+    this.setState({
+      activeStep: 0,
+      subjectName: undefined,
+      sectionAmount: 1,
+      subjectType: undefined
+    })
   }
 
   handleChange = key => event => this.setState({ [key]: event.target.value })
@@ -99,7 +115,13 @@ export class SectionModal extends React.Component {
     const { open, classes } = this.props
 
     return (
-      <Dialog open={open} onClose={this.props.onClick}>
+      <Dialog
+        open={open}
+        onClose={() => {
+          this.reset()
+          this.props.onClick()
+        }}
+      >
         <DialogTitle>Add Section</DialogTitle>
         <DialogContent>
           <Stepper activeStep={activeStep}>
