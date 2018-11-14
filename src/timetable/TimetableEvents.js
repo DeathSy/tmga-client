@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import moment from 'moment';
-import WeekCalendar from 'react-week-calendar';
-import 'react-week-calendar/dist/style.less';
 import { GET_LIST, GET_MANY, Responsive, Title } from 'react-admin';
 import loopbackRestClient from 'aor-loopback'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
 
-import TimeTable from 'react-timetable-events'
-import { Table, TableHead, TableBody, TableCell, TableRow } from '@material-ui/core';
 const styles = theme => ({
   root: {
     width: '100%',
@@ -51,7 +47,7 @@ class TimetableEvent extends Component {
       const startTime = section.Time[0].start
       const endTime = section.Time[section.Time.length-1].end
       sectionDay[section.day].sort()
-    sectionDay[section.day].push({
+      sectionDay[section.day].push({
         id: `${section.Section.subjectId}-${section.Section.name}-${section.Section.type}`,
         name: `${section.Section.Subject.code}-${section.Section.Subject.name} (${section.Section.name})`,
         room: ` ${section.Room.name}`,
@@ -109,35 +105,6 @@ class TimetableEvent extends Component {
         console.log('time', this.state.timelist)
       });
   }
-
-  // renderHour(hour, defaultAttributes, styles) {
-  //   return (
-  //     <div {...defaultAttributes}
-  //          key={hour}>
-  //       {hour}h
-  //     </div>
-  //   );
-  // }
-
-  // renderEvent(event, defaultAttributes, styles) {
-  //   return (
-  //     <div {...defaultAttributes}
-  //          title={event.name}
-  //          key={event.id}
-
-  //       >
-  //       <span className={styles.event_info} style={{ fontWeight: 'bold',fontSize: 15 ,color: "#4a4f56", fontFamily: 'Roboto, serif', fontWeight: 'bold' }}>
-  //          { event.name } 
-  //       </span>
-  //       <span className={styles.event_info} style={{ fontSize: 12, color: "#4a4f56", fontFamily: 'Roboto, serif', }}>
-  //          { event.room } 
-  //       </span>
-  //       <span className={styles.event_info} style={{ fontSize: 12 , color: "#4a4f56", fontFamily: 'Roboto, serif',}}>
-  //         { event.startTime.format('HH:mm') } - { event.endTime.format('HH:mm') }
-  //       </span>
-  //     </div>
-  //   )
-  // }
 
   render () {
     return (
