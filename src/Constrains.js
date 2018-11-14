@@ -35,20 +35,20 @@ const TagsField = ({ record }) =>
 export const ConstrainList = (props) => (
   <List {...props} title='Constraints of teacher '>
     <Datagrid>
-      <ReferenceField label='Lecturer Name' source='lecturerId' reference='lecturers' linkType={false}>
+      <ReferenceField label='Lecturer Name' source='lecturerId' reference='lecturers' linkType={false} allowEmpty >
         <TextField source='name' />
       </ReferenceField>
-      <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false}>
+      <ReferenceField label='Subject Name' source='subjectId' reference='subjects' linkType={false} allowEmpty >
         <TextField source='name' />
       </ReferenceField>
       <TagsField label='Day' />
-      <ReferenceField label='Room' source='roomId' reference='rooms' linkType={false}>
+      <ReferenceField label='Room' source='roomId' reference='rooms' linkType={false} allowEmpty >
         <TextField source='name' />
       </ReferenceField>
-      <ReferenceField label='Start Time' source='startTimeId' reference='timeSlots' linkType={false}>
+      <ReferenceField label='Start Time' source='startTimeId' reference='timeSlots' linkType={false} allowEmpty>
         <TextField source='start' />
       </ReferenceField>
-      <ReferenceField label='End Time' source='endTimeId' reference='timeSlots' linkType={false}>
+      <ReferenceField label='End Time' source='endTimeId' reference='timeSlots' linkType={false} allowEmpty >
         <TextField source='end' />
       </ReferenceField>
       <BooleanField source='wants' label='Do' />
@@ -65,10 +65,10 @@ const ConstrainTitle = ({ record }) => {
 export const ConstrainEdit = (props) => (
   <Edit title={<ConstrainTitle />} {...props}>
     <SimpleForm>
-      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' perPage={100}>
+      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects' perPage={100}>
+      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects' >
         <SelectInput optionText='name' />
       </ReferenceInput>
       <SelectArrayInput source='day' choices={days} optionText='name' />
@@ -93,10 +93,10 @@ export const ConstrainEdit = (props) => (
 export const ConstrainCreate = (props) => (
   <Create title='Create a Constraint' {...props}>
     <SimpleForm>
-      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' perPage={100}>
+      <ReferenceInput label='Lecturer Name' source='lecturerId' reference='lecturers' >
         <SelectInput optionText='name' />
       </ReferenceInput>
-      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects' perPage={100}>
+      <ReferenceInput label='Subject Name' source='subjectId' reference='subjects'>
         <SelectInput optionText='name' />
       </ReferenceInput>
       <SelectArrayInput source='day' choices={days} optionText='name' />
