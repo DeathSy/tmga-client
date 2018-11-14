@@ -46,7 +46,6 @@ class Subject extends React.Component {
 
     return (
       <div className={classes.main}>
-        <CardIcon Icon={DollarIcon} bgColor='#31708f' />
         <Card className={classes.card}>
           <Typography className={classes.title} color='textSecondary'>
             All Subjects

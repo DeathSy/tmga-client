@@ -45,7 +45,6 @@ class Section extends React.Component {
 
     return (
       <div className={classes.main}>
-        <CardIcon Icon={DollarIcon} bgColor='black' />
         <Card className={classes.card}>
           <Typography className={classes.title} color='textSecondary'>
            Subjects to Create
