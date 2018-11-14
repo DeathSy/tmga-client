@@ -7,7 +7,8 @@ import {
   TableBody,
   Chip,
   Avatar,
-  Button
+  Button,
+  Typography
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
@@ -115,6 +116,15 @@ export class Sections extends React.Component {
                 </TableRow>
               ))
             )}
+            {sections.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <Typography align='center'>
+                    Please add some sections to continue.
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
@@ -130,6 +140,7 @@ export class Sections extends React.Component {
             variant='contained'
             color='primary'
             onClick={this.props.onClick}
+            disabled={!this.state.sectionData.length}
           >
             Finished
           </Button>
