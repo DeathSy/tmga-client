@@ -27,6 +27,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2
   }
 })
+
 const data = [
   {
     lecturer: 'Dr.Umaporn',
@@ -125,7 +126,7 @@ export class Constraints extends React.Component {
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
-          <Button onClick={this.handleBack} className={classes.button}>
+          <Button onClick={this.props.onBack} className={classes.button}>
             Back
           </Button>
           <Button
