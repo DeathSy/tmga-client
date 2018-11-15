@@ -81,7 +81,15 @@ export class OtherModal extends React.Component {
     })
     this.props.onClick()
   }
-
+  reset = () => {
+    this.setState({
+      subjectCode: undefined,
+      subjectName: undefined,
+      day: undefined,
+      startTime: undefined,
+      endTime: undefined
+    })
+  }
   handleChange = key => event => this.setState({ [key]: event.target.value })
 
   render () {
@@ -89,7 +97,13 @@ export class OtherModal extends React.Component {
     const { open, classes } = this.props
 
     return (
-      <Dialog open={open} onClose={this.props.onClick}>
+      <Dialog
+        open={open}
+        onClose={() => {
+          this.reset()
+          this.props.onClick()
+        }}
+      >
         <DialogTitle>Add Other Class</DialogTitle>
         <DialogContent>
           <Stepper activeStep={activeStep}>
