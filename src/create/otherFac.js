@@ -90,7 +90,7 @@ export class OtherFac extends React.Component {
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
-          <Button onClick={this.handleBack} className={classes.button}>
+          <Button onClick={this.props.onBack} className={classes.button}>
             Back
           </Button>
           <Button

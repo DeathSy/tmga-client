@@ -65,6 +65,7 @@ export class Create extends React.Component {
                   {
                     <step.component
                       onClick={this.handleClick(activeStep + 1)}
+                      onBack={this.handleClick(activeStep - 1)}
                     />
                   }
                 </StepContent>
