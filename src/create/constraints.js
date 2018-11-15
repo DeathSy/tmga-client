@@ -12,6 +12,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import DoneIcon from '@material-ui/icons/Done'
 import ClearIcon from '@material-ui/icons/Clear'
 import { withStyles } from '@material-ui/core/styles'
+import Modal from '../modal/constraintModal'
 
 const styles = theme => ({
   chips: {
@@ -55,13 +56,24 @@ const data = [
   }
 ]
 export class Constraints extends React.Component {
-  _onClick = () => {
-    this.props.onClick()
+  state = {
+    open: false,
+    constraintData: []
+  }
+
+  handleModal = () => {
+    this.setState(state => ({ open: !state.open }))
+  }
+
+  addConstraint = data => {
+    this.setState(state => ({
+      constraintData: [...state.constraintData, data]
+    }))
   }
 
   render () {
     const { classes } = this.props
-
+    const { constraintData } = this.state
     return (
       <div>
         <Table>
@@ -78,14 +90,14 @@ export class Constraints extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((d, i) => (
+            {constraintData.map((d, i) => (
               <TableRow key={i}>
                 <TableCell>{d.lecturer}</TableCell>
                 <TableCell>{d.subject}</TableCell>
                 <TableCell>
                   {' '}
                   {d.day.map((dayname, index) => (
-                    <Chip className={classes.chips} label={dayname.name} />
+                    <Chip className={classes.chips} label={dayname} />
                   ))}
                 </TableCell>
                 <TableCell>{d.room}</TableCell>
@@ -105,10 +117,30 @@ export class Constraints extends React.Component {
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
-          <Button variant='contained' color='primary' onClick={this._onClick}>
-            Add Constraint
+          <Button onClick={this.handleBack} className={classes.button}>
+            Back
+          </Button>
+          <Button
+            className={classes.button}
+            color='primary'
+            onClick={this.handleModal}
+          >
+            Add Other Class
+          </Button>
+          <Button
+            className={classes.button}
+            variant='contained'
+            color='primary'
+            onClick={this.props.onClick}
+          >
+            Finish
           </Button>
         </div>
+        <Modal
+          open={this.state.open}
+          onSubmit={this.addConstraint}
+          onClick={this.handleModal}
+        />
       </div>
     )
   }
