@@ -6,7 +6,8 @@ import {
   TableRow,
   TableBody,
   Chip,
-  Button
+  Button,
+  Typography
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import DoneIcon from '@material-ui/icons/Done'
@@ -114,6 +115,13 @@ export class Constraints extends React.Component {
                 </TableCell>
               </TableRow>
             ))}
+            {constraintData.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={8}>
+                  <Typography align='center'>No record</Typography>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
@@ -125,7 +133,7 @@ export class Constraints extends React.Component {
             color='primary'
             onClick={this.handleModal}
           >
-            Add Other Class
+            Add Lecturer need
           </Button>
           <Button
             className={classes.button}
