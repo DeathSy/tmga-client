@@ -153,7 +153,7 @@ export class OtherModal extends React.Component {
                   ))}
                 </Select>
                 <InputLabel shrink htmlFor='endTime'>
-                  Start Time - End Time
+                  End Time
                 </InputLabel>
                 <Select
                   value={this.state.endTime}
