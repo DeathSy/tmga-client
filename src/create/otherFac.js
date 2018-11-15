@@ -5,7 +5,8 @@ import {
   TableCell,
   TableRow,
   TableBody,
-  Button
+  Button,
+  Typography
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
@@ -23,34 +24,17 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2
   }
 })
-const data = [
-  {
-    code: 'GEN121',
-    day: 'MON',
-    start: '9:00',
-    end: '12:00'
-  },
-  {
-    code: 'LNG102',
-    day: 'WED',
-    start: '13:00',
-    end: '16:00'
-  },
-  {
-    code: 'GEN101',
-    day: 'FRI',
-    start: '9:30',
-    end: '12:30'
-  }
-]
+
 export class OtherFac extends React.Component {
   state = {
     open: false,
     otherData: []
   }
 
-  componentWillMount () {
-    this.setState({ otherData: data })
+  handleBack = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep - 1
+    }))
   }
 
   handleModal = () => {
@@ -63,12 +47,14 @@ export class OtherFac extends React.Component {
 
   render () {
     const { classes } = this.props
+    const { otherData } = this.state
 
     return (
       <div>
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>Subject Code</TableCell>
               <TableCell>Subject Name</TableCell>
               <TableCell>Day</TableCell>
               <TableCell>Start time</TableCell>
@@ -80,6 +66,7 @@ export class OtherFac extends React.Component {
             {this.state.otherData.map((d, i) => (
               <TableRow key={i}>
                 <TableCell>{d.code}</TableCell>
+                <TableCell>{d.name}</TableCell>
                 <TableCell>{d.day}</TableCell>
                 <TableCell>{d.start}</TableCell>
                 <TableCell>{d.end}</TableCell>
@@ -90,10 +77,22 @@ export class OtherFac extends React.Component {
                   </Button>
                 </TableCell>
               </TableRow>
-            ))}
+            ))}{' '}
+            {otherData.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={6}>
+                  <Typography align='center'>
+                    Please add some other class to continue.
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
+          <Button onClick={this.handleBack} className={classes.button}>
+            Back
+          </Button>
           <Button
             className={classes.button}
             color='primary'
@@ -107,7 +106,7 @@ export class OtherFac extends React.Component {
             color='primary'
             onClick={this.props.onClick}
           >
-            Finished
+            Finish
           </Button>
         </div>
         <Modal
