@@ -11,6 +11,11 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
+import TextField from '@material-ui/core/TextField'
+import { GET_LIST } from 'react-admin'
+import loopbackRestClient from 'aor-loopback'
+
+const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 
 const styles = theme => ({
   formControl: {
@@ -39,6 +44,17 @@ const steps = [
 ]
 
 export class OtherModal extends React.Component {
+  async componentWillMount () {
+    dataProvider(GET_LIST, 'TimeSlots', {
+      pagination: { page: 1, perPage: 26 },
+      sort: { field: 'start', order: 'ASC' }
+    })
+      .then(response => response.data)
+      .then(slots => {
+        this.setState({ timeSlots: slots })
+      })
+  }
+
   state = {
     activeStep: 0,
     subjectName: undefined,
@@ -51,19 +67,25 @@ export class OtherModal extends React.Component {
 
   handleSubmit = () => {
     this.props.onSubmit({
-      code: this.state.subjectName,
+      code: this.state.subjectCode,
+      name: this.state.subjectName,
       day: this.state.day,
       start: this.state.startTime,
       end: this.state.endTime
     })
-    this.setState({ activeStep: 0 })
+    this.setState({
+      activeStep: 0,
+      day: undefined,
+      startTime: undefined,
+      endTime: undefined
+    })
     this.props.onClick()
   }
 
   handleChange = key => event => this.setState({ [key]: event.target.value })
 
   render () {
-    const { activeStep } = this.state
+    const { activeStep, timeSlots } = this.state
     const { open, classes } = this.props
 
     return (
@@ -80,15 +102,22 @@ export class OtherModal extends React.Component {
           <div>
             {activeStep === 0 && (
               <FormControl className={classes.formControl}>
-                <InputLabel shrink htmlFor='subjectName'>
-                  Subject name
-                </InputLabel>
-                <Select
-                  value={this.state.subjectName || ''}
+                <TextField
+                  required
+                  id='subjectcode'
+                  label='Subject Code'
+                  className={classes.textField}
+                  margin='normal'
+                  onChange={this.handleChange('subjectCode')}
+                />
+                <TextField
+                  required
+                  id='subjectname'
+                  label='Subject Name'
+                  className={classes.textField}
+                  margin='normal'
                   onChange={this.handleChange('subjectName')}
-                >
-                  <MenuItem value='LNG103'>Academic English</MenuItem>
-                </Select>
+                />
               </FormControl>
             )}
             {activeStep === 1 && (
@@ -117,11 +146,11 @@ export class OtherModal extends React.Component {
                   value={this.state.startTime}
                   onChange={this.handleChange('startTime')}
                 >
-                  <MenuItem value='8:00'>8:00</MenuItem>
-                  <MenuItem value='8:30'>8:30</MenuItem>
-                  <MenuItem value='9:00'>9:00</MenuItem>
-                  <MenuItem value='9:30'>9:30</MenuItem>
-                  <MenuItem value='10:00'>10:00</MenuItem>
+                  {timeSlots.map(slot => (
+                    <MenuItem key={slot.id} value={slot.end}>
+                      {slot.start}
+                    </MenuItem>
+                  ))}
                 </Select>
                 <InputLabel shrink htmlFor='endTime'>
                   Start Time - End Time
@@ -130,11 +159,11 @@ export class OtherModal extends React.Component {
                   value={this.state.endTime}
                   onChange={this.handleChange('endTime')}
                 >
-                  <MenuItem value='8:00'>8:00</MenuItem>
-                  <MenuItem value='8:30'>8:30</MenuItem>
-                  <MenuItem value='9:00'>9:00</MenuItem>
-                  <MenuItem value='9:30'>9:30</MenuItem>
-                  <MenuItem value='10:00'>10:00</MenuItem>
+                  {timeSlots.map(slot => (
+                    <MenuItem key={slot.id} value={slot.end}>
+                      {slot.end}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             )}
