@@ -213,7 +213,7 @@ export class ConstraintModal extends React.Component {
                 Start Time
               </InputLabel>
               <Select
-                value={this.state.startTime}
+                value={this.state.startTime || ''}
                 onChange={this.handleChange('startTime')}
               >
                 {timeSlots.map(slot => (
@@ -228,7 +228,7 @@ export class ConstraintModal extends React.Component {
                 End Time
               </InputLabel>
               <Select
-                value={this.state.endTime}
+                value={this.state.endTime || ''}
                 onChange={this.handleChange('endTime')}
               >
                 {timeSlots.map(slot => (
