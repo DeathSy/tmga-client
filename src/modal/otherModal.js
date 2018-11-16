@@ -87,10 +87,9 @@ export class OtherModal extends React.Component {
   handleSubmit = () => {
     this.props.onSubmit({
       code: this.state.subjectCode,
-      name: this.state.subjectName,
       day: this.state.day,
-      start: this.state.startTime,
-      end: this.state.endTime
+      start: JSON.parse(this.state.startTime),
+      end: JSON.parse(this.state.endTime)
     })
     this.reset()
     this.props.onClick()
@@ -99,7 +98,6 @@ export class OtherModal extends React.Component {
     this.setState({
       activeStep: 0,
       subjectCode: undefined,
-      subjectName: undefined,
       day: undefined,
       startTime: undefined,
       endTime: undefined
@@ -191,7 +189,7 @@ export class OtherModal extends React.Component {
                     onChange={this.handleChange('startTime')}
                   >
                     {timeSlots.map(slot => (
-                      <MenuItem key={slot.id} value={slot.end}>
+                      <MenuItem key={slot.id} value={JSON.stringify(slot)}>
                         {slot.start}
                       </MenuItem>
                     ))}
@@ -206,7 +204,7 @@ export class OtherModal extends React.Component {
                     onChange={this.handleChange('endTime')}
                   >
                     {timeSlots.map(slot => (
-                      <MenuItem key={slot.id} value={slot.end}>
+                      <MenuItem key={slot.id} value={JSON.stringify(slot)}>
                         {slot.end}
                       </MenuItem>
                     ))}

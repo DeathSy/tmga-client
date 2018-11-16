@@ -70,8 +70,8 @@ export class OtherFac extends React.Component {
               <TableRow key={i}>
                 <TableCell>{d.code}</TableCell>
                 <TableCell>{d.day}</TableCell>
-                <TableCell>{d.start}</TableCell>
-                <TableCell>{d.end}</TableCell>
+                <TableCell>{d.start.start}</TableCell>
+                <TableCell>{d.end.end}</TableCell>
                 <TableCell>
                   <Button size='small'>
                     <EditIcon className={classes.icon} />
