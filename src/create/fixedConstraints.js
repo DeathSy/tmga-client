@@ -10,8 +10,6 @@ import {
   Typography
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
-import DoneIcon from '@material-ui/icons/Done'
-import ClearIcon from '@material-ui/icons/Clear'
 import { withStyles } from '@material-ui/core/styles'
 import Modal from '../modal/fixedConstraintModal'
 

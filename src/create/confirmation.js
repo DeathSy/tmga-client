@@ -19,13 +19,13 @@ const styles = theme => ({
   },
   actionContainer: {
     marginTop: theme.spacing.unit * 2
-  },
-  response: undefined
+  }
 })
 
 export class Confirmation extends React.Component {
   state = {
-    loading: false
+    loading: false,
+    response: undefined
   }
 
   transformSection = sectionData => {
