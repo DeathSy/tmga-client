@@ -126,16 +126,19 @@ export class SectionModal extends React.Component {
     if (activeStep === 1 && !subjectType) {
       return true
     }
-    if (activeStep === 3) {
-      const sectionKey = Object.keys(this.state).reduce((result, key) => {
-        if (key.match(/section[0-9]Lecturer/g)) {
-          result = [...result, key]
+    const sectionKey = Object.keys(this.state).reduce((result, key) => {
+      if (key.match(/section[0-9]Lecturer/g)) {
+        result = [...result, key]
+      }
+      return result
+    }, [])
+    if (activeStep === 3 && !sectionKey.length) {
+      const sections = sectionKey.map((key, index) => {
+        console.log(this.state[key])
+        return {
+          lecturers: this.state[key].map(d => JSON.parse(d))
         }
-        return result
-      }, [])
-      const sections = sectionKey.map((key, index) => ({
-        lecturers: this.state[key].map(d => JSON.parse(d))
-      }))
+      })
 
       if (sections.length === 0) {
         return true
