@@ -118,6 +118,33 @@ export class SectionModal extends React.Component {
 
   handleChange = key => event => this.setState({ [key]: event.target.value })
 
+  checkStep = () => {
+    const { activeStep, subjectName, subjectType } = this.state
+    if (activeStep === 0 && !subjectName) {
+      return true
+    }
+    if (activeStep === 1 && !subjectType) {
+      return true
+    }
+    if (activeStep === 3) {
+      const sectionKey = Object.keys(this.state).reduce((result, key) => {
+        if (key.match(/section[0-9]Lecturer/g)) {
+          result = [...result, key]
+        }
+        return result
+      }, [])
+      const sections = sectionKey.map((key, index) => ({
+        lecturers: this.state[key].map(d => JSON.parse(d))
+      }))
+
+      if (sections.length === 0) {
+        return true
+      }
+    }
+
+    return false
+  }
+
   render () {
     const { activeStep, subjects, types, lecturers } = this.state
     const { open, classes } = this.props
@@ -226,17 +253,20 @@ export class SectionModal extends React.Component {
               </div>
             )}
             <div className={classes.actionContainer}>
-              <Button
-                className={classes.button}
-                disabled={activeStep === 0}
-                onClick={this.handleClick(activeStep - 1)}
-              >
-                Back
-              </Button>
+              {activeStep > 0 && (
+                <Button
+                  className={classes.button}
+                  disabled={activeStep === 0}
+                  onClick={this.handleClick(activeStep - 1)}
+                >
+                  Back
+                </Button>
+              )}
               <Button
                 className={classes.button}
                 variant='contained'
                 color='primary'
+                disabled={this.checkStep()}
                 onClick={
                   activeStep === steps.length - 1
                     ? this.handeSubmit
