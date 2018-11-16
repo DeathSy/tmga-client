@@ -79,7 +79,7 @@ export class OtherFac extends React.Component {
                   </Button>
                 </TableCell>
               </TableRow>
-            ))}{' '}
+            ))}
             {otherData.length === 0 && (
               <TableRow>
                 <TableCell colSpan={6}>
