@@ -103,7 +103,7 @@ export class Sections extends React.Component {
                     <TableCell rowSpan={d.detail.length}>{d.code}</TableCell>
                   )}
                   <TableCell>{detail.type}</TableCell>
-                  <TableCell>{detail.time}</TableCell>
+                  <TableCell numeric>{detail.time}</TableCell>
                   <TableCell numeric>{detail.sections.length}</TableCell>
                   <TableCell>
                     {detail.sections.map((section, index) => (
