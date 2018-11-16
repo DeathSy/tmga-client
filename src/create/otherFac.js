@@ -93,18 +93,20 @@ export class OtherFac extends React.Component {
           </Button>
           <Button
             className={classes.button}
-            color='primary'
-            onClick={this.handleModal}
-          >
-            Add Other Class
-          </Button>
-          <Button
-            className={classes.button}
             variant='contained'
             color='primary'
             onClick={this.props.onClick}
+            style={{ float: 'right', marginLeft: 10 }}
           >
             Finish
+          </Button>
+          <Button
+            className={classes.button}
+            color='primary'
+            onClick={this.handleModal}
+            style={{ float: 'right' }}
+          >
+            Add Other Class
           </Button>
         </div>
         <Modal
