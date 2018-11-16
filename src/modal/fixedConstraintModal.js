@@ -8,10 +8,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
-import Switch from '@material-ui/core/Switch'
 import Chip from '@material-ui/core/Chip'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import axios from 'axios'
 import { GET_LIST } from 'react-admin'
 import loopbackRestClient from 'aor-loopback'
 
@@ -65,8 +62,7 @@ export class ConstraintModal extends React.Component {
     timeSlots: [],
     activeStep: 0,
     department: undefined,
-    day: [],
-    required: false
+    day: []
   }
 
   handleSubmit = () => {
@@ -74,8 +70,7 @@ export class ConstraintModal extends React.Component {
       department: this.state.department,
       day: this.state.day,
       start: this.state.startTime,
-      end: this.state.endTime,
-      required: this.state.required
+      end: this.state.endTime
     })
     this.reset()
     this.props.onClick()
@@ -87,7 +82,6 @@ export class ConstraintModal extends React.Component {
     this.setState({
       department: undefined,
       day: [],
-      required: false,
       startTime: undefined,
       endTime: undefined
     })
@@ -179,16 +173,6 @@ export class ConstraintModal extends React.Component {
                 ))}
               </Select>
             </FormControl>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.required}
-                  onChange={this.handleChangeCheck('required')}
-                  value='true'
-                />
-              }
-              label='Required'
-            />
             <div className={classes.actionContainer}>
               <Button
                 className={classes.button}
