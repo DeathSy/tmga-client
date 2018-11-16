@@ -11,9 +11,9 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
-import TextField from '@material-ui/core/TextField'
 import { GET_LIST } from 'react-admin'
 import loopbackRestClient from 'aor-loopback'
+import axios from 'axios'
 
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 
@@ -53,9 +53,16 @@ export class OtherModal extends React.Component {
       .then(slots => {
         this.setState({ timeSlots: slots })
       })
+    const subject = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/subjects`
+    )
+    this.setState({
+      subjects: subject.data
+    })
   }
 
   state = {
+    subjects: [],
     activeStep: 0,
     subjectName: undefined,
     day: undefined,
@@ -73,16 +80,12 @@ export class OtherModal extends React.Component {
       start: this.state.startTime,
       end: this.state.endTime
     })
-    this.setState({
-      activeStep: 0,
-      day: undefined,
-      startTime: undefined,
-      endTime: undefined
-    })
+    this.reset()
     this.props.onClick()
   }
   reset = () => {
     this.setState({
+      activeStep: 0,
       subjectCode: undefined,
       subjectName: undefined,
       day: undefined,
@@ -93,7 +96,7 @@ export class OtherModal extends React.Component {
   handleChange = key => event => this.setState({ [key]: event.target.value })
 
   render () {
-    const { activeStep, timeSlots } = this.state
+    const { activeStep, timeSlots, subjects } = this.state
     const { open, classes } = this.props
 
     return (
@@ -116,22 +119,19 @@ export class OtherModal extends React.Component {
           <div>
             {activeStep === 0 && (
               <FormControl className={classes.formControl}>
-                <TextField
-                  required
-                  id='subjectcode'
-                  label='Subject Code'
-                  className={classes.textField}
-                  margin='normal'
+                <InputLabel shrink htmlFor='subjectCode'>
+                  Subject Code
+                </InputLabel>
+                <Select
+                  value={this.state.subjectCode || ''}
                   onChange={this.handleChange('subjectCode')}
-                />
-                <TextField
-                  required
-                  id='subjectname'
-                  label='Subject Name'
-                  className={classes.textField}
-                  margin='normal'
-                  onChange={this.handleChange('subjectName')}
-                />
+                >
+                  {subjects.map(subject => (
+                    <MenuItem key={subject.id} value={subject.code}>
+                      {subject.code}
+                    </MenuItem>
+                  ))}
+                </Select>
               </FormControl>
             )}
             {activeStep === 1 && (
@@ -152,34 +152,38 @@ export class OtherModal extends React.Component {
               </FormControl>
             )}
             {activeStep === 2 && (
-              <FormControl style={{ width: 200 }}>
-                <InputLabel shrink htmlFor='startTime'>
-                  Start Time
-                </InputLabel>
-                <Select
-                  value={this.state.startTime}
-                  onChange={this.handleChange('startTime')}
-                >
-                  {timeSlots.map(slot => (
-                    <MenuItem key={slot.id} value={slot.end}>
-                      {slot.start}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <InputLabel shrink htmlFor='endTime'>
-                  End Time
-                </InputLabel>
-                <Select
-                  value={this.state.endTime}
-                  onChange={this.handleChange('endTime')}
-                >
-                  {timeSlots.map(slot => (
-                    <MenuItem key={slot.id} value={slot.end}>
-                      {slot.end}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <div>
+                <FormControl className={classes.formControl}>
+                  <InputLabel shrink htmlFor='startTime'>
+                    Start Time
+                  </InputLabel>
+                  <Select
+                    value={this.state.startTime}
+                    onChange={this.handleChange('startTime')}
+                  >
+                    {timeSlots.map(slot => (
+                      <MenuItem key={slot.id} value={slot.end}>
+                        {slot.start}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                  <InputLabel shrink htmlFor='endTime'>
+                    End Time
+                  </InputLabel>
+                  <Select
+                    value={this.state.endTime}
+                    onChange={this.handleChange('endTime')}
+                  >
+                    {timeSlots.map(slot => (
+                      <MenuItem key={slot.id} value={slot.end}>
+                        {slot.end}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
             )}
             <div className={classes.actionContainer}>
               <Button
