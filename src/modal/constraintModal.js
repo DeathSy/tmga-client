@@ -129,7 +129,7 @@ export class ConstraintModal extends React.Component {
           this.props.onClick()
         }}
       >
-        <DialogTitle>Add Section</DialogTitle>
+        <DialogTitle>Add Constraint</DialogTitle>
         <DialogContent>
           <div>
             <FormControl className={classes.formControl}>
