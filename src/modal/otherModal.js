@@ -34,6 +34,9 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit / 4
+  },
+  nextButton: {
+    float: 'right'
   }
 })
 
@@ -104,6 +107,23 @@ export class OtherModal extends React.Component {
   }
   handleChange = key => event => this.setState({ [key]: event.target.value })
 
+  checkStep = () => {
+    const { activeStep, subjectCode, day, startTime, endTime } = this.state
+    if (activeStep === 0 && !subjectCode) {
+      return true
+    }
+    if (activeStep === 1 && !day) {
+      return true
+    }
+    if (activeStep === 2 && !startTime) {
+      return true
+    }
+    if (activeStep === 2 && !endTime) {
+      return true
+    }
+
+    return false
+  }
   render () {
     const { activeStep, timeSlots, subjects } = this.state
     const { open, classes } = this.props
@@ -195,17 +215,20 @@ export class OtherModal extends React.Component {
               </div>
             )}
             <div className={classes.actionContainer}>
+              {activeStep > 0 && (
+                <Button
+                  className={classes.button}
+                  disabled={activeStep === 0}
+                  onClick={this.handleClick(activeStep - 1)}
+                >
+                  Back
+                </Button>
+              )}
               <Button
-                className={classes.button}
-                disabled={activeStep === 0}
-                onClick={this.handleClick(activeStep - 1)}
-              >
-                Back
-              </Button>
-              <Button
-                className={classes.button}
+                className={classes.nextButton}
                 variant='contained'
                 color='primary'
+                disabled={this.checkStep()}
                 onClick={
                   activeStep === steps.length - 1
                     ? this.handleSubmit
