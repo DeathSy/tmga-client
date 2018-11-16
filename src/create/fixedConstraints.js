@@ -60,7 +60,6 @@ export class Constraints extends React.Component {
               <TableCell>Day</TableCell>
               <TableCell>Start time</TableCell>
               <TableCell>End time</TableCell>
-              <TableCell>Required</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -79,9 +78,6 @@ export class Constraints extends React.Component {
                 </TableCell>
                 <TableCell>{d.start}</TableCell>
                 <TableCell>{d.end}</TableCell>
-                <TableCell>
-                  {d.required === true ? <DoneIcon /> : <ClearIcon />}
-                </TableCell>
                 <TableCell>
                   <Button size='small'>
                     <EditIcon className={classes.icon} />
