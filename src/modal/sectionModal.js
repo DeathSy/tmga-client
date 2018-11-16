@@ -163,6 +163,7 @@ export class SectionModal extends React.Component {
 
     return (
       <Dialog
+        maxWidth={'md'}
         open={open}
         onClose={() => {
           this.reset()
