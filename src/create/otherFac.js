@@ -55,7 +55,6 @@ export class OtherFac extends React.Component {
           <TableHead>
             <TableRow>
               <TableCell>Subject Code</TableCell>
-              <TableCell>Subject Name</TableCell>
               <TableCell>Day</TableCell>
               <TableCell>Start time</TableCell>
               <TableCell>End time</TableCell>
@@ -66,7 +65,6 @@ export class OtherFac extends React.Component {
             {this.state.otherData.map((d, i) => (
               <TableRow key={i}>
                 <TableCell>{d.code}</TableCell>
-                <TableCell>{d.name}</TableCell>
                 <TableCell>{d.day}</TableCell>
                 <TableCell>{d.start}</TableCell>
                 <TableCell>{d.end}</TableCell>
