@@ -37,6 +37,10 @@ export class Sections extends React.Component {
     sectionData: []
   }
 
+  componentWillMount () {
+    this.setState({ sectionData: this.props.data })
+  }
+
   handleModal = () => {
     this.setState(state => ({ open: !state.open }))
   }
@@ -128,7 +132,7 @@ export class Sections extends React.Component {
             className={classes.button}
             variant='contained'
             color='primary'
-            onClick={this.props.onClick}
+            onClick={this.props.onClick(this.state.sectionData)}
             disabled={!this.state.sectionData.length}
             style={{ float: 'right', marginLeft: 10 }}
           >

@@ -34,6 +34,10 @@ export class Constraints extends React.Component {
     fixedData: []
   }
 
+  componentWillMount () {
+    this.setState({ fixedData: this.props.data })
+  }
+
   handleModal = () => {
     this.setState(state => ({ open: !state.open }))
   }
@@ -98,14 +102,18 @@ export class Constraints extends React.Component {
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
-          <Button onClick={this.props.onBack} className={classes.button}>
+          <Button
+            onClick={this.props.onBack(this.state.fixedData)}
+            className={classes.button}
+          >
             Back
           </Button>
           <Button
             className={classes.button}
             variant='contained'
             color='primary'
-            onClick={this.props.onClick}
+            onClick={this.props.onClick(this.state.fixedData)}
+            disabled={!this.state.fixedData.length}
             style={{ float: 'right', marginLeft: 10 }}
           >
             Finish

@@ -31,6 +31,10 @@ export class OtherFac extends React.Component {
     otherData: []
   }
 
+  componentWillMount () {
+    this.setState({ otherData: this.props.data })
+  }
+
   handleBack = () => {
     this.setState(state => ({
       activeStep: state.activeStep - 1
@@ -88,14 +92,18 @@ export class OtherFac extends React.Component {
           </TableBody>
         </Table>
         <div className={classes.actionContainer}>
-          <Button onClick={this.props.onBack} className={classes.button}>
+          <Button
+            onClick={this.props.onBack(this.state.otherData)}
+            className={classes.button}
+          >
             Back
           </Button>
           <Button
             className={classes.button}
             variant='contained'
             color='primary'
-            onClick={this.props.onClick}
+            onClick={this.props.onClick(this.state.otherData)}
+            disabled={!this.state.otherData.length}
             style={{ float: 'right', marginLeft: 10 }}
           >
             Finish

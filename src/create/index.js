@@ -36,19 +36,37 @@ const styles = theme => ({
 })
 
 const steps = [
-  { title: 'Please add SIT classes', component: Sections },
-  { title: 'Please add GEN, LNG or SSC classes', component: OtherFac },
-  { title: 'Please add fixed conditions', component: FixedCons },
-  { title: 'Please fill in lecturer needs (if any)', component: Constraint },
-  { title: 'Confirmation', component: Confirmation }
+  { title: 'Please add SIT classes', id: 'sitClasses', component: Sections },
+  {
+    title: 'Please add GEN, LNG or SSC classes',
+    id: 'otherFacClasses',
+    component: OtherFac
+  },
+  {
+    title: 'Please add fixed conditions',
+    id: 'fixConditions',
+    component: FixedCons
+  },
+  {
+    title: 'Please fill in lecturer needs (if any)',
+    id: 'lecturerConditions',
+    component: Constraint
+  },
+  { title: 'Confirmation', id: 'confirmation', component: Confirmation }
 ]
 
 export class Create extends React.Component {
   state = {
-    activeStep: 0
+    activeStep: 0,
+    sitClasses: [],
+    otherFacClasses: [],
+    fixConditions: [],
+    lecturerConditions: []
   }
 
-  handleClick = activeStep => () => this.setState({ activeStep })
+  handleClick = (activeStep, key) => data => () => {
+    this.setState({ activeStep, [key]: data })
+  }
 
   render () {
     const { classes } = this.props
@@ -66,8 +84,9 @@ export class Create extends React.Component {
                 <StepContent>
                   {
                     <step.component
-                      onClick={this.handleClick(activeStep + 1)}
-                      onBack={this.handleClick(activeStep - 1)}
+                      data={this.state[step.id]}
+                      onClick={this.handleClick(activeStep + 1, step.id)}
+                      onBack={this.handleClick(activeStep - 1, step.id)}
                     />
                   }
                 </StepContent>
