@@ -137,28 +137,6 @@ export class Dashboard extends React.Component {
               className={classes.card}
               button
               component={Link}
-              to={'/lecturers'}
-            >
-              <CardMedia
-                className={classes.media}
-                image={require('../static/images/lecturers.jpg')}
-                title='Lecturers management'
-              />
-              <CardContent>
-                <Typography gutterBottom variant='title' component='h2'>
-                  Lecturers Management
-                </Typography>
-                <Typography component='p'>
-                  Manage all of your lecturers data
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={6}>
-            <Card
-              className={classes.card}
-              button
-              component={Link}
               to={'/subjects'}
             >
               <CardMedia
@@ -172,6 +150,28 @@ export class Dashboard extends React.Component {
                 </Typography>
                 <Typography component='p'>
                   Manage all of your subjects data
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={6}>
+            <Card
+              className={classes.card}
+              button
+              component={Link}
+              to={'/lecturers'}
+            >
+              <CardMedia
+                className={classes.media}
+                image={require('../static/images/lecturers.jpg')}
+                title='Lecturers management'
+              />
+              <CardContent>
+                <Typography gutterBottom variant='title' component='h2'>
+                  Lecturers Management
+                </Typography>
+                <Typography component='p'>
+                  Manage all of your lecturers data
                 </Typography>
               </CardContent>
             </Card>
