@@ -53,8 +53,17 @@ export class OtherModal extends React.Component {
       .then(slots => {
         this.setState({ timeSlots: slots })
       })
+
+    const filter = JSON.stringify({
+      where: {
+        or: [
+          { code: { like: 'GEN', option: 'i' } },
+          { code: { like: 'LNG', option: 'i' } }
+        ]
+      }
+    })
     const subject = await axios.get(
-      `${process.env.REACT_APP_API_ENDPOINT}/subjects`
+      `${process.env.REACT_APP_API_ENDPOINT}/subjects?filter=${filter}`
     )
     this.setState({
       subjects: subject.data

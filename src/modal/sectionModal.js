@@ -44,8 +44,16 @@ const steps = [
 
 export class SectionModal extends React.Component {
   async componentWillMount () {
+    const filter = JSON.stringify({
+      where: {
+        or: [
+          { code: { nlike: 'GEN', option: 'i' } },
+          { code: { nlike: 'LNG', option: 'i' } }
+        ]
+      }
+    })
     const subject = await axios.get(
-      `${process.env.REACT_APP_API_ENDPOINT}/subjects`
+      `${process.env.REACT_APP_API_ENDPOINT}/subjects?filter=${filter}`
     )
     const subjectType = await axios.get(
       `${process.env.REACT_APP_API_ENDPOINT}/subjectFormats`
