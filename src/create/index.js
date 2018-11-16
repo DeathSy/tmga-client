@@ -57,7 +57,7 @@ const steps = [
 
 export class Create extends React.Component {
   state = {
-    activeStep: 4,
+    activeStep: 0,
     sitClasses: [],
     otherFacClasses: [],
     fixConditions: [],
@@ -67,8 +67,6 @@ export class Create extends React.Component {
   handleClick = (activeStep, key) => data => () => {
     this.setState({ activeStep, [key]: data })
   }
-
-  onSubmit = () => {}
 
   render () {
     const { classes } = this.props
@@ -101,7 +99,6 @@ export class Create extends React.Component {
                         fixConditions,
                         lecturerConditions
                       }}
-                      onSubmit={this.onSubmit}
                     />
                   }
                 </StepContent>
