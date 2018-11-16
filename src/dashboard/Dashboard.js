@@ -62,8 +62,10 @@ class Dashboard extends React.Component {
 
   componentDidMount = async () => {
     const { data } = await axios.get(`http://ml.tmga.cf/timetables`)
-    let semester = data.map(term => `Semester : ${term.semester}`)
-    this.setState({ list: semester })
+    if (data) {
+      let semester = data.map(term => `Semester : ${term.semester}`)
+      this.setState({ list: semester })
+    }
   }
 
   render () {
