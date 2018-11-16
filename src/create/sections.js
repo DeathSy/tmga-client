@@ -126,19 +126,21 @@ export class Sections extends React.Component {
         <div className={classes.actionContainer}>
           <Button
             className={classes.button}
-            color='primary'
-            onClick={this.handleModal}
-          >
-            Add Section
-          </Button>
-          <Button
-            className={classes.button}
             variant='contained'
             color='primary'
             onClick={this.props.onClick}
             disabled={!this.state.sectionData.length}
+            style={{ float: 'right', marginLeft: 10 }}
           >
             Finished
+          </Button>
+          <Button
+            className={classes.button}
+            color='primary'
+            onClick={this.handleModal}
+            style={{ float: 'right' }}
+          >
+            Add Section
           </Button>
         </div>
         <Modal
