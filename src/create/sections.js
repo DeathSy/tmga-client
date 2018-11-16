@@ -55,11 +55,19 @@ export class Sections extends React.Component {
       if (data.get(section.subjectName.code)) {
         data.set(section.subjectName.code, [
           ...data.get(section.subjectName.code),
-          { type: section.subjectType.name, sections: section.sections }
+          {
+            type: section.subjectType.name,
+            time: section.time,
+            sections: section.sections
+          }
         ])
       } else {
         data.set(section.subjectName.code, [
-          { type: section.subjectType.name, sections: section.sections }
+          {
+            type: section.subjectType.name,
+            time: section.time,
+            sections: section.sections
+          }
         ])
       }
     })
@@ -81,6 +89,7 @@ export class Sections extends React.Component {
             <TableRow>
               <TableCell>Subject Name</TableCell>
               <TableCell>Type</TableCell>
+              <TableCell>Class Range</TableCell>
               <TableCell>Sections</TableCell>
               <TableCell>Detail</TableCell>
               <TableCell>Actions</TableCell>
@@ -94,6 +103,7 @@ export class Sections extends React.Component {
                     <TableCell rowSpan={d.detail.length}>{d.code}</TableCell>
                   )}
                   <TableCell>{detail.type}</TableCell>
+                  <TableCell>{detail.time}</TableCell>
                   <TableCell numeric>{detail.sections.length}</TableCell>
                   <TableCell>
                     {detail.sections.map((section, index) => (

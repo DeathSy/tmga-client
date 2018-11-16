@@ -32,12 +32,16 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit / 4
+  },
+  nextButton: {
+    float: 'right'
   }
 })
 
 const steps = [
   { title: 'Select a subject' },
   { title: 'Select a subject type' },
+  { title: 'Fill in class range' },
   { title: 'Fill in section amount' },
   { title: 'Fill in lecturer' }
 ]
@@ -75,7 +79,8 @@ export class SectionModal extends React.Component {
     activeStep: 0,
     subjectName: undefined,
     subjectType: undefined,
-    sectionAmount: 1
+    sectionAmount: 1,
+    timeRange: 2
   }
 
   handleClick = activeStep => () => this.setState({ activeStep })
@@ -94,6 +99,7 @@ export class SectionModal extends React.Component {
     this.props.onSubmit({
       subjectName: JSON.parse(this.state.subjectName),
       subjectType: JSON.parse(this.state.subjectType),
+      time: this.state.timeRange,
       sections
     })
     this.reset()
@@ -112,6 +118,7 @@ export class SectionModal extends React.Component {
       activeStep: 0,
       subjectName: undefined,
       sectionAmount: 1,
+      timeRange: 2,
       subjectType: undefined
     })
   }
@@ -119,11 +126,14 @@ export class SectionModal extends React.Component {
   handleChange = key => event => this.setState({ [key]: event.target.value })
 
   checkStep = () => {
-    const { activeStep, subjectName, subjectType } = this.state
+    const { activeStep, subjectName, subjectType, timeRange } = this.state
     if (activeStep === 0 && !subjectName) {
       return true
     }
     if (activeStep === 1 && !subjectType) {
+      return true
+    }
+    if (activeStep === 2 && !timeRange) {
       return true
     }
     const sectionKey = Object.keys(this.state).reduce((result, key) => {
@@ -132,9 +142,8 @@ export class SectionModal extends React.Component {
       }
       return result
     }, [])
-    if (activeStep === 3 && !sectionKey.length) {
+    if (activeStep === 4 && !sectionKey.length) {
       const sections = sectionKey.map((key, index) => {
-        console.log(this.state[key])
         return {
           lecturers: this.state[key].map(d => JSON.parse(d))
         }
@@ -206,6 +215,19 @@ export class SectionModal extends React.Component {
             )}
             {activeStep === 2 && (
               <FormControl className={classes.formControl}>
+                <InputLabel shrink htmlFor='timeRange'>
+                  Class Range
+                </InputLabel>
+                <Input
+                  type='number'
+                  value={this.state.timeRange}
+                  onChange={this.handleChange('timeRange')}
+                  inputProps={{ min: 2 }}
+                />
+              </FormControl>
+            )}
+            {activeStep === 3 && (
+              <FormControl className={classes.formControl}>
                 <InputLabel shrink htmlFor='subjectAmount'>
                   Section amount
                 </InputLabel>
@@ -217,7 +239,7 @@ export class SectionModal extends React.Component {
                 />
               </FormControl>
             )}
-            {activeStep === 3 && (
+            {activeStep === 4 && (
               <div>
                 {Array.apply(null, { length: this.state.sectionAmount }).map(
                   (section, index) => (
@@ -266,7 +288,7 @@ export class SectionModal extends React.Component {
                 </Button>
               )}
               <Button
-                className={classes.button}
+                className={classes.nextButton}
                 variant='contained'
                 color='primary'
                 disabled={this.checkStep()}

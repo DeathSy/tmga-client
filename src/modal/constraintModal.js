@@ -38,6 +38,9 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit / 4
+  },
+  nextButton: {
+    float: 'right'
   }
 })
 
@@ -117,6 +120,7 @@ export class ConstraintModal extends React.Component {
   handleChangeCheck = name => event => {
     this.setState({ [name]: event.target.checked })
   }
+
   render () {
     const { subjects, lecturers, roomlist, timeSlots } = this.state
     const { open, classes } = this.props
@@ -246,7 +250,7 @@ export class ConstraintModal extends React.Component {
             />
             <div className={classes.actionContainer}>
               <Button
-                className={classes.button}
+                className={classes.nextButton}
                 variant='contained'
                 color='primary'
                 onClick={this.handleSubmit}
