@@ -43,7 +43,7 @@ const steps = [
     component: OtherFac
   },
   {
-    title: 'Please add fixed conditions',
+    title: 'Please fill in no class time (if any)',
     id: 'fixConditions',
     component: FixedCons
   },

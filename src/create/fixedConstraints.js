@@ -113,7 +113,6 @@ export class Constraints extends React.Component {
             variant='contained'
             color='primary'
             onClick={this.props.onClick(this.state.fixedData)}
-            disabled={!this.state.fixedData.length}
             style={{ float: 'right', marginLeft: 10 }}
           >
             Finish
