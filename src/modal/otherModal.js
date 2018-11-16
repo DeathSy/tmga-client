@@ -74,6 +74,7 @@ export class OtherModal extends React.Component {
   }
 
   state = {
+    timeSlots: [],
     subjects: [],
     activeStep: 0,
     subjectName: undefined,
@@ -86,7 +87,7 @@ export class OtherModal extends React.Component {
 
   handleSubmit = () => {
     this.props.onSubmit({
-      code: this.state.subjectCode,
+      code: JSON.parse(this.state.subjectCode),
       day: this.state.day,
       start: JSON.parse(this.state.startTime),
       end: JSON.parse(this.state.endTime)
@@ -154,7 +155,7 @@ export class OtherModal extends React.Component {
                   onChange={this.handleChange('subjectCode')}
                 >
                   {subjects.map(subject => (
-                    <MenuItem key={subject.id} value={subject.code}>
+                    <MenuItem key={subject.id} value={JSON.stringify(subject)}>
                       {subject.code}
                     </MenuItem>
                   ))}

@@ -38,7 +38,8 @@ export class Confirmation extends React.Component {
               subjectId: d.subjectName.id,
               type: d.subjectType.id,
               lecturers: section.lecturers.map(l => l.id),
-              time: d.time * 60
+              time: d.time * 60,
+              semester: '2/2018'
             }
           ])
         } else {
@@ -49,7 +50,8 @@ export class Confirmation extends React.Component {
               subjectId: d.subjectName.id,
               type: d.subjectType.id,
               lecturers: section.lecturers.map(l => l.id),
-              time: d.time * 60
+              time: d.time * 60,
+              semester: '2/2018'
             }
           ])
         }
@@ -63,15 +65,52 @@ export class Confirmation extends React.Component {
   }
 
   onSubmit = async () => {
+    const {
+      sitClasses,
+      otherFacClasses,
+      fixConditions,
+      lecturerConditions
+    } = this.props.finalData
+
     this.setState({ loading: true })
-
-    const sections = this.transformSection(this.props.finalData.sitClasses)
-
+    const sections = this.transformSection(sitClasses)
     await sections.map(async s => {
       await axios.post(
         `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections`,
         { sections: s }
       )
+    })
+
+    await otherFacClasses.map(async c => {
+      await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/FixedSubjects`, {
+        subjectId: c.code.id,
+        startTimeId: c.start.id,
+        day: c.day,
+        endTimeId: c.end.id,
+        semester: '2/2018'
+      })
+    })
+
+    await fixConditions.map(async condition => {
+      await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/Constrains`, {
+        wants: false,
+        required: true,
+        day: condition.day.map(d => d.name),
+        startTimeId: condition.start.id,
+        endTimeId: condition.end.id
+      })
+    })
+
+    await lecturerConditions.map(async condition => {
+      await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/Constrains`, {
+        wants: condition.required,
+        required: false,
+        day: condition.day.map(d => d.name),
+        startTimeId: condition.start.id,
+        endTimeId: condition.end.id,
+        subjectId: condition.subject.id,
+        lecturerId: condition.lecturer.id
+      })
     })
 
     this.setState({ loading: false })
@@ -108,7 +147,7 @@ export class Confirmation extends React.Component {
             className={classes.button}
             variant='contained'
             color='primary'
-            onClick={!this.state.loading ? this.onSubmit : () => null}
+            onClick={!this.state.loading ? () => this.onSubmit() : () => null}
             disabled={this.state.loading}
             style={{ float: 'right', marginLeft: 10 }}
           >
