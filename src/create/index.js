@@ -57,7 +57,7 @@ const steps = [
 
 export class Create extends React.Component {
   state = {
-    activeStep: 0,
+    activeStep: 4,
     sitClasses: [],
     otherFacClasses: [],
     fixConditions: [],
@@ -68,9 +68,17 @@ export class Create extends React.Component {
     this.setState({ activeStep, [key]: data })
   }
 
+  onSubmit = () => {}
+
   render () {
     const { classes } = this.props
-    const { activeStep } = this.state
+    const {
+      activeStep,
+      sitClasses,
+      otherFacClasses,
+      fixConditions,
+      lecturerConditions
+    } = this.state
     return (
       <div className={classes.root}>
         <Paper className={classes.stepsContainer}>
@@ -87,6 +95,13 @@ export class Create extends React.Component {
                       data={this.state[step.id]}
                       onClick={this.handleClick(activeStep + 1, step.id)}
                       onBack={this.handleClick(activeStep - 1, step.id)}
+                      finalData={{
+                        sitClasses,
+                        otherFacClasses,
+                        fixConditions,
+                        lecturerConditions
+                      }}
+                      onSubmit={this.onSubmit}
                     />
                   }
                 </StepContent>
