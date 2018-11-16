@@ -93,12 +93,16 @@ export class ConstraintModal extends React.Component {
 
   handleSubmit = () => {
     this.props.onSubmit({
-      lecturer: this.state.lecturerName,
-      subject: this.state.subjectName,
-      room: this.state.roomName,
+      lecturer: !this.state.lecturerName
+        ? ''
+        : JSON.parse(this.state.lecturerName),
+      subject: !this.state.subjectName
+        ? ''
+        : JSON.parse(this.state.subjectName),
+      room: !this.state.roomName ? '' : JSON.parse(this.state.roomName),
       day: this.state.day,
-      start: this.state.startTime,
-      end: this.state.endTime,
+      start: !this.state.startTime ? '' : JSON.parse(this.state.startTime),
+      end: !this.state.endTime ? '' : JSON.parse(this.state.endTime),
       required: this.state.required
     })
     this.reset()
@@ -145,7 +149,7 @@ export class ConstraintModal extends React.Component {
                 onChange={this.handleChange('lecturerName')}
               >
                 {lecturers.map(lecture => (
-                  <MenuItem key={lecture.id} value={lecture.name}>
+                  <MenuItem key={lecture.id} value={JSON.stringify(lecture)}>
                     {lecture.name}
                   </MenuItem>
                 ))}
@@ -160,7 +164,7 @@ export class ConstraintModal extends React.Component {
                 onChange={this.handleChange('subjectName')}
               >
                 {subjects.map(subject => (
-                  <MenuItem key={subject.id} value={subject.code}>
+                  <MenuItem key={subject.id} value={JSON.stringify(subject)}>
                     {subject.name}
                   </MenuItem>
                 ))}
@@ -178,8 +182,8 @@ export class ConstraintModal extends React.Component {
                   <div className={classes.chips}>
                     {selected.map(value => (
                       <Chip
-                        key={JSON.parse(value).id}
-                        label={JSON.parse(value).id}
+                        key={value.id}
+                        label={value.id}
                         className={classes.chip}
                       />
                     ))}
@@ -187,7 +191,7 @@ export class ConstraintModal extends React.Component {
                 )}
               >
                 {days.map(d => (
-                  <MenuItem key={d.name} value={JSON.stringify(d)}>
+                  <MenuItem key={d.name} value={d}>
                     {d.name}
                   </MenuItem>
                 ))}
@@ -202,7 +206,7 @@ export class ConstraintModal extends React.Component {
                 onChange={this.handleChange('roomName')}
               >
                 {roomlist.map(r => (
-                  <MenuItem key={r.name} value={r.name}>
+                  <MenuItem key={r.id} value={JSON.stringify(r)}>
                     {r.name}
                   </MenuItem>
                 ))}
@@ -217,7 +221,7 @@ export class ConstraintModal extends React.Component {
                 onChange={this.handleChange('startTime')}
               >
                 {timeSlots.map(slot => (
-                  <MenuItem key={slot.id} value={slot.end}>
+                  <MenuItem key={slot.id} value={JSON.stringify(slot)}>
                     {slot.start}
                   </MenuItem>
                 ))}
@@ -232,7 +236,7 @@ export class ConstraintModal extends React.Component {
                 onChange={this.handleChange('endTime')}
               >
                 {timeSlots.map(slot => (
-                  <MenuItem key={slot.id} value={slot.end}>
+                  <MenuItem key={slot.id} value={JSON.stringify(slot)}>
                     {slot.end}
                   </MenuItem>
                 ))}
