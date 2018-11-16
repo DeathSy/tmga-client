@@ -24,6 +24,8 @@ import { TimetableList, TimetableShow, TimetableIcon } from './Timetable'
 import Create from './create/index'
 import Dashboard from './dashboard/Dashboard'
 import tmgaTheme from './theme.js'
+import AddIcon from '@material-ui/icons/PlaylistAdd'
+const CreateIcon = AddIcon
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 // const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
 
@@ -37,7 +39,12 @@ class App extends Component {
         dataProvider={dataProvider}
       >
         {/* <Resource name='subjectSections' options={{ label: 'Create timetable' }} list={SectionList} edit={SectionEdit} create={SectionCreate} icon={SectionIcon} /> */}
-        <Resource name='create' list={Create} />
+        <Resource
+          name='create'
+          options={{ label: 'Create timetable' }}
+          list={Create}
+          icon={CreateIcon}
+        />
         <Resource name='timetablesview' />
         <Resource
           name='timetables'
