@@ -14,6 +14,7 @@ import Constraint from './constraints'
 import Confirmation from './confirmation'
 import OtherFac from './otherFac'
 import Sections from './sections'
+import FixedCons from './fixedConstraints'
 
 const styles = theme => ({
   root: {
@@ -37,6 +38,7 @@ const styles = theme => ({
 const steps = [
   { title: 'Please add SIT classes', component: Sections },
   { title: 'Please add GEN, LNG or SSC classes', component: OtherFac },
+  { title: 'Please add fixed conditions', component: FixedCons },
   { title: 'Please fill in lecturer needs (if any)', component: Constraint },
   { title: 'Confirmation', component: Confirmation }
 ]
