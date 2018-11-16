@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
+import axios from 'axios'
 
 const styles = theme => ({
   root: {
@@ -26,10 +27,52 @@ export class Confirmation extends React.Component {
     loading: false
   }
 
-  onSubmit = () => {
+  transformSection = sectionData => {
+    const sectionMap = new Map()
+    sectionData.map(d => {
+      d.sections.map((section, index) => {
+        if (!sectionMap.get(d.subjectName.id)) {
+          sectionMap.set(d.subjectName.id, [
+            {
+              name: String.fromCharCode(65 + index),
+              subjectId: d.subjectName.id,
+              type: d.subjectType.id,
+              lecturers: section.lecturers
+            }
+          ])
+        } else {
+          sectionMap.set(d.subjectName.id, [
+            ...sectionMap.get(d.subjectName.id),
+            {
+              name: String.fromCharCode(65 + index),
+              subjectId: d.subjectName.id,
+              type: d.subjectType.id,
+              lecturers: section.lecturers
+            }
+          ])
+        }
+      })
+    })
+    const sections = []
+    sectionMap.forEach((value, key) => {
+      sections.push(value)
+    })
+    return sections
+  }
+
+  onSubmit = async () => {
     this.setState({ loading: true })
 
-    setTimeout(() => this.setState({ loading: false }), 500)
+    const sections = this.transformSection(this.props.finalData.sitClasses)
+
+    await sections.map(async s => {
+      await axios.post(
+        `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections`,
+        { sections: s }
+      )
+    })
+
+    this.setState({ loading: false })
   }
 
   render () {
