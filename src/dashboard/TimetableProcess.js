@@ -93,7 +93,7 @@ class TimetableProcess extends React.Component {
               ) : (
                 <Button
                   color='secondary'
-                  onClick={this.handleChange}
+                  onClick={this.handleClick}
                   className={classes.button}
                 >
                   Terminate
