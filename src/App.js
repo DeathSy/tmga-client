@@ -22,7 +22,7 @@ import {
 } from './SubjectFormats.js'
 import { TimetableList, TimetableShow, TimetableIcon } from './Timetable'
 import Create from './create/index'
-import Dashboard from './dashboard/Dashboard'
+import Dashboard from './dashboard-new/index'
 import tmgaTheme from './theme.js'
 import AddIcon from '@material-ui/icons/PlaylistAdd'
 const CreateIcon = AddIcon
