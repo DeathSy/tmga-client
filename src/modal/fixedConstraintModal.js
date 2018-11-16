@@ -35,6 +35,9 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit / 4
+  },
+  nextButton: {
+    float: 'right'
   }
 })
 
@@ -86,8 +89,23 @@ export class ConstraintModal extends React.Component {
       endTime: undefined
     })
   }
-  handleChangeCheck = name => event => {
-    this.setState({ [name]: event.target.checked })
+
+  checkStep = () => {
+    const { activeStep, department, day, startTime, endTime } = this.state
+    if (activeStep === 0 && !department) {
+      return true
+    }
+    if (activeStep === 0 && !day) {
+      return true
+    }
+    if (activeStep === 0 && !startTime) {
+      return true
+    }
+    if (activeStep === 0 && !endTime) {
+      return true
+    }
+
+    return false
   }
   render () {
     const { timeSlots } = this.state
@@ -175,9 +193,10 @@ export class ConstraintModal extends React.Component {
             </FormControl>
             <div className={classes.actionContainer}>
               <Button
-                className={classes.button}
+                className={classes.nextButton}
                 variant='contained'
                 color='primary'
+                disabled={this.checkStep()}
                 onClick={this.handleSubmit}
               >
                 Add
