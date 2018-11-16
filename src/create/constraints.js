@@ -28,35 +28,6 @@ const styles = theme => ({
   }
 })
 
-const data = [
-  {
-    lecturer: 'Dr.Umaporn',
-    subject: '',
-    day: [{ name: 'MON' }, { name: 'TUE' }],
-    room: '',
-    start: '13:00',
-    end: '16:00',
-    required: false
-  },
-  {
-    lecturer: '',
-    subject: 'INT101',
-    day: [{ name: 'MON' }],
-    room: 'CB2301',
-    start: '9:00',
-    end: '12:00',
-    required: true
-  },
-  {
-    lecturer: 'Dr.Praisan',
-    subject: '',
-    day: [{ name: 'WED' }, { name: 'THU' }, { name: 'FRI' }],
-    room: '',
-    start: '13:00',
-    end: '16:00',
-    required: true
-  }
-]
 export class Constraints extends React.Component {
   state = {
     open: false,
@@ -119,7 +90,9 @@ export class Constraints extends React.Component {
             {constraintData.length === 0 && (
               <TableRow>
                 <TableCell colSpan={8}>
-                  <Typography align='center'>No record</Typography>
+                  <Typography align='center'>
+                    Please add some lecturer needs to continue.(optional)
+                  </Typography>
                 </TableCell>
               </TableRow>
             )}
@@ -131,18 +104,20 @@ export class Constraints extends React.Component {
           </Button>
           <Button
             className={classes.button}
-            color='primary'
-            onClick={this.handleModal}
-          >
-            Add Lecturer need
-          </Button>
-          <Button
-            className={classes.button}
             variant='contained'
             color='primary'
             onClick={this.props.onClick}
+            style={{ float: 'right', marginLeft: 10 }}
           >
             Finish
+          </Button>
+          <Button
+            className={classes.button}
+            color='primary'
+            onClick={this.handleModal}
+            style={{ float: 'right' }}
+          >
+            Add Lecturer need
           </Button>
         </div>
         <Modal
