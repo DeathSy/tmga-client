@@ -37,7 +37,8 @@ export class Confirmation extends React.Component {
               name: String.fromCharCode(65 + index),
               subjectId: d.subjectName.id,
               type: d.subjectType.id,
-              lecturers: section.lecturers
+              lecturers: section.lecturers.map(l => l.id),
+              time: d.time * 60
             }
           ])
         } else {
@@ -47,7 +48,8 @@ export class Confirmation extends React.Component {
               name: String.fromCharCode(65 + index),
               subjectId: d.subjectName.id,
               type: d.subjectType.id,
-              lecturers: section.lecturers
+              lecturers: section.lecturers.map(l => l.id),
+              time: d.time * 60
             }
           ])
         }

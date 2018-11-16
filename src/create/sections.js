@@ -128,7 +128,7 @@ export class Sections extends React.Component {
             )}
             {sections.length === 0 && (
               <TableRow>
-                <TableCell colSpan={5}>
+                <TableCell colSpan={6}>
                   <Typography align='center'>
                     Please add some sections to continue.
                   </Typography>
