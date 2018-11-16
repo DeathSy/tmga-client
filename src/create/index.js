@@ -57,7 +57,7 @@ const steps = [
 
 export class Create extends React.Component {
   state = {
-    activeStep: 4,
+    activeStep: 0,
     sitClasses: [],
     otherFacClasses: [],
     fixConditions: [],
