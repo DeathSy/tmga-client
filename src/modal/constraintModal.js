@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Switch from '@material-ui/core/Switch'
+import Chip from '@material-ui/core/Chip'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import axios from 'axios'
 import { GET_LIST } from 'react-admin'
@@ -169,9 +170,20 @@ export class ConstraintModal extends React.Component {
                 multiple
                 value={this.state.day || ''}
                 onChange={this.handleChange('day')}
+                renderValue={selected => (
+                  <div className={classes.chips}>
+                    {selected.map(value => (
+                      <Chip
+                        key={JSON.parse(value).id}
+                        label={JSON.parse(value).id}
+                        className={classes.chip}
+                      />
+                    ))}
+                  </div>
+                )}
               >
                 {days.map(d => (
-                  <MenuItem key={d.name} value={d.id}>
+                  <MenuItem key={d.name} value={JSON.stringify(d)}>
                     {d.name}
                   </MenuItem>
                 ))}
