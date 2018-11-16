@@ -69,20 +69,17 @@ export class Constraints extends React.Component {
           <TableBody>
             {constraintData.map((d, i) => (
               <TableRow key={i}>
-                <TableCell>{d.lecturer}</TableCell>
-                <TableCell>{d.subject}</TableCell>
+                <TableCell>{d.lecturer.name}</TableCell>
+                <TableCell>{d.subject.code}</TableCell>
                 <TableCell>
                   {' '}
                   {d.day.map((dayname, index) => (
-                    <Chip
-                      className={classes.chips}
-                      label={JSON.parse(dayname).id}
-                    />
+                    <Chip className={classes.chips} label={dayname.id} />
                   ))}
                 </TableCell>
-                <TableCell>{d.room}</TableCell>
-                <TableCell>{d.start}</TableCell>
-                <TableCell>{d.end}</TableCell>
+                <TableCell>{d.room.name}</TableCell>
+                <TableCell>{d.start.start}</TableCell>
+                <TableCell>{d.end.end}</TableCell>
                 <TableCell>
                   {d.required === true ? <DoneIcon /> : <ClearIcon />}
                 </TableCell>
