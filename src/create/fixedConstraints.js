@@ -70,14 +70,11 @@ export class Constraints extends React.Component {
                 <TableCell>
                   {' '}
                   {d.day.map((dayname, index) => (
-                    <Chip
-                      className={classes.chips}
-                      label={JSON.parse(dayname).id}
-                    />
+                    <Chip className={classes.chips} label={dayname.id} />
                   ))}
                 </TableCell>
-                <TableCell>{d.start}</TableCell>
-                <TableCell>{d.end}</TableCell>
+                <TableCell>{d.start.start}</TableCell>
+                <TableCell>{d.end.end}</TableCell>
                 <TableCell>
                   <Button size='small'>
                     <EditIcon className={classes.icon} />

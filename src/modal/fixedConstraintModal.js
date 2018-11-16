@@ -72,8 +72,8 @@ export class ConstraintModal extends React.Component {
     this.props.onSubmit({
       department: this.state.department,
       day: this.state.day,
-      start: this.state.startTime,
-      end: this.state.endTime
+      start: !this.state.startTime ? '' : JSON.parse(this.state.startTime),
+      end: !this.state.endTime ? '' : JSON.parse(this.state.endTime)
     })
     this.reset()
     this.props.onClick()
@@ -146,8 +146,8 @@ export class ConstraintModal extends React.Component {
                   <div className={classes.chips}>
                     {selected.map(value => (
                       <Chip
-                        key={JSON.parse(value).id}
-                        label={JSON.parse(value).id}
+                        key={value.id}
+                        label={value.id}
                         className={classes.chip}
                       />
                     ))}
@@ -155,7 +155,7 @@ export class ConstraintModal extends React.Component {
                 )}
               >
                 {days.map(d => (
-                  <MenuItem key={d.name} value={JSON.stringify(d)}>
+                  <MenuItem key={d.name} value={d}>
                     {d.name}
                   </MenuItem>
                 ))}
@@ -170,7 +170,7 @@ export class ConstraintModal extends React.Component {
                 onChange={this.handleChange('startTime') || ''}
               >
                 {timeSlots.map(slot => (
-                  <MenuItem key={slot.id} value={slot.end}>
+                  <MenuItem key={slot.id} value={JSON.stringify(slot)}>
                     {slot.start}
                   </MenuItem>
                 ))}
@@ -185,7 +185,7 @@ export class ConstraintModal extends React.Component {
                 onChange={this.handleChange('endTime') || ''}
               >
                 {timeSlots.map(slot => (
-                  <MenuItem key={slot.id} value={slot.end}>
+                  <MenuItem key={slot.id} value={JSON.stringify(slot)}>
                     {slot.end}
                   </MenuItem>
                 ))}
