@@ -11,6 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import DoneIcon from '@material-ui/icons/Done'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
+import moment from 'moment'
 import axios from 'axios'
 
 const styles = theme => ({
@@ -27,7 +28,8 @@ const styles = theme => ({
     height: 200
   },
   processContainer: {
-    minHeight: '60vh',
+    minheight: '70vh',
+    maxheight: '80vh',
     padding: 30,
     background: `url(${require('../static/images/bg.jpg')}) center`,
     backgroundSize: 'cover'
@@ -63,6 +65,7 @@ export class Dashboard extends React.Component {
     const { data } = await axios.get(
       `http://ml.tmga.cf/timetables/${term}/${year}`
     )
+    console.log(data)
     if (data) {
       let level = 0
       if (parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100) >= 100) {
@@ -70,9 +73,11 @@ export class Dashboard extends React.Component {
       } else {
         level = parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100)
       }
-      this.setState({ fitnessLevel: level })
-      this.setState({ semester: `${term}/${year}` })
-      this.setState({ create: data.createdAt })
+      this.setState({
+        fitnessLevel: level,
+        semester: `${term}/${year}`,
+        updated: moment(new Date(data.updatedAt)).fromNow()
+      })
     }
 
     console.log('fitness', this.state.fitnessLevel)
@@ -129,11 +134,8 @@ export class Dashboard extends React.Component {
                     spacing={8}
                   >
                     <Grid item>
-                      <Typography variant='caption'>Created </Typography>
-                    </Grid>
-                    <Grid item>
                       <Typography variant='caption'>
-                        {this.state.create}
+                        Latest updated {this.state.updated}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -174,7 +176,7 @@ export class Dashboard extends React.Component {
                         color='primary'
                         onClick={this.handleClick}
                         component={Link}
-                        to={'/timetables'}
+                        to={`/timetables/${this.state.semester}`}
                       >
                         Show
                       </Button>
