@@ -171,7 +171,7 @@ export class ConstraintModal extends React.Component {
               >
                 {timeSlots.map(slot => (
                   <MenuItem key={slot.id} value={JSON.stringify(slot)}>
-                    {slot.start}
+                    {slot.start.slice(0, 2)} : {slot.start.slice(2)}
                   </MenuItem>
                 ))}
               </Select>
@@ -186,7 +186,7 @@ export class ConstraintModal extends React.Component {
               >
                 {timeSlots.map(slot => (
                   <MenuItem key={slot.id} value={JSON.stringify(slot)}>
-                    {slot.end}
+                    {slot.end.slice(0, 2)} : {slot.end.slice(2)}
                   </MenuItem>
                 ))}
               </Select>
