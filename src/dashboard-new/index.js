@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -49,14 +50,16 @@ export class Dashboard extends React.Component {
             <div>
               <Grid container alignItems='center'>
                 <Grid item xs={8}>
-                  <Typography variant='title'>Latest Process</Typography>
+                  <Typography variant='headline'>Latest Process</Typography>
                 </Grid>
                 <Grid item xs={4}>
                   <Button
                     variant='extendedFab'
+                    color='default'
                     aria-label='Delete'
                     size='small'
                     className={classes.button}
+                    style={{ float: 'right', paddingRight: 15 }}
                   >
                     <AddIcon className={classes.extendedIcon} />
                     Create timetable
@@ -69,10 +72,10 @@ export class Dashboard extends React.Component {
                   spacing={8}
                 >
                   <Grid item>
-                    <Typography>Semester:</Typography>
+                    <Typography variant='title'>Academic Year </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography>2/2018</Typography>
+                    <Typography variant='title'>2/2018</Typography>
                   </Grid>
                 </Grid>
                 <Grid
@@ -82,30 +85,32 @@ export class Dashboard extends React.Component {
                   spacing={8}
                 >
                   <Grid item>
-                    <Typography>Created At:</Typography>
+                    <Typography variant='caption'>Created </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography>16 Nov 2018</Typography>
+                    <Typography variant='caption'>16 Nov 2018</Typography>
                   </Grid>
                 </Grid>
               </Grid>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
+              <Grid
+                style={{ marginTop: 40 }}
+                container
+                direction='row'
+                justify='center'
+                alignItems='flex-end'
               >
-                <CircularProgress size={50} />
-              </div>
+                <Grid item>
+                  <CircularProgress size={140} />
+                </Grid>
+              </Grid>
             </div>
           </Paper>
         </Grid>
         <Typography className={classes.title} variant='headline' component='h2'>
-          Managging your own data in a simplest way
+          Managing your own data in a simplest way
         </Typography>
         <Grid container spacing={24}>
-          <Grid item xs={6}>
+          <Grid item xs={6} button component={Link} to={'/rooms'}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.media}
@@ -122,7 +127,31 @@ export class Dashboard extends React.Component {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs={6}
+            button
+            component={Link}
+            to={'/subjects'}
+            style={{ textDecoration: 'none' }}
+          >
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image={require('../static/images/subjects.jpg')}
+                title='Subjects Management'
+              />
+              <CardContent>
+                <Typography gutterBottom variant='title' component='h2'>
+                  Subjects Management
+                </Typography>
+                <Typography component='p'>
+                  Manage all of your subjects data
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={6} button component={Link} to={'/lecturers'}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.media}
@@ -135,23 +164,6 @@ export class Dashboard extends React.Component {
                 </Typography>
                 <Typography component='p'>
                   Manage all of your lecturers data
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={6}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image={require('../static/images/subjects.jpg')}
-                title='Contemplative Reptile'
-              />
-              <CardContent>
-                <Typography gutterBottom variant='title' component='h2'>
-                  Subjects Management
-                </Typography>
-                <Typography component='p'>
-                  Manage all of your subjects data
                 </Typography>
               </CardContent>
             </Card>

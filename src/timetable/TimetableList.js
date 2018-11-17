@@ -31,9 +31,11 @@ class TimetableList extends React.Component {
 
   componentDidMount = async () => {
     const { data } = await axios.get('http://ml.tmga.cf/timetables')
-    let semester = data.map(term => term.semester)
-    this.setState({ list: semester })
-    console.log('list', this.state.list)
+    if (data) {
+      let semester = data.map(term => term.semester)
+      this.setState({ list: semester })
+      console.log('list', this.state.list)
+    }
   }
   render () {
     return (
