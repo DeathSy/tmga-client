@@ -110,13 +110,8 @@ export class Dashboard extends React.Component {
           Managing your own data in a simplest way
         </Typography>
         <Grid container spacing={24}>
-          <Grid item xs={6}>
-            <Card
-              className={classes.card}
-              button
-              component={Link}
-              to={'/rooms'}
-            >
+          <Grid item xs={6} button component={Link} to={'/rooms'}>
+            <Card className={classes.card}>
               <CardMedia
                 className={classes.media}
                 image={require('../static/images/rooms.jpg')}
@@ -132,13 +127,15 @@ export class Dashboard extends React.Component {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6}>
-            <Card
-              className={classes.card}
-              button
-              component={Link}
-              to={'/subjects'}
-            >
+          <Grid
+            item
+            xs={6}
+            button
+            component={Link}
+            to={'/subjects'}
+            style={{ textDecoration: 'none' }}
+          >
+            <Card className={classes.card}>
               <CardMedia
                 className={classes.media}
                 image={require('../static/images/subjects.jpg')}
@@ -154,13 +151,8 @@ export class Dashboard extends React.Component {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6}>
-            <Card
-              className={classes.card}
-              button
-              component={Link}
-              to={'/lecturers'}
-            >
+          <Grid item xs={6} button component={Link} to={'/lecturers'}>
+            <Card className={classes.card}>
               <CardMedia
                 className={classes.media}
                 image={require('../static/images/lecturers.jpg')}
