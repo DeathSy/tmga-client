@@ -1,15 +1,17 @@
 import React from 'react'
+import SubjectManagement from './subject'
+import LecturerManagement from './lecturer'
+import RoomManagement from './room'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import DoneIcon from '@material-ui/icons/Done'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
+import axios from 'axios'
 
 const styles = theme => ({
   root: {
@@ -32,17 +34,184 @@ const styles = theme => ({
   },
   processPaper: {
     padding: 20,
-    minWidth: '40%'
+    minWidth: '50%'
   },
-  button: {},
+  button: { float: 'right', paddingRight: 15 },
   extendedIcon: {
     marginRight: theme.spacing.unit
   }
 })
 
 export class Dashboard extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      semester: ''
+    }
+  }
+  componentWillMount = async () => {
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    let term = 0
+    if (month >= 8 && month <= 12) {
+      term = 2
+    } else {
+      term = 1
+    }
+
+    const { data } = await axios.get(
+      `http://ml.tmga.cf/timetables/${term}/${year}`
+    )
+    if (data) {
+      let level = 0
+      if (parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100) >= 100) {
+        level = 100
+      } else {
+        level = parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100)
+      }
+      this.setState({ fitnessLevel: level })
+      this.setState({ semester: `${term}/${year}` })
+      this.setState({ create: data.createdAt })
+    }
+
+    console.log('fitness', this.state.fitnessLevel)
+  }
+
+  handleClick () {
+    axios.post('http://ml.tmga.cf/timetables/terminate')
+  }
+
   render () {
     const { classes } = this.props
+    if (this.state.fitnessLevel) {
+      return (
+        <div>
+          <Grid container className={classes.processContainer}>
+            <Paper className={classes.processPaper}>
+              <div>
+                <Grid container alignItems='center'>
+                  <Grid item xs={8}>
+                    <Typography variant='headline'>Latest Process</Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      variant='extendedFab'
+                      color='default'
+                      aria-label='Delete'
+                      size='small'
+                      className={classes.button}
+                      component={Link}
+                      to={'/create'}
+                    >
+                      <AddIcon className={classes.extendedIcon} />
+                      Create timetable
+                    </Button>
+                  </Grid>
+                  <Grid
+                    style={{ marginTop: 5 }}
+                    container
+                    alignItems='flex-end'
+                    spacing={8}
+                  >
+                    <Grid item>
+                      <Typography variant='title'>Academic Year </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant='title'>2/2018</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Grid
+                    style={{ marginTop: 5 }}
+                    container
+                    alignItems='flex-end'
+                    spacing={8}
+                  >
+                    <Grid item>
+                      <Typography variant='caption'>Created </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant='caption'>
+                        {this.state.create}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid
+                  style={{ marginTop: 40 }}
+                  container
+                  direction='row'
+                  justify='center'
+                  alignItems='flex-end'
+                >
+                  <Grid item>
+                    {this.state.fitnessLevel < 100 ? (
+                      <CircularProgress size={140} />
+                    ) : (
+                      <DoneIcon style={{ fontSize: '200' }} />
+                    )}
+                  </Grid>
+                </Grid>
+                <Grid
+                  style={{ marginTop: 40 }}
+                  container
+                  direction='row'
+                  justify='center'
+                  alignItems='flex-end'
+                >
+                  <Grid item>
+                    {this.state.fitnessLevel < 100 ? (
+                      <Button
+                        style={{ color: 'red' }}
+                        onClick={this.handleClick}
+                        className={classes.button}
+                      >
+                        Terminate
+                      </Button>
+                    ) : (
+                      <Button
+                        color='primary'
+                        onClick={this.handleClick}
+                        component={Link}
+                        to={'/timetables'}
+                      >
+                        Show
+                      </Button>
+                    )}
+                  </Grid>
+                </Grid>
+              </div>
+            </Paper>
+          </Grid>
+          <Typography
+            className={classes.title}
+            variant='headline'
+            component='h2'
+          >
+            Managing your own data in a simplest way
+          </Typography>
+          <Grid container spacing={24}>
+            <Grid item xs={6} button component={Link} to={'/rooms'}>
+              <RoomManagement />
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              button
+              component={Link}
+              to={'/subjects'}
+              style={{ textDecoration: 'none' }}
+            >
+              <SubjectManagement />
+            </Grid>
+            <Grid item xs={6} button component={Link} to={'/lecturers'}>
+              <LecturerManagement />
+            </Grid>
+          </Grid>
+        </div>
+      )
+    }
     return (
       <div>
         <Grid container className={classes.processContainer}>
@@ -59,49 +228,22 @@ export class Dashboard extends React.Component {
                     aria-label='Delete'
                     size='small'
                     className={classes.button}
-                    style={{ float: 'right', paddingRight: 15 }}
+                    component={Link}
+                    to={'/create'}
                   >
                     <AddIcon className={classes.extendedIcon} />
                     Create timetable
                   </Button>
                 </Grid>
-                <Grid
-                  style={{ marginTop: 5 }}
-                  container
-                  alignItems='flex-end'
-                  spacing={8}
-                >
-                  <Grid item>
-                    <Typography variant='title'>Academic Year </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant='title'>2/2018</Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  style={{ marginTop: 5 }}
-                  container
-                  alignItems='flex-end'
-                  spacing={8}
-                >
-                  <Grid item>
-                    <Typography variant='caption'>Created </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant='caption'>16 Nov 2018</Typography>
-                  </Grid>
-                </Grid>
               </Grid>
               <Grid
-                style={{ marginTop: 40 }}
+                style={{ marginTop: 130 }}
                 container
                 direction='row'
                 justify='center'
                 alignItems='flex-end'
               >
-                <Grid item>
-                  <CircularProgress size={140} />
-                </Grid>
+                <Grid item>No process is running.</Grid>
               </Grid>
             </div>
           </Paper>
@@ -110,64 +252,35 @@ export class Dashboard extends React.Component {
           Managing your own data in a simplest way
         </Typography>
         <Grid container spacing={24}>
-          <Grid item xs={6} button component={Link} to={'/rooms'}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image={require('../static/images/rooms.jpg')}
-                title='Rooms management'
-              />
-              <CardContent>
-                <Typography gutterBottom variant='title' component='h2'>
-                  Rooms Management
-                </Typography>
-                <Typography component='p'>
-                  Manage all of your rooms data
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
           <Grid
             item
             xs={6}
             button
             component={Link}
-            to={'/subjects'}
+            to={'/rooms'}
             style={{ textDecoration: 'none' }}
-          >
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image={require('../static/images/subjects.jpg')}
-                title='Subjects Management'
-              />
-              <CardContent>
-                <Typography gutterBottom variant='title' component='h2'>
-                  Subjects Management
-                </Typography>
-                <Typography component='p'>
-                  Manage all of your subjects data
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={6} button component={Link} to={'/lecturers'}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image={require('../static/images/lecturers.jpg')}
-                title='Lecturers management'
-              />
-              <CardContent>
-                <Typography gutterBottom variant='title' component='h2'>
-                  Lecturers Management
-                </Typography>
-                <Typography component='p'>
-                  Manage all of your lecturers data
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          />
+          <RoomManagement />
+        </Grid>
+        <Grid
+          item
+          xs={6}
+          button
+          component={Link}
+          to={'/subjects'}
+          style={{ textDecoration: 'none' }}
+        >
+          <SubjectManagement />
+        </Grid>
+        <Grid
+          item
+          xs={6}
+          button
+          component={Link}
+          to={'/lecturers'}
+          style={{ textDecoration: 'none' }}
+        >
+          <LecturerManagement />
         </Grid>
       </div>
     )
