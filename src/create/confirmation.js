@@ -96,7 +96,7 @@ export class Confirmation extends React.Component {
       await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/Constrains`, {
         wants: false,
         required: true,
-        day: condition.day.map(d => d.name),
+        day: condition.day.map(d => d.id),
         startTimeId: condition.start.id,
         endTimeId: condition.end.id
       })
@@ -106,7 +106,7 @@ export class Confirmation extends React.Component {
       await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/Constrains`, {
         wants: condition.required,
         required: false,
-        day: condition.day.map(d => d.name),
+        day: condition.day.map(d => d.id),
         startTimeId: condition.start.id,
         endTimeId: condition.end.id,
         subjectId: condition.subject.id,
