@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { ShowButton } from 'react-admin'
+import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
 import {
   List,
@@ -11,6 +11,8 @@ import {
   ListItemIcon
 } from '@material-ui/core'
 import ReorderIcon from '@material-ui/icons/Reorder'
+import { Link } from 'react-router-dom'
+
 export const TimetableIcon = ReorderIcon
 
 const styles = theme => ({
@@ -31,11 +33,7 @@ class TimetableList extends React.Component {
 
   componentDidMount = async () => {
     const { data } = await axios.get('http://ml.tmga.cf/timetables')
-    if (data) {
-      let semester = data.map(term => term.semester)
-      this.setState({ list: semester })
-      console.log('list', this.state.list)
-    }
+    this.setState({ list: data })
   }
   render () {
     return (
@@ -53,8 +51,15 @@ class TimetableList extends React.Component {
               <ListItemIcon>
                 <TimetableIcon />
               </ListItemIcon>
-              <ListItemText primary={'Semester: ' + term} />
-              <ShowButton basePath='/timetables' record={term} />
+              <ListItemText primary={'Semester: ' + term.semester} />
+              <Button
+                color='primary'
+                onClick={this.handleClick}
+                component={Link}
+                to={`/timetables/${term._id}`}
+              >
+                Show
+              </Button>
             </ListItem>
           ))}
         </List>
