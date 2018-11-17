@@ -38,7 +38,7 @@ class TimetableEvent extends Component {
     const section = data.Sections.filter(section => {
       return section.Section.Subject.students.includes(year)
     })
-
+    console.log('event', section)
     const sectionDay = { MON: [], TUE: [], WED: [], THU: [], FRI: [] }
     section.forEach((section, index) => {
       const startTime = section.Time[0].start
