@@ -25,15 +25,22 @@ import Create from './create/index'
 import Dashboard from './dashboard-new/index'
 import tmgaTheme from './theme.js'
 import AddIcon from '@material-ui/icons/PlaylistAdd'
+import { Route } from 'react-router-dom'
+import TimeTable from './timetable/Timetable'
 const CreateIcon = AddIcon
 const dataProvider = loopbackRestClient(process.env.REACT_APP_API_ENDPOINT)
 // const authProvider = authClient(process.env.REACT_APP_AUTH_CLIENT)
+
+const customRoute = [
+  <Route exact path='/timetables/:id' component={TimeTable} />
+]
 
 class App extends Component {
   render () {
     return (
       <Admin
         dashboard={Dashboard}
+        customRoutes={customRoute}
         theme={tmgaTheme}
         title={'TMGA'}
         dataProvider={dataProvider}
