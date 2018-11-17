@@ -74,6 +74,7 @@ export class Dashboard extends React.Component {
         level = parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100)
       }
       this.setState({
+        timetableId: data._id,
         fitnessLevel: level,
         semester: `${term}/${year}`,
         updated: moment(new Date(data.updatedAt)).fromNow()
@@ -176,7 +177,7 @@ export class Dashboard extends React.Component {
                         color='primary'
                         onClick={this.handleClick}
                         component={Link}
-                        to={`/timetables/${this.state.semester}`}
+                        to={`/timetables/${this.state.timetableId}`}
                       >
                         Show
                       </Button>
