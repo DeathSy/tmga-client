@@ -74,13 +74,15 @@ export class Dashboard extends React.Component {
       } else {
         level = parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100)
       }
-
-      this.setState({
-        timetableId: data._id,
-        fitnessLevel: level,
-        semester: `${term}/${year}`,
-        updated: moment(new Date(data.updatedAt)).fromNow()
-      })
+      setInterval(
+        this.setState({
+          timetableId: data._id,
+          fitnessLevel: level,
+          semester: `${term}/${year}`,
+          updated: moment(new Date(data.updatedAt)).fromNow()
+        }),
+        10000
+      )
     }
   }
 
@@ -150,7 +152,10 @@ export class Dashboard extends React.Component {
                 >
                   <Grid item>
                     {this.state.fitnessLevel < 100 ? (
-                      <CircularProgress size={140} />
+                      <div>
+                        <CircularProgress size={140} />
+                        {this.state.fitnessLevel}
+                      </div>
                     ) : (
                       <DoneIcon style={{ fontSize: '200' }} />
                     )}
