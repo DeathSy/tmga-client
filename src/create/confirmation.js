@@ -75,44 +75,59 @@ export class Confirmation extends React.Component {
 
     this.setState({ loading: true })
     const sections = this.transformSection(sitClasses)
-    await sections.map(async s => {
-      await axios.post(
+    const sectionRes = await sections.map(async s => {
+      const { data } = await axios.post(
         `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections`,
         { sections: s }
       )
+      return data
     })
 
-    await otherFacClasses.map(async c => {
-      await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/FixedSubjects`, {
-        subjectId: c.code.id,
-        startTimeId: c.start.id,
-        day: c.day,
-        endTimeId: c.end.id,
-        semester: '2/2018'
-      })
+    const otherFacRes = await otherFacClasses.map(async c => {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_ENDPOINT}/FixedSubjects`,
+        {
+          subjectId: c.code.id,
+          startTimeId: c.start.id,
+          day: c.day,
+          endTimeId: c.end.id,
+          semester: '2/2018'
+        }
+      )
+      return data
     })
 
-    await fixConditions.map(async condition => {
-      await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/Constrains`, {
-        wants: false,
-        required: true,
-        day: condition.day.map(d => d.id),
-        startTimeId: condition.start.id,
-        endTimeId: condition.end.id
-      })
+    const fixedConRes = await fixConditions.map(async condition => {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_ENDPOINT}/Constrains`,
+        {
+          wants: false,
+          required: true,
+          day: condition.day.map(d => d.id),
+          startTimeId: condition.start.id,
+          endTimeId: condition.end.id
+        }
+      )
+      return data
     })
 
-    await lecturerConditions.map(async condition => {
-      await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/Constrains`, {
-        wants: condition.required,
-        required: false,
-        day: condition.day.map(d => d.id),
-        startTimeId: condition.start.id,
-        endTimeId: condition.end.id,
-        subjectId: condition.subject.id,
-        lecturerId: condition.lecturer.id
-      })
+    const lectConRes = await lecturerConditions.map(async condition => {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_ENDPOINT}/Constrains`,
+        {
+          wants: condition.required,
+          required: false,
+          day: condition.day.map(d => d.id),
+          startTimeId: condition.start.id,
+          endTimeId: condition.end.id,
+          subjectId: condition.subject.id,
+          lecturerId: condition.lecturer.id
+        }
+      )
+      return data
     })
+
+    console.log(sectionRes, otherFacRes, fixedConRes, lectConRes)
 
     const { data } = await axios.post('http://ml.tmga.cf/timetables')
 

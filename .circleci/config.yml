@@ -7,17 +7,17 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker image build -t dscythe/tmga-client .
       - run: docker push dscythe/tmga-client
-  
+
   deploy:
     machine: true
     steps:
       - checkout
       - run: |
-          ssh centos@54.169.180.125 \
+          ssh centos@13.209.35.6 \
             'sudo docker pull dscythe/tmga-client && \
              sudo docker system prune -f &&\
              sudo docker container stop tmga_client || true && \
-             sudo docker container run --rm -ditp 5000:80 --name tmga_client dscythe/tmga-client'
+             sudo docker container run --rm -ditp 3000:80 --name tmga_client dscythe/tmga-client'
 
 workflows:
   version: 2
