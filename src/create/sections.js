@@ -10,7 +10,6 @@ import {
   Button,
   Typography
 } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
 
 import Modal from '../modal/sectionModal'
@@ -92,7 +91,6 @@ export class Sections extends React.Component {
               <TableCell>Class Range</TableCell>
               <TableCell>Sections</TableCell>
               <TableCell>Detail</TableCell>
-              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -116,12 +114,6 @@ export class Sections extends React.Component {
                         label={section.lecturers.map(l => l.name).join(', ')}
                       />
                     ))}
-                  </TableCell>
-                  <TableCell>
-                    <Button size='small'>
-                      <EditIcon className={classes.icon} />
-                      Edit
-                    </Button>
                   </TableCell>
                 </TableRow>
               ))
