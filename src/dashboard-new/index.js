@@ -36,7 +36,8 @@ const styles = theme => ({
   },
   processPaper: {
     padding: 20,
-    minWidth: '50%'
+    minWidth: '50%',
+    minHeight: '50vh'
   },
   button: { float: 'right', paddingRight: 15 },
   extendedIcon: {
@@ -51,6 +52,7 @@ export class Dashboard extends React.Component {
       semester: ''
     }
   }
+
   componentWillMount = async () => {
     const date = new Date()
     const year = date.getFullYear()
@@ -65,7 +67,6 @@ export class Dashboard extends React.Component {
     const { data } = await axios.get(
       `http://ml.tmga.cf/timetables/${term}/${year}`
     )
-    console.log(data)
     if (data) {
       let level = 0
       if (parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100) >= 100) {
@@ -73,6 +74,7 @@ export class Dashboard extends React.Component {
       } else {
         level = parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100)
       }
+
       this.setState({
         timetableId: data._id,
         fitnessLevel: level,
@@ -80,12 +82,10 @@ export class Dashboard extends React.Component {
         updated: moment(new Date(data.updatedAt)).fromNow()
       })
     }
-
-    console.log('fitness', this.state.fitnessLevel)
   }
 
-  handleClick () {
-    axios.post('http://ml.tmga.cf/timetables/terminate')
+  handleClick = async () => {
+    await axios.post('http://ml.tmga.cf/timetables/terminate')
   }
 
   render () {
@@ -195,7 +195,14 @@ export class Dashboard extends React.Component {
             Managing your own data in a simplest way
           </Typography>
           <Grid container spacing={24}>
-            <Grid item xs={6} button component={Link} to={'/rooms'}>
+            <Grid
+              item
+              xs={6}
+              button
+              component={Link}
+              to={'/rooms'}
+              style={{ textDecoration: 'none' }}
+            >
               <RoomManagement />
             </Grid>
             <Grid
@@ -208,7 +215,14 @@ export class Dashboard extends React.Component {
             >
               <SubjectManagement />
             </Grid>
-            <Grid item xs={6} button component={Link} to={'/lecturers'}>
+            <Grid
+              item
+              xs={6}
+              button
+              component={Link}
+              to={'/lecturers'}
+              style={{ textDecoration: 'none' }}
+            >
               <LecturerManagement />
             </Grid>
           </Grid>
@@ -262,28 +276,29 @@ export class Dashboard extends React.Component {
             component={Link}
             to={'/rooms'}
             style={{ textDecoration: 'none' }}
-          />
-          <RoomManagement />
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          button
-          component={Link}
-          to={'/subjects'}
-          style={{ textDecoration: 'none' }}
-        >
-          <SubjectManagement />
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          button
-          component={Link}
-          to={'/lecturers'}
-          style={{ textDecoration: 'none' }}
-        >
-          <LecturerManagement />
+          >
+            <RoomManagement />
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            button
+            component={Link}
+            to={'/subjects'}
+            style={{ textDecoration: 'none' }}
+          >
+            <SubjectManagement />
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            button
+            component={Link}
+            to={'/lecturers'}
+            style={{ textDecoration: 'none' }}
+          >
+            <LecturerManagement />
+          </Grid>{' '}
         </Grid>
       </div>
     )
