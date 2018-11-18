@@ -46,22 +46,26 @@ class TimetableList extends React.Component {
           Timetable List
         </Typography>
         <List component='nav'>
-          {this.state.list.map((term, index) => (
-            <ListItem>
-              <ListItemIcon>
-                <TimetableIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Semester: ' + term.semester} />
-              <Button
-                color='primary'
-                onClick={this.handleClick}
-                component={Link}
-                to={`/timetables/${term._id}`}
-              >
-                Show
-              </Button>
-            </ListItem>
-          ))}
+          {!this.state.list ? (
+            <ListItem>No timetable available</ListItem>
+          ) : (
+            this.state.list.map((term, index) => (
+              <ListItem>
+                <ListItemIcon>
+                  <TimetableIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Semester: ' + term.semester} />
+                <Button
+                  color='primary'
+                  onClick={this.handleClick}
+                  component={Link}
+                  to={`/timetables/${term._id}`}
+                >
+                  Show
+                </Button>
+              </ListItem>
+            ))
+          )}
         </List>
       </Paper>
     )
