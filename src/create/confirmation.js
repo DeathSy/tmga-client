@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
+import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
 const styles = theme => ({
@@ -174,6 +175,7 @@ export class Confirmation extends React.Component {
         const { data } = await axios.post('http://ml.tmga.cf/timetables')
 
         this.setState({ loading: false, response: data })
+        this.props.history.push('/')
       }
     )
   }
@@ -225,4 +227,4 @@ export class Confirmation extends React.Component {
   }
 }
 
-export default withStyles(styles)(Confirmation)
+export default withRouter(withStyles(styles)(Confirmation))
