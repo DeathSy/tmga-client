@@ -78,7 +78,7 @@ export class Confirmation extends React.Component {
     const sectionRes = await sections.map(async s => {
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections`,
-        { sections: s }
+        { sections: s, semester: '2/2018' }
       )
       return data
     })
