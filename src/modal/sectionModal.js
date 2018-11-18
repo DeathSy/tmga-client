@@ -50,7 +50,7 @@ export class SectionModal extends React.Component {
   async componentWillMount () {
     const filter = JSON.stringify({
       where: {
-        or: [
+        and: [
           { code: { nlike: 'GEN', option: 'i' } },
           { code: { nlike: 'LNG', option: 'i' } }
         ]
@@ -210,11 +210,13 @@ export class SectionModal extends React.Component {
                   value={this.state.subjectType || ''}
                   onChange={this.handleChange('subjectType')}
                 >
-                  {types.map(type => (
-                    <MenuItem key={type.id} value={JSON.stringify(type)}>
-                      {type.name}
-                    </MenuItem>
-                  ))}
+                  {types
+                    .filter(type => type.name !== 'Lecture & Lab')
+                    .map(type => (
+                      <MenuItem key={type.id} value={JSON.stringify(type)}>
+                        {type.name}
+                      </MenuItem>
+                    ))}
                 </Select>
               </FormControl>
             )}
