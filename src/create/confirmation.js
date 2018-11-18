@@ -76,6 +76,21 @@ export class Confirmation extends React.Component {
     this.setState({ loading: true })
     const sections = this.transformSection(sitClasses)
     const sectionRes = await sections.map(async s => {
+      const filter = JSON.stringify({
+        where: { semester: '2/2018' }
+      })
+      const check = await axios.get(
+        `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections?filter=${filter}`
+      )
+      if (check.data.length > 0) {
+        await Promise.all(
+          check.data.map(async d => {
+            await axios.delete(
+              `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections/${d.id}`
+            )
+          })
+        )
+      }
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections`,
         { sections: s, semester: '2/2018' }
@@ -84,6 +99,21 @@ export class Confirmation extends React.Component {
     })
 
     const otherFacRes = await otherFacClasses.map(async c => {
+      const filter = JSON.stringify({
+        where: { semester: '2/2018' }
+      })
+      const check = await axios.get(
+        `${process.env.REACT_APP_API_ENDPOINT}/FixedSubjects?filter=${filter}`
+      )
+      if (check.data.length > 0) {
+        await Promise.all(
+          check.data.map(async d => {
+            await axios.delete(
+              `${process.env.REACT_APP_API_ENDPOINT}/FixedSubjects/${d.id}`
+            )
+          })
+        )
+      }
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_ENDPOINT}/FixedSubjects`,
         {
@@ -98,6 +128,18 @@ export class Confirmation extends React.Component {
     })
 
     const fixedConRes = await fixConditions.map(async condition => {
+      const check = await axios.get(
+        `${process.env.REACT_APP_API_ENDPOINT}/Constrains`
+      )
+      if (check.data.length > 0) {
+        await Promise.all(
+          check.data.map(async d => {
+            await axios.delete(
+              `${process.env.REACT_APP_API_ENDPOINT}/Constrains/${d.id}`
+            )
+          })
+        )
+      }
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_ENDPOINT}/Constrains`,
         {
