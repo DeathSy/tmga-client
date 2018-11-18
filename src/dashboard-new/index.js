@@ -37,7 +37,6 @@ const styles = theme => ({
   processPaper: {
     padding: 20,
     minWidth: '40%',
-    maxWidth: '50%',
     minHeight: '50vh'
   },
   button: { float: 'right', paddingRight: 15 },
@@ -54,7 +53,7 @@ export class Dashboard extends React.Component {
     }
   }
 
-  fetchData = async () => {
+  componentWillMount = async () => {
     const date = new Date()
     const year = date.getFullYear()
     const month = date.getMonth()
@@ -64,10 +63,10 @@ export class Dashboard extends React.Component {
     } else {
       term = 1
     }
+
     const { data } = await axios.get(
       `http://ml.tmga.cf/timetables/${term}/${year}`
     )
-
     if (data) {
       let level = 0
       if (parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100) >= 100) {
@@ -75,20 +74,16 @@ export class Dashboard extends React.Component {
       } else {
         level = parseInt(((data.fitnessLevel.toFixed(2) * 100) / 85) * 100)
       }
-      this.setState({
-        timetableId: data._id,
-        fitnessLevel: level,
-        semester: `${term}/${year}`,
-        updated: moment(new Date(data.updatedAt)).fromNow()
-      })
+      setInterval(
+        this.setState({
+          timetableId: data._id,
+          fitnessLevel: level,
+          semester: `${term}/${year}`,
+          updated: moment(new Date(data.updatedAt)).fromNow()
+        }),
+        10000
+      )
     }
-  }
-
-  componentWillMount = async () => {
-    await this.fetchData()
-    setInterval(async () => {
-      await this.fetchData()
-    }, 10000)
   }
 
   handleClick = async () => {
