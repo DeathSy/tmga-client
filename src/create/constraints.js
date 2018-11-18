@@ -9,7 +9,6 @@ import {
   Button,
   Typography
 } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
 import DoneIcon from '@material-ui/icons/Done'
 import ClearIcon from '@material-ui/icons/Clear'
 import { withStyles } from '@material-ui/core/styles'
@@ -63,7 +62,6 @@ export class Constraints extends React.Component {
               <TableCell>Start time</TableCell>
               <TableCell>End time</TableCell>
               <TableCell>Required</TableCell>
-              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,12 +80,6 @@ export class Constraints extends React.Component {
                 <TableCell>{d.end.end}</TableCell>
                 <TableCell>
                   {d.required === true ? <DoneIcon /> : <ClearIcon />}
-                </TableCell>
-                <TableCell>
-                  <Button size='small'>
-                    <EditIcon className={classes.icon} />
-                    Edit
-                  </Button>
                 </TableCell>
               </TableRow>
             ))}

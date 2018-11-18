@@ -9,7 +9,6 @@ import {
   Button,
   Typography
 } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
 import { withStyles } from '@material-ui/core/styles'
 import Modal from '../modal/fixedConstraintModal'
 
@@ -58,7 +57,6 @@ export class Constraints extends React.Component {
               <TableCell>Day</TableCell>
               <TableCell>Start time</TableCell>
               <TableCell>End time</TableCell>
-              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,12 +71,6 @@ export class Constraints extends React.Component {
                 </TableCell>
                 <TableCell>{d.start.start}</TableCell>
                 <TableCell>{d.end.end}</TableCell>
-                <TableCell>
-                  <Button size='small'>
-                    <EditIcon className={classes.icon} />
-                    Edit
-                  </Button>
-                </TableCell>
               </TableRow>
             ))}
             {fixedData.length === 0 && (
