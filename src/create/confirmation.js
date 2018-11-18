@@ -127,11 +127,13 @@ export class Confirmation extends React.Component {
       return data
     })
 
-    console.log(sectionRes, otherFacRes, fixedConRes, lectConRes)
+    Promise.all([sectionRes, otherFacRes, fixedConRes, lectConRes]).then(
+      async results => {
+        const { data } = await axios.post('http://ml.tmga.cf/timetables')
 
-    const { data } = await axios.post('http://ml.tmga.cf/timetables')
-
-    this.setState({ loading: false, response: data })
+        this.setState({ loading: false, response: data })
+      }
+    )
   }
 
   render () {
