@@ -78,7 +78,7 @@ export class Confirmation extends React.Component {
     const sectionRes = await sections.map(async s => {
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_ENDPOINT}/SubjectSections`,
-        { sections: s }
+        { sections: s, semester: '2/2018' }
       )
       return data
     })
@@ -127,11 +127,13 @@ export class Confirmation extends React.Component {
       return data
     })
 
-    console.log(sectionRes, otherFacRes, fixedConRes, lectConRes)
+    Promise.all([sectionRes, otherFacRes, fixedConRes, lectConRes]).then(
+      async results => {
+        const { data } = await axios.post('http://ml.tmga.cf/timetables')
 
-    const { data } = await axios.post('http://ml.tmga.cf/timetables')
-
-    this.setState({ loading: false, response: data })
+        this.setState({ loading: false, response: data })
+      }
+    )
   }
 
   render () {
