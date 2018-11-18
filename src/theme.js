@@ -1,21 +1,19 @@
-import {
-  createMuiTheme
-} from '@material-ui/core/styles';
-import indigo from '@material-ui/core/colors/indigo';
-import pink from '@material-ui/core/colors/pink';
-import red from '@material-ui/core/colors/red';
+import { createMuiTheme } from '@material-ui/core/styles'
+import indigo from '@material-ui/core/colors/indigo'
+import pink from '@material-ui/core/colors/pink'
+import red from '@material-ui/core/colors/red'
 
 const tmgaTheme = createMuiTheme({
   palette: {
     primary: {
-      main: '#1565c0',
+      main: '#1565c0'
     },
     secondary: {
-      main: '#0d47a1',
+      main: '#2d687a'
     },
     error: red,
     contrastThreshold: 3,
-    tonalOffset: 0.2,
+    tonalOffset: 0.2
   },
   typography: {
     // Use the system font instead of the default Roboto font.
@@ -24,15 +22,17 @@ const tmgaTheme = createMuiTheme({
       'BlinkMacSystemFont',
       '"Segoe UI"',
       'Arial',
-      'sans-serif',
-    ].join(','),
+      'sans-serif'
+    ].join(',')
   },
   overrides: {
-    MuiButton: { // override the styles of all instances of this component
-      root: { // Name of the rule
-        color: '#0d47a1', // Some CSS
-      },
-    },
-  },
-});
-export default tmgaTheme;
+    MuiButton: {
+      // override the styles of all instances of this component
+      root: {
+        // Name of the rule
+        color: '#0d47a1' // Some CSS
+      }
+    }
+  }
+})
+export default tmgaTheme
