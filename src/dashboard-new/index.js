@@ -1,4 +1,5 @@
 import React from 'react'
+import CircularProgressbar from 'react-circular-progressbar'
 import SubjectManagement from './subject'
 import LecturerManagement from './lecturer'
 import RoomManagement from './room'
@@ -7,12 +8,11 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import DoneIcon from '@material-ui/icons/Done'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 import axios from 'axios'
+import 'react-circular-progressbar/dist/styles.css'
 
 const styles = theme => ({
   root: {
@@ -36,7 +36,8 @@ const styles = theme => ({
   },
   processPaper: {
     padding: 20,
-    minWidth: '50%',
+    minWidth: '40%',
+    maxWidth: '50%',
     minHeight: '50vh'
   },
   button: { float: 'right', paddingRight: 15 },
@@ -144,25 +145,23 @@ export class Dashboard extends React.Component {
                   </Grid>
                 </Grid>
                 <Grid
-                  style={{ marginTop: 40 }}
+                  style={{ marginTop: 20 }}
                   container
                   direction='row'
                   justify='center'
                   alignItems='flex-end'
                 >
                   <Grid item>
-                    {this.state.fitnessLevel < 100 ? (
-                      <div>
-                        <CircularProgress size={140} />
-                        {this.state.fitnessLevel}
-                      </div>
-                    ) : (
-                      <DoneIcon style={{ fontSize: '200' }} />
-                    )}
+                    <div style={{ width: '150px' }}>
+                      <CircularProgressbar
+                        percentage={this.state.fitnessLevel}
+                        text={`${this.state.fitnessLevel}%`}
+                      />
+                    </div>
                   </Grid>
                 </Grid>
                 <Grid
-                  style={{ marginTop: 40 }}
+                  style={{ marginTop: 20 }}
                   container
                   direction='row'
                   justify='center'
