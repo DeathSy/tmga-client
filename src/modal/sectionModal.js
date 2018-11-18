@@ -92,9 +92,11 @@ export class SectionModal extends React.Component {
       }
       return result
     }, [])
-    const sections = sectionKey.map((key, index) => ({
-      lecturers: this.state[key].map(d => JSON.parse(d))
-    }))
+    const sections = sectionKey.map((key, index) => {
+      return {
+        lecturers: this.state[key].map(d => JSON.parse(d))
+      }
+    })
 
     this.props.onSubmit({
       subjectName: JSON.parse(this.state.subjectName),
@@ -113,7 +115,9 @@ export class SectionModal extends React.Component {
       }
       return result
     }, [])
-    sectionKey.map(k => this.setState({ [k]: undefined }))
+    sectionKey.map(k => {
+      delete this.state[k]
+    })
     this.setState({
       activeStep: 0,
       subjectName: undefined,
