@@ -16,13 +16,13 @@ export const SubjectFormatList = (props) => (
   <List {...props} title='Subject Type List'>
     <Datagrid>
       <TextField source='name' label='Subject Type' />
-      <EditButton basePath='/subjects' />
+      <EditButton basePath='/subjectFormats' />
     </Datagrid>
   </List>
 )
 
 const SubjectFormatTitle = ({ record }) => {
-  return <span>Subject {record ? `'${record.name}'` : ''}</span>
+  return <span>Subject Type{record ? `'${record.name}'` : ''}</span>
 }
 
 export const SubjectFormatEdit = (props) => (
@@ -34,7 +34,7 @@ export const SubjectFormatEdit = (props) => (
 )
 
 export const SubjectFormatCreate = (props) => (
-  <Create title='Create a Subject' {...props}>
+  <Create title='Create a Subject Type' {...props}>
     <SimpleForm>
       <TextInput source='name' />
     </SimpleForm>
